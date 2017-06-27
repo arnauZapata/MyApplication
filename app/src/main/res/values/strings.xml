@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="textoActivity1">1</string>
+    <string name="textactivity2">2</string>
 </resources>
