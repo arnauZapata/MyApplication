@@ -6,7 +6,7 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int int numero;
+    private int numero;
 
     private static final String TAG = "MyActivity";
 
@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         numero =2;
     }
 
+
+    //hola
     @Override
     protected void onDestroy() {
         super.onDestroy();
