@@ -23,6 +23,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     TextView textResultat;
     int num1; int num2; int num3;
     String op1; String op2;
+    boolean decimalValid=true;
 
     String calcul ="";
     private void inicializarObjetos() {
@@ -62,6 +63,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         buttonResta.setOnClickListener(this);
         buttonMultiplicacio.setOnClickListener(this);
         buttonDivision.setOnClickListener(this);
+        buttonIgual.setOnClickListener(this);
         //button9.setOnClickListener(this);
     }
 
@@ -156,12 +158,24 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.buttonCalculadoraIgual:
                 Log.v(TAG, "Soy el boton Igual");
-                // setText("Soy el boton 3");
+                if(num1==-1)num1=resultat;
+                if(num2==-1)num2=resultat;
+                if(num3==-1)num3=resultat;
+                Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
+                if(op2=="*") num2*=num3;
+                if(op2=="/") num2/=num3;
+                if(op1=="*") num1*=num2;
+                if(op1=="/") num1/=num2;
+                if(op1=="+") num1+=num2;
+                if(op1=="-") num1-=num2;
+                num2=-1;num3=-1;op1="";op2="";
+                Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
+                textResultat.setText(String.valueOf(num1));
+                num1=-1;
                 break;
 
 
         }
-        Log.v(TAG, "Soy el boton 2");
     }
 
     private void addCalcul(String s) {
@@ -172,7 +186,50 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         calcul+=s;
         Log.v(TAG,calcul);
         textResultat.setText(calcul);
+        realizar_calculo(resultat,s);
         resultat=0;
+        Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
+
+    }
+
+    private void realizar_calculo(int resultat,String s) {
+        if(num1==-1){
+            num1=resultat; op1=s;
+        }
+        else if(num2==-1 && (op1=="*" || op1 =="/")){
+            num2=resultat;
+            if(op1=="*")num1*=num2;
+            else num1/=num2;
+            num2=-1;
+            op1=s;
+            op2="";
+        }
+        else if(num2==-1 && (op1=="+" || op1 == "-") && (s=="+" || s=="-")){
+            num2=resultat;
+            if(op1=="+")num1+=num2;
+            else num1-=num2;
+            num2=-1;
+            op1=s;
+            op2="";
+        }
+        else if(num2==-1 && (op1=="+" || op1 == "-") && (s=="*" || s=="/")){
+            num2=resultat;
+            op2=s;
+        }
+        else if(num3==-1 && (op1=="+" || op1 == "-") && (op2=="*" || op2=="/")){
+            num3=resultat;
+            if(op2=="*")num2*=num3;
+            else num2/=num3;
+            num3=-1;
+            op2=s;
+            if(op2=="+" || op2=="-"){
+                if(op1=="+")num1+=num2;
+                else num1-=num2;
+                num2=-1;
+                op1=s;
+                op2="";
+            }
+        }
     }
 
     public void setNum(int num) {
