@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".Activity1" />
         <activity android:name=".activity2" />
-        <activity android:name=".Bandera"></activity>
+        <activity android:name=".Bandera" />
+        <activity android:name=".calculadora"></activity>
     </application>
 
 </manifest>
