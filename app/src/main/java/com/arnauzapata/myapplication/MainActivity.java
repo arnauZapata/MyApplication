@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 Log.v(TAG, "Soy el boton 1");
                 setText("Soy el boton 1");
-                Intent i = new Intent(context,Bandera.class);
+                Intent i = new Intent(context,calculadora.class);
                 startActivity(i);
             }
         });

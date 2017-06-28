@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 public class calculadora extends AppCompatActivity implements View.OnClickListener {
     int numero;
+    int resultat=0;
     private static final String TAG = "Calculadora";
 
     Button button7; Button button8; Button button9;
@@ -19,8 +20,11 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     Button button1; Button button2; Button button3;
     Button buttonSuma, buttonResta, buttonMultiplicacio, buttonDivision;
     Button buttonPunto, buttonIgual, button0;
-    TextView TextResultat;
+    TextView textResultat;
+    int num1; int num2; int num3;
+    String op1; String op2;
 
+    String calcul ="";
     private void inicializarObjetos() {
         button0 = (Button) findViewById(R.id.buttonCalculadora0);
         button1 = (Button) findViewById(R.id.buttonCalculadora1);
@@ -38,7 +42,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         buttonDivision = (Button) findViewById(R.id.buttonCalculadoraDivision);
         buttonPunto = (Button) findViewById(R.id.buttonCalculadoraPunto);
         buttonIgual = (Button) findViewById(R.id.buttonCalculadoraIgual);
-        TextResultat = (TextView) findViewById(R.id.TextViewResultat);
+        textResultat = (TextView) findViewById(R.id.TextViewResultat);
     }
 
     private void asignarOnClickListener() {
@@ -54,9 +58,16 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         button7.setOnClickListener(this);
         button8.setOnClickListener(this);
         button9.setOnClickListener(this);
+        buttonSuma.setOnClickListener(this);
+        buttonResta.setOnClickListener(this);
+        buttonMultiplicacio.setOnClickListener(this);
+        buttonDivision.setOnClickListener(this);
+        //button9.setOnClickListener(this);
     }
 
     private void asignarValoresObjetos() {
+        num1=num2=num3=-1;
+        op1=op2="";
     }
 
 
@@ -76,59 +87,68 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.buttonCalculadora0:
                 Log.v(TAG, "Soy el boton 0");
-                // setText("Soy el boton 1");
+                resultat*=10;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadora1:
                 Log.v(TAG, "Soy el boton 1");
-                // setText("Soy el boton 2");
+                resultat*=10;resultat+=1;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadora2:
                 Log.v(TAG, "Soy el boton 2");
-                // setText("Soy el boton 3");
+                resultat*=10;resultat+=2;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadora3:
                 Log.v(TAG, "Soy el boton 3");
-                //setText("Soy el boton 1");
-                break;
+                resultat*=10;resultat+=3;
+                setNum(resultat);break;
             case R.id.buttonCalculadora4:
                 Log.v(TAG, "Soy el boton 4");
-                // setText("Soy el boton 2");
+                resultat*=10;resultat+=4;
+               setNum(resultat);;
                 break;
             case R.id.buttonCalculadora5:
                 Log.v(TAG, "Soy el boton 5");
-                // setText("Soy el boton 3");
+                resultat*=10;resultat+=5;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadora6:
                 Log.v(TAG, "Soy el boton 6");
-                // setText("Soy el boton 1");
+                resultat*=10;resultat+=6;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadora7:
                 Log.v(TAG, "Soy el boton 7");
-                // setText("Soy el boton 2");
+                resultat*=10;resultat+=7;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadora8:
                 Log.v(TAG, "Soy el boton 8");
-                // setText("Soy el boton 3");
+                resultat*=10;resultat+=8;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadora9:
                 Log.v(TAG, "Soy el boton 9");
-                // setText("Soy el boton 2");
+                resultat*=10;resultat+=9;
+                setNum(resultat);
                 break;
             case R.id.buttonCalculadoraSuma:
                 Log.v(TAG, "Soy el boton Suma");
-                // setText("Soy el boton 3");
+                addCalcul("+");
                 break;
             case R.id.buttonCalculadoraResta:
                 Log.v(TAG, "Soy el boton  Resta ");
-                // setText("Soy el boton 1");
+                addCalcul("-");
                 break;
             case R.id.buttonCalculadoraMultiplicacion:
                 Log.v(TAG, "Soy el boton Multiplicacion");
-                // setText("Soy el boton 2");
+                addCalcul("*");
                 break;
             case R.id.buttonCalculadoraDivision:
                 Log.v(TAG, "Soy el boton Division");
-                // setText("Soy el boton Division");
+                addCalcul("/");
                 break;
             case R.id.buttonCalculadoraPunto:
                 Log.v(TAG, "Soy el boton Punto");
@@ -142,5 +162,20 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
 
         }
         Log.v(TAG, "Soy el boton 2");
+    }
+
+    private void addCalcul(String s) {
+        calcul = String.valueOf(textResultat.getText());
+        if(calcul.endsWith("+") || calcul.endsWith("-") || calcul.endsWith("*")|| calcul.endsWith("/")){
+            calcul=calcul.substring(0,calcul.length()-1);
+        }
+        calcul+=s;
+        Log.v(TAG,calcul);
+        textResultat.setText(calcul);
+        resultat=0;
+    }
+
+    public void setNum(int num) {
+        textResultat.setText(calcul + String.valueOf(num));
     }
 }
