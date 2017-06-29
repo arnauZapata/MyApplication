@@ -268,4 +268,44 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         if(decimalValid) textResultat.setText(calcul + String.valueOf( (int) num));
         else textResultat.setText(calcul + String.valueOf(num));
     }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState( savedInstanceState);
+        Log.v(TAG,"se ha llamado onRestore");
+        String aux = savedInstanceState.getString("text");
+        op1=savedInstanceState.getString("op1");
+        op2=savedInstanceState.getString("op2");
+        calcul=savedInstanceState.getString("calcul");
+        resultat=savedInstanceState.getDouble("resultat");
+        decimal=savedInstanceState.getDouble("decimal");
+        num1=savedInstanceState.getDouble("num1");
+        num2=savedInstanceState.getDouble("num2");
+        num3=savedInstanceState.getDouble("num3");
+        firstButton=savedInstanceState.getBoolean("firstButton");
+        validOperator=savedInstanceState.getBoolean("validOperator");
+        decimalValid=savedInstanceState.getBoolean("decimalValid");
+        textResultat.setText(aux);
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putString("text", String.valueOf(textResultat.getText()));
+        outState.putBoolean("firstButton",firstButton);
+        outState.putBoolean("validOperator",validOperator);
+        outState.putBoolean("decimalValid",decimalValid);
+        outState.putDouble("resultat",resultat);
+        outState.putDouble("decimal",decimal);
+        outState.putDouble("num1",num1);
+        outState.putDouble("num2",num2);
+        outState.putDouble("num3",num3);
+        outState.putString("op1",op1);
+        outState.putString("op2",op2);
+        outState.putString("calcul",calcul);
+
+
+        Log.v(TAG,"se ha llamado onSaveInstanceState");
+
+    }
+
 }

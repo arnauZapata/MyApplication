@@ -80,11 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRestoreInstanceState( savedInstanceState);
         Log.v(TAG,"se ha llamado onRestore");
         String aux = savedInstanceState.getString("text");
-        setText(aux
-
-
-
-        );
+        setText(aux);
     }
     @Override
     protected void onSaveInstanceState(Bundle outState){
