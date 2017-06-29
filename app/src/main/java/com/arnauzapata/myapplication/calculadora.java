@@ -194,6 +194,8 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     }
 
     private void addCalcul(String s) {
+        String aux = String.valueOf(textResultat.getText());
+        if(aux.endsWith(".")) return;
         decimal=1.0;
         calcul = String.valueOf(textResultat.getText());
         if(calcul.endsWith("+") || calcul.endsWith("-") || calcul.endsWith("*")|| calcul.endsWith("/")){
