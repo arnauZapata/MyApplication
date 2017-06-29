@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 public class calculadora extends AppCompatActivity implements View.OnClickListener {
     int numero;
-    int resultat=0;
+    double resultat=0;
+    double decimal= 1.0;
     private static final String TAG = "Calculadora";
 
     Button button7; Button button8; Button button9;
@@ -21,7 +22,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     Button buttonSuma, buttonResta, buttonMultiplicacio, buttonDivision;
     Button buttonPunto, buttonIgual, button0;
     TextView textResultat;
-    int num1; int num2; int num3;
+    double num1; double num2; double num3;
     String op1; String op2;
     boolean decimalValid=true;
 
@@ -64,6 +65,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         buttonMultiplicacio.setOnClickListener(this);
         buttonDivision.setOnClickListener(this);
         buttonIgual.setOnClickListener(this);
+        buttonPunto.setOnClickListener(this);
         //button9.setOnClickListener(this);
     }
 
@@ -94,46 +96,56 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.buttonCalculadora1:
                 Log.v(TAG, "Soy el boton 1");
-                resultat*=10;resultat+=1;
+                if(decimal>=1.0){resultat*=10;resultat+=1;}
+                else{resultat+= 1.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora2:
                 Log.v(TAG, "Soy el boton 2");
-                resultat*=10;resultat+=2;
+                if(decimal>=1.0){resultat*=10;resultat+=2;}
+                else{resultat+= 2.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora3:
                 Log.v(TAG, "Soy el boton 3");
-                resultat*=10;resultat+=3;
-                setNum(resultat);break;
+                if(decimal>=1.0){resultat*=10;resultat+=3;}
+                else{resultat+= 3.0*decimal;decimal/=10;}
+                setNum(resultat);
+                break;
             case R.id.buttonCalculadora4:
                 Log.v(TAG, "Soy el boton 4");
-                resultat*=10;resultat+=4;
-               setNum(resultat);;
+                if(decimal>=1.0){resultat*=10;resultat+=4;}
+                else{resultat+= 4.0*decimal;decimal/=10;}
+               setNum(resultat);
                 break;
             case R.id.buttonCalculadora5:
                 Log.v(TAG, "Soy el boton 5");
-                resultat*=10;resultat+=5;
+                if(decimal>=1.0){resultat*=10;resultat+=5;}
+                else{resultat+= 5.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora6:
                 Log.v(TAG, "Soy el boton 6");
-                resultat*=10;resultat+=6;
+                if(decimal>=1.0){resultat*=10;resultat+=6;}
+                else{resultat+= 6.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora7:
                 Log.v(TAG, "Soy el boton 7");
-                resultat*=10;resultat+=7;
+                if(decimal>=1.0){resultat*=10;resultat+=7;}
+                else{resultat+= 7.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora8:
                 Log.v(TAG, "Soy el boton 8");
-                resultat*=10;resultat+=8;
+                if(decimal>=1.0){resultat*=10;resultat+=8;}
+                else{resultat+= 8.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora9:
                 Log.v(TAG, "Soy el boton 9");
-                resultat*=10;resultat+=9;
+                if(decimal>=1.0){resultat*=10;resultat+=9;}
+                else{resultat+= 9.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadoraSuma:
@@ -154,10 +166,15 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.buttonCalculadoraPunto:
                 Log.v(TAG, "Soy el boton Punto");
-                // setText("Soy el boton 2");
+                if(decimalValid){
+                    decimalValid=false;
+                    decimal/=10;
+                    textResultat.setText(String.valueOf(textResultat.getText())+ ".");
+                }
                 break;
             case R.id.buttonCalculadoraIgual:
                 Log.v(TAG, "Soy el boton Igual");
+                decimal=1.0;
                 if(num1==-1)num1=resultat;
                 if(num2==-1)num2=resultat;
                 if(num3==-1)num3=resultat;
@@ -173,12 +190,11 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 textResultat.setText(String.valueOf(num1));
                 num1=-1;
                 break;
-
-
         }
     }
 
     private void addCalcul(String s) {
+        decimal=1.0;
         calcul = String.valueOf(textResultat.getText());
         if(calcul.endsWith("+") || calcul.endsWith("-") || calcul.endsWith("*")|| calcul.endsWith("/")){
             calcul=calcul.substring(0,calcul.length()-1);
@@ -192,7 +208,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    private void realizar_calculo(int resultat,String s) {
+    private void realizar_calculo(double resultat,String s) {
         if(num1==-1){
             num1=resultat; op1=s;
         }
@@ -232,7 +248,9 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public void setNum(int num) {
-        textResultat.setText(calcul + String.valueOf(num));
+    public void setNum(double num) {
+        Log.v(TAG, String.valueOf(num));
+        if(decimalValid) textResultat.setText(calcul + String.valueOf( (int) num));
+        else textResultat.setText(calcul + String.valueOf(num));
     }
 }
