@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 public class calculadora extends AppCompatActivity implements View.OnClickListener {
     int numero;
+    boolean firstButton=true;
+    boolean validOperator=false;
     double resultat=0;
     double decimal= 1.0;
     private static final String TAG = "Calculadora";
@@ -91,82 +93,92 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.buttonCalculadora0:
                 Log.v(TAG, "Soy el boton 0");
+                firstButton=false;
                 resultat*=10;
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora1:
                 Log.v(TAG, "Soy el boton 1");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=1;}
                 else{resultat+= 1.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora2:
                 Log.v(TAG, "Soy el boton 2");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=2;}
                 else{resultat+= 2.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora3:
                 Log.v(TAG, "Soy el boton 3");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=3;}
                 else{resultat+= 3.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora4:
                 Log.v(TAG, "Soy el boton 4");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=4;}
                 else{resultat+= 4.0*decimal;decimal/=10;}
                setNum(resultat);
                 break;
             case R.id.buttonCalculadora5:
                 Log.v(TAG, "Soy el boton 5");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=5;}
                 else{resultat+= 5.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora6:
                 Log.v(TAG, "Soy el boton 6");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=6;}
                 else{resultat+= 6.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora7:
                 Log.v(TAG, "Soy el boton 7");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=7;}
                 else{resultat+= 7.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora8:
                 Log.v(TAG, "Soy el boton 8");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=8;}
                 else{resultat+= 8.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadora9:
                 Log.v(TAG, "Soy el boton 9");
+                firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=9;}
                 else{resultat+= 9.0*decimal;decimal/=10;}
                 setNum(resultat);
                 break;
             case R.id.buttonCalculadoraSuma:
                 Log.v(TAG, "Soy el boton Suma");
-                addCalcul("+");
+                if(! firstButton)addCalcul("+");
                 break;
             case R.id.buttonCalculadoraResta:
                 Log.v(TAG, "Soy el boton  Resta ");
-                addCalcul("-");
+                if(! firstButton)addCalcul("-");
                 break;
             case R.id.buttonCalculadoraMultiplicacion:
                 Log.v(TAG, "Soy el boton Multiplicacion");
-                addCalcul("*");
+                if(! firstButton)addCalcul("*");
                 break;
             case R.id.buttonCalculadoraDivision:
                 Log.v(TAG, "Soy el boton Division");
-                addCalcul("/");
+                if(! firstButton)addCalcul("/");
                 break;
             case R.id.buttonCalculadoraPunto:
                 Log.v(TAG, "Soy el boton Punto");
-                if(decimalValid){
+                if(decimalValid && !firstButton){
                     decimalValid=false;
                     decimal/=10;
                     textResultat.setText(String.valueOf(textResultat.getText())+ ".");
@@ -189,25 +201,25 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
                 textResultat.setText(String.valueOf(num1));
                 num1=-1;
+                calcul="";
+                resultat=0;
                 break;
         }
     }
 
     private void addCalcul(String s) {
         String aux = String.valueOf(textResultat.getText());
-        if(aux.endsWith(".")) return;
-        decimal=1.0;
-        calcul = String.valueOf(textResultat.getText());
-        if(calcul.endsWith("+") || calcul.endsWith("-") || calcul.endsWith("*")|| calcul.endsWith("/")){
-            calcul=calcul.substring(0,calcul.length()-1);
+        if (!aux.endsWith(".") && validOperator) {
+            validOperator=false;
+            decimal = 1.0;
+            calcul = String.valueOf(textResultat.getText());
+            calcul += s;
+            Log.v(TAG, calcul);
+            textResultat.setText(calcul);
+            realizar_calculo(resultat, s);
+            resultat = 0;
+            Log.v(TAG, String.valueOf(num1) + op1 + String.valueOf(num2) + op2 + String.valueOf(num3));
         }
-        calcul+=s;
-        Log.v(TAG,calcul);
-        textResultat.setText(calcul);
-        realizar_calculo(resultat,s);
-        resultat=0;
-        Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
-
     }
 
     private void realizar_calculo(double resultat,String s) {
@@ -251,6 +263,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     }
 
     public void setNum(double num) {
+        validOperator=true;
         Log.v(TAG, String.valueOf(num));
         if(decimalValid) textResultat.setText(calcul + String.valueOf( (int) num));
         else textResultat.setText(calcul + String.valueOf(num));
