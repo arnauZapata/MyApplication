@@ -23,7 +23,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     Button button4; Button button5; Button button6;
     Button button1; Button button2; Button button3;
     Button buttonSuma, buttonResta, buttonMultiplicacio, buttonDivision;
-    Button buttonPunto, buttonIgual, button0, buttonDelete;
+    Button buttonPunto, buttonIgual, button0, buttonDelete, buttonDeleteAll;
     TextView textResultat;
     double num1; double num2; double num3;
     String op1; String op2;
@@ -48,6 +48,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         buttonPunto = (Button) findViewById(R.id.buttonCalculadoraPunto);
         buttonIgual = (Button) findViewById(R.id.buttonCalculadoraIgual);
         buttonDelete = (Button) findViewById(R.id.buttonCalculadoraDelete);
+        buttonDeleteAll = (Button) findViewById(R.id.buttonCalculadoraDeleteAll);
         textResultat = (TextView) findViewById(R.id.TextViewResultat);
 
     }
@@ -72,6 +73,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         buttonIgual.setOnClickListener(this);
         buttonPunto.setOnClickListener(this);
         buttonDelete.setOnClickListener(this);
+        buttonDeleteAll.setOnClickListener(this);
     }
 
     private void asignarValoresObjetos() {
@@ -228,7 +230,16 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 calcul=calcul.substring(0,calcul.length()-1);
                 textResultat.setText(calcul);
                 actualizarLastNumber();
-                //hacer para endsWith "+","-","*" y "/"
+                break;
+            case R.id.buttonCalculadoraDeleteAll:
+                calcul="";
+                decimal=1.0;
+                firstButton=true;
+                validOperator=false;
+                decimalValid=true;
+                textResultat.setText(calcul);
+                lastNumber=0;
+                num1=-1;num2=-1;num3=-1;op1="";op2="";
                 break;
         }
 
