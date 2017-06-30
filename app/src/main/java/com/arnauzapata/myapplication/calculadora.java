@@ -247,6 +247,8 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         if(calcul.endsWith("9")) lastNumber=9;
     }
 
+
+
     private void addCalcul(String s) {
         String aux = String.valueOf(textResultat.getText());
         if (!aux.endsWith(".") && validOperator) {
