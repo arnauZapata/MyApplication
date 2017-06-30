@@ -186,6 +186,8 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.buttonCalculadoraIgual:
                 Log.v(TAG, "Soy el boton Igual");
+                firstButton=true;
+                validOperator=false;
                 decimal=1.0;
                 if(num1==-1)num1=resultat;
                 if(num2==-1)num2=resultat;
@@ -211,6 +213,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         String aux = String.valueOf(textResultat.getText());
         if (!aux.endsWith(".") && validOperator) {
             validOperator=false;
+            decimalValid=true;
             decimal = 1.0;
             calcul = String.valueOf(textResultat.getText());
             calcul += s;
