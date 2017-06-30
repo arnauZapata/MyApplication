@@ -2,6 +2,7 @@ package com.arnauzapata.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,11 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private int numero;
-
+    final Context context = this;
     private static final String TAG = "MyActivity";
 
     Button buttonOne, buttonTwo, buttonTree;
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void asignarOnClickListener() {
-        final Context context = this;
+
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,10 +116,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button2:
                 Log.v(TAG, "Soy el boton 2");
                 setText("Soy el boton 2");
+                SharedPreferences settings = getSharedPreferences(constants.PREFS_NAME, Context.MODE_ENABLE_WRITE_AHEAD_LOGGING);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("text", "Soy el boton 2");
+                editor.apply();
+                Intent i = new Intent(context,Bandera.class);
+                startActivity(i);
                 break;
             case R.id.button3:
                 Log.v(TAG, "Soy el boton 3");
                 setText("Soy el boton 3");
+                Context context = getApplicationContext();
+                CharSequence text = "Ha pasado algo bueno!";
+                int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                Toast.makeText(context, text, duration).show();
+                Toast.makeText(getApplicationContext(), "Uff", Toast.LENGTH_LONG).show();
                 break;
 
         }
