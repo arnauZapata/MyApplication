@@ -228,7 +228,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 calcul=calcul.substring(0,calcul.length()-1);
                 textResultat.setText(calcul);
                 actualizarLastNumber();
-                //TODO hacer para endsWith "+","-","*" y "/"
+                //hacer para endsWith "+","-","*" y "/"
                 break;
         }
 
