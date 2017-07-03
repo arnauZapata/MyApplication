@@ -5,15 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 final class MyDataBaseContract1 {
     public MyDataBaseContract1(){}
 
     public static class Table1 implements BaseColumns {
         public static final String TABLE_NAME = "tablename";
-        public static final String COLUMN_TEXT = "text";
+        public static final String USERNAME = "USERNAME";
+        public static final String PASSWORD = "PASSWORD";
     }
 
 }
@@ -33,7 +34,7 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     private static final String SQL_CREATE_TABLE1 =
             "CREATE TABLE " + MyDataBaseContract1.Table1.TABLE_NAME + " (" +
                     MyDataBaseContract1.Table1._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    MyDataBaseContract1.Table1.COLUMN_TEXT + " TEXT)";
+                    MyDataBaseContract1.Table1.USERNAME + " TEXT)" ;
 
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract1.Table1.TABLE_NAME;
@@ -66,61 +67,59 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        //This method will be executed when the system detects that DATABASE_VERSION has been upgraded
         sqLiteDatabase.execSQL(SQL_DELETE_TABLE1);
         onCreate(sqLiteDatabase);
     }
 
     public long createRow(String user,String password) {
         ContentValues values = new ContentValues();
-        values.put(MyDataBaseContract1.Table1.COLUMN_TEXT,user);
+        values.put(MyDataBaseContract1.Table1.USERNAME,user);
+        values.put(MyDataBaseContract1.Table1.PASSWORD,password);
         long newId = writable.insert(MyDataBaseContract1.Table1.TABLE_NAME,null,values);
         return newId;
     }
 
-    public int updateRow(String s) {
+    public int updateRow(String user, String password) {
         ContentValues values = new ContentValues();
-        values.put(MyDataBaseContract1.Table1.COLUMN_TEXT, s.charAt(0)+s);
+        values.put("USERNAME", user);
+        values.put("PASSWORD",password);
         int rows_afected = readable.update(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
                 values,                                                             //New value for columns
-                MyDataBaseContract1.Table1.COLUMN_TEXT + " LIKE ? ",                 //Selection args
-                new String[] {s});                                                  //Selection values
+                MyDataBaseContract1.Table1.USERNAME + " LIKE ? ",                 //Selection args
+                new String[] {user});                                                  //Selection values
 
         return rows_afected;
     }
 
     public int deleteRow(String s) {
         int afected = readable.delete(MyDataBaseContract1.Table1.TABLE_NAME,         //Table name
-                MyDataBaseContract1.Table1.COLUMN_TEXT + " LIKE ? ",                 //Selection args
+                MyDataBaseContract1.Table1.USERNAME + " LIKE ? ",                 //Selection args
                 new String[] {s});                                                  //Selection values
 
         return afected;
     }
 
-    public String queryRow(String user,String password) {
+    public String queryRow(String user) {
         Cursor c;
         c = readable.query(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
                 new String[] {MyDataBaseContract1.Table1._ID},       //Columns we select
-                MyDataBaseContract1.Table1.COLUMN_TEXT + " = ? ",    //Columns for the WHERE clause
+                MyDataBaseContract1.Table1.USERNAME + " = ? ",    //Columns for the WHERE clause
                 new String[] {user},                                   //Values for the WHERE clause
                 null,                                               //Group By
                 null,                                               //Having
                 null);                                              //Sort
 
-        String returnValue = "Not found";
-
+        String password = "NULL";
         if (c.moveToFirst()) {
             do {
                 //We go here if the cursor is not empty
-                long l = c.getLong(c.getColumnIndex(MyDataBaseContract1.Table1._ID));
-                returnValue = String.valueOf(l);
+                long l = c.getLong(c.getColumnIndex(MyDataBaseContract1.Table1.PASSWORD));
+                 password= String.valueOf(l);
             } while (c.moveToNext());
         }
-
-        //Always close the cursor after you finished using it
         c.close();
 
-        return returnValue;
+        return password;
     }
 
     @Override

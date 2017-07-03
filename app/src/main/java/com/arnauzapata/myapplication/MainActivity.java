@@ -53,14 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         buttonTwo.setOnClickListener(this);
         buttonTree.setOnClickListener(this);
-        /*View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v(TAG, "Soy el boton 1 en variable");
-                setText("Soy el boton 1  en variable");
-            }
-        };
-        buttonOne.setOnClickListener(listener);*/
     }
 
     private void asignarValoresObjetos() {

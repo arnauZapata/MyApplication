@@ -1,10 +1,8 @@
 package com.arnauzapata.myapplication;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -246,16 +244,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     }
 
     private void actualizarLastNumber() {
-        if(calcul.endsWith("0")) lastNumber=0;
-        if(calcul.endsWith("1")) lastNumber=1;
-        if(calcul.endsWith("2")) lastNumber=2;
-        if(calcul.endsWith("3")) lastNumber=3;
-        if(calcul.endsWith("4")) lastNumber=4;
-        if(calcul.endsWith("5")) lastNumber=5;
-        if(calcul.endsWith("6")) lastNumber=6;
-        if(calcul.endsWith("7")) lastNumber=7;
-        if(calcul.endsWith("8")) lastNumber=8;
-        if(calcul.endsWith("9")) lastNumber=9;
+        for(int i=0; i<10;i++) if(calcul.endsWith(String.valueOf(i))) lastNumber=i;
     }
 
 
