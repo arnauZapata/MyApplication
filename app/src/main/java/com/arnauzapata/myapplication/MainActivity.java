@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void meHanHechoClick(View v){
         Log.v(TAG, "Soy el boton 4");
         setText("Soy el boton 4");
+        Intent i = new Intent(context,login.class);
+        startActivity(i);
        // int a= Integer.parseInt(editText.getText().toString());
         //int b= Integer.parseInt(editText.getText().toString());
         //textOne.setText(String.valueOf(a+b));

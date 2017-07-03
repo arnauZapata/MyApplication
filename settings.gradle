@@ -1,1 +1,1 @@
-include ':app', ':flipper', ':data'
+include ':app', ':flipper'
