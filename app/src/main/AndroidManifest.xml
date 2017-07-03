@@ -20,7 +20,9 @@
         <activity android:name=".activity2" />
         <activity android:name=".Bandera" />
         <activity android:name=".calculadora" />
-        <activity android:name=".constants"></activity>
+        <activity android:name=".constants" />
+        <activity android:name=".baseDeDatos" />
+        <activity android:name=".login"></activity>
     </application>
 
 </manifest>
