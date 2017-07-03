@@ -60,7 +60,6 @@ public class login extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //Here we close the db instance because we are not gonna need it more in this activity
         myDataBaseHelper.close();
         Log.v(TAG,"onDestroy()");
     }
