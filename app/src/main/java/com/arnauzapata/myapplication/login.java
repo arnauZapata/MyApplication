@@ -51,7 +51,11 @@ public class login extends AppCompatActivity {
             public void onClick(View view) {
                 String s = editText.getText().toString();
                 String s1 = editText.getText().toString();
-                String id = myDataBaseHelper.queryRow(s,s1);
+                String id = myDataBaseHelper.queryRow(s);
+                if(s1.equals(id)){
+
+                    //HACE ALGO
+                }
             }
         });
 

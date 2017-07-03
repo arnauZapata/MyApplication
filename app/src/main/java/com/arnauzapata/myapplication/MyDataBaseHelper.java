@@ -12,7 +12,7 @@ final class MyDataBaseContract1 {
     public MyDataBaseContract1(){}
 
     public static class Table1 implements BaseColumns {
-        public static final String TABLE_NAME = "tablename";
+        public static final String TABLE_NAME = "LOGIN";
         public static final String USERNAME = "USERNAME";
         public static final String PASSWORD = "PASSWORD";
     }
@@ -33,8 +33,8 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
 
     private static final String SQL_CREATE_TABLE1 =
             "CREATE TABLE " + MyDataBaseContract1.Table1.TABLE_NAME + " (" +
-                    MyDataBaseContract1.Table1._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    MyDataBaseContract1.Table1.USERNAME + " TEXT)" ;
+                    MyDataBaseContract1.Table1.USERNAME + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    MyDataBaseContract1.Table1.PASSWORD + " TEXT)" ;
 
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract1.Table1.TABLE_NAME;
@@ -102,7 +102,7 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     public String queryRow(String user) {
         Cursor c;
         c = readable.query(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
-                new String[] {MyDataBaseContract1.Table1._ID},       //Columns we select
+                null,       //Columns we select
                 MyDataBaseContract1.Table1.USERNAME + " = ? ",    //Columns for the WHERE clause
                 new String[] {user},                                   //Values for the WHERE clause
                 null,                                               //Group By
