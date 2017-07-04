@@ -4,9 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -21,6 +23,9 @@ public class LoginOtros extends Fragment {
     Context context;
 
     private OnFragmentInteractionListener mListener;
+    private Button buttonCambiar;
+    private Button buttonBorrar;
+    private Button buttonAtras;
 
     public LoginOtros() {
         // Required empty public constructor
@@ -35,11 +40,53 @@ public class LoginOtros extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login_otros, container, false);
+        View view = inflater.inflate(R.layout.fragment_login_otros, container, false);
+        buttonCambiar = (Button) view.findViewById(R.id.buttonCambiarContrasenya);
+        buttonBorrar = (Button) view.findViewById(R.id.buttonBorrarUsuario);
+        buttonAtras = (Button) view.findViewById(R.id.buttonAtras);
+        buttonCambiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction trans = getFragmentManager().beginTransaction();
+                cambiarContrasenya fragment = new cambiarContrasenya();
+                fragment.newInstance(context);
+                trans.replace(R.id.fragment_login_container,fragment);
+                trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                trans.addToBackStack(null);
+                trans.commit();
+                //.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        buttonBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction trans = getFragmentManager().beginTransaction();
+                borrarUsuario fragment = new borrarUsuario();
+                fragment.newInstance(context);
+                trans.replace(R.id.fragment_login_container,fragment);
+                trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                trans.addToBackStack(null);
+                trans.commit();
+                //.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        buttonAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction trans = getFragmentManager().beginTransaction();
+                loginInicial fragment = new loginInicial();
+                fragment.newInstance(context);
+                trans.replace(R.id.fragment_login_container,fragment);
+                trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                trans.addToBackStack(null);
+                trans.commit();
+                //.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return view;
+        
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -59,8 +106,6 @@ public class LoginOtros extends Fragment {
 
     public LoginOtros newInstance(Context c) {
         LoginOtros fragment = new LoginOtros();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         context=c;
         return fragment;
     }

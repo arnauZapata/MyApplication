@@ -22,7 +22,7 @@
     <Button
         android:id="@+id/buttonCambiarContrasenyaAceptar"
         android:text="Aceptar"
-        android:layout_below="@+id/editTextCambiarContrasenyaNewPassword"
+        android:layout_below="@+id/editTextCambiarContrasenyaOldPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
