@@ -22,7 +22,8 @@
         <activity android:name=".calculadora" />
         <activity android:name=".constants" />
         <activity android:name=".baseDeDatos" />
-        <activity android:name=".login"></activity>
+        <activity android:name=".login" />
+        <activity android:name=".memory"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,12 @@
 package com.arnauzapata.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class login extends AppCompatActivity {
@@ -15,6 +15,7 @@ public class login extends AppCompatActivity {
     private EditText editText;
     private Button buttonCreate;
     private Button buttonQuery;
+    Context context=this;
 
     private final String TAG = "MainActivity";
 
@@ -26,21 +27,22 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //Initialize objects
-        editText1 = (EditText) findViewById(R.id.editText);
-        editText = (EditText) findViewById(R.id.editText1);
+        editText1 = (EditText) findViewById(R.id.editTextLoginUser);
+        editText = (EditText) findViewById(R.id.editTextLoginPass);
         buttonCreate = (Button) findViewById(R.id.buttonSignIn);
         buttonQuery = (Button) findViewById(R.id.buttonLogIn);
 
-        myDataBaseHelper.getInstance(this);
+        myDataBaseHelper = new MyDataBaseHelper1(context);
+        myDataBaseHelper.getInstance(context);
 
 
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s1 = editText.getText().toString();
+                String s1 = editText1.getText().toString();
                 String s = editText.getText().toString();
-                long id = myDataBaseHelper.createRow(s,s1);
-                Toast.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
+                long id = myDataBaseHelper.createRow(s1,s);
+                //.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -49,13 +51,13 @@ public class login extends AppCompatActivity {
         buttonQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s = editText.getText().toString();
+                String s = editText1.getText().toString();
                 String s1 = editText.getText().toString();
                 String id = myDataBaseHelper.queryRow(s);
                 if(s1.equals(id)){
-
-                    //HACE ALGO
+                    Log.v(TAG,"va todo correcto")  ;                  //HACE ALGO
                 }
+                else Log.v(TAG,"va todo INcorrecto") ;
             }
         });
 

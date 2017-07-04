@@ -27,14 +27,12 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     */
     private final String TAG = "MyDataBaseHelper";
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "MyDataBase.db";
 
 
-    private static final String SQL_CREATE_TABLE1 =
-            "CREATE TABLE " + MyDataBaseContract1.Table1.TABLE_NAME + " (" +
-                    MyDataBaseContract1.Table1.USERNAME + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    MyDataBaseContract1.Table1.PASSWORD + " TEXT)" ;
+    static final String SQL_CREATE_TABLE1 = "create table "+"LOGIN"+
+            "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text UNIQUE,PASSWORD text); ";
 
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract1.Table1.TABLE_NAME;
@@ -102,7 +100,7 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     public String queryRow(String user) {
         Cursor c;
         c = readable.query(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
-                null,       //Columns we select
+                new String[] {MyDataBaseContract1.Table1.PASSWORD},       //Columns we select
                 MyDataBaseContract1.Table1.USERNAME + " = ? ",    //Columns for the WHERE clause
                 new String[] {user},                                   //Values for the WHERE clause
                 null,                                               //Group By
@@ -113,12 +111,12 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
         if (c.moveToFirst()) {
             do {
                 //We go here if the cursor is not empty
-                long l = c.getLong(c.getColumnIndex(MyDataBaseContract1.Table1.PASSWORD));
+                String l = c.getString(c.getColumnIndex(MyDataBaseContract1.Table1.PASSWORD));
                  password= String.valueOf(l);
             } while (c.moveToNext());
         }
         c.close();
-
+        Log.v(TAG,password);
         return password;
     }
 
