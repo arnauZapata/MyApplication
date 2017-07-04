@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent i;
         switch (v.getId()){
             case R.id.button1:
                 Log.v(TAG, "Soy el boton 1 en THIS");
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("text", "Soy el boton 2");
                 editor.apply();
-                Intent i = new Intent(context,Bandera.class);
+                i = new Intent(context,Bandera.class);
                 startActivity(i);
                 break;
             case R.id.button3:
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 toast.show();
                 Toast.makeText(context, text, duration).show();
                 Toast.makeText(getApplicationContext(), "Uff", Toast.LENGTH_LONG).show();
+                i = new Intent(context, music.class);
+                startActivity(i);
                 break;
 
         }

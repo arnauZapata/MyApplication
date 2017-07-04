@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.arnauzapata.myapplication.borrarUsuario">
+
+    <EditText
+        android:id="@+id/editTextCambiarContrasenyaUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="username" />
+
+    <EditText
+        android:id="@+id/editTextCambiarContrasenyaOldPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextCambiarContrasenyaUsuario"
+        android:gravity="center"
+        android:hint="old password" />
+
+    <Button
+        android:id="@+id/buttonCambiarContrasenyaAceptar"
+        android:text="Aceptar"
+        android:layout_below="@+id/editTextCambiarContrasenyaNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/buttonAtras"
+        android:text="Atras"
+        android:layout_below="@+id/buttonCambiarContrasenyaAceptar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

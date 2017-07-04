@@ -23,7 +23,8 @@
         <activity android:name=".constants" />
         <activity android:name=".baseDeDatos" />
         <activity android:name=".login" />
-        <activity android:name=".memory"></activity>
+        <activity android:name=".memory" />
+        <activity android:name=".music"></activity>
     </application>
 
 </manifest>
