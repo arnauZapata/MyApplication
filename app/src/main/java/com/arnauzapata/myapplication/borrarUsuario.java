@@ -49,10 +49,10 @@ public class borrarUsuario extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_borrar_usuario, container, false);
-        editTextUsuari = (EditText) view.findViewById(R.id.editTextCambiarContrasenyaUsuario);
-        editTextOldContrasenya = (EditText) view.findViewById(R.id.editTextCambiarContrasenyaOldPassword);
-        buttonAceptar = (Button) view.findViewById(R.id.buttonCambiarContrasenyaAceptar);
-        buttonAtras = (Button) view.findViewById(R.id.buttonAtras);
+        editTextUsuari = (EditText) view.findViewById(R.id.editTextBorrarUsuarioUsuario);
+        editTextOldContrasenya = (EditText) view.findViewById(R.id.editTextBorrarUsuarioPassword);
+        buttonAceptar = (Button) view.findViewById(R.id.buttonBorrarUsuarioAceptar);
+        buttonAtras = (Button) view.findViewById(R.id.buttonBorrarUsuarioAtras);
         myDataBaseHelper = new MyDataBaseHelper1(context);
         myDataBaseHelper.getInstance(context);
         buttonAceptar.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +64,11 @@ public class borrarUsuario extends Fragment {
                 if(s1.equals(id)){
                     Log.v(TAG,"va todo correcto")  ;
                     myDataBaseHelper.deleteRow(s);
+                    FragmentTransaction trans = getFragmentManager().beginTransaction();
+                    loginInicial fragment = new loginInicial();
+                    fragment.newInstance(context);
+                    trans.replace(R.id.fragment_login_container,fragment);
+                    trans.commit();
                 }
                 else Log.v(TAG,"va todo INcorrecto") ;
             }

@@ -65,6 +65,11 @@ public class cambiarContrasenya extends Fragment {
                 String id = myDataBaseHelper.queryRow(user);
                 if(oldPassW.equals(id)){
                     myDataBaseHelper.updateRow(user,newPassW);
+                    FragmentTransaction trans = getFragmentManager().beginTransaction();
+                    loginInicial fragment = new loginInicial();
+                    fragment.newInstance(context);
+                    trans.replace(R.id.fragment_login_container,fragment);
+                    trans.commit();
                     Log.v(TAG,"va todo correcto")  ;                  //HACE ALGO
                 }
                 else Log.v(TAG,"va todo INcorrecto") ;
