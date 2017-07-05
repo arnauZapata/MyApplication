@@ -24,14 +24,6 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class loginInicial extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-
-
-
     private OnFragmentInteractionListener mListener;
     
     private EditText editText;
@@ -45,7 +37,6 @@ public class loginInicial extends Fragment {
     private Button buttonCambiarContraseña;
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
@@ -154,7 +145,7 @@ public class loginInicial extends Fragment {
             return view;
         }
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
