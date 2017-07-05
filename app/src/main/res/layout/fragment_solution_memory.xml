@@ -11,9 +11,10 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageViewMemory9"
-        android:layout_weight="1"
         android:layout_toRightOf="@+id/imageViewMemory11"
-        app:srcCompat="@android:drawable/alert_dark_frame" />
+        android:layout_weight="1"
+        android:adjustViewBounds="false"
+        app:srcCompat="@android:drawable/bottom_bar"/>
 
     <ImageView
         android:id="@+id/imageViewMemory11"

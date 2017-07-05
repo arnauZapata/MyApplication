@@ -14,6 +14,8 @@ import com.example.material.joanbarroso.flipper.CoolImageFlipper;
 
 public class jocMemory extends android.app.Fragment implements View.OnClickListener {
 
+
+
     private static final String TAG = "Joc Memory";
     private OnFragmentInteractionListener mListener;
     private ImageView ImageView1;
@@ -28,6 +30,13 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
     private ImageView ImageView10;
     private ImageView ImageView11;
     private ImageView ImageView12;
+
+    int [] soluciones;
+    boolean [] solved;
+    boolean [] selected;
+    int image1; int image2;
+
+
     Context context;
 
     public jocMemory() {
@@ -37,8 +46,6 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         // Required empty public constructor
         context=c;
     }
-
-    
     public static jocMemory newInstance(String param1, String param2) {
         jocMemory fragment = new jocMemory();
         return fragment;
@@ -68,6 +75,10 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         ImageView3 = (ImageView) view.findViewById(R.id.imageViewMemory3);
         ImageView2 = (ImageView) view.findViewById(R.id.imageViewMemory2);
         ImageView1 = (ImageView) view.findViewById(R.id.imageViewMemory1);
+
+
+        ImageView1.setImageResource(R.drawable.images);
+       // ImageView1.setI
 
         ImageView1.setOnClickListener(this);
         ImageView2.setOnClickListener(this);
@@ -145,8 +156,9 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 break;
 
         }
-        //firstFragment = new jocMemory(context);
-        //getFragmentManager().beginTransaction().add(R.id.fragment_memory_container, firstFragment).commit();
+
+        firstFragment = new jocMemory(context);
+        getFragmentManager().beginTransaction().add(R.id.fragment_memory_container, firstFragment).commit();
 
     }
 
