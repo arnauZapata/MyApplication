@@ -5,30 +5,30 @@
     tools:context="com.arnauzapata.myapplication.borrarUsuario">
 
     <EditText
-        android:id="@+id/editTextCambiarContrasenyaUsuario"
+        android:id="@+id/editTextBorrarUsuarioUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="username" />
 
     <EditText
-        android:id="@+id/editTextCambiarContrasenyaOldPassword"
+        android:id="@+id/editTextBorrarUsuarioPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextCambiarContrasenyaUsuario"
+        android:layout_below="@+id/editTextBorrarUsuarioUsuario"
         android:gravity="center"
         android:hint="old password" />
 
     <Button
-        android:id="@+id/buttonCambiarContrasenyaAceptar"
+        android:id="@+id/buttonBorrarUsuarioAceptar"
         android:text="Aceptar"
-        android:layout_below="@+id/editTextCambiarContrasenyaOldPassword"
+        android:layout_below="@+id/editTextBorrarUsuarioPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
-        android:id="@+id/buttonAtras"
+        android:id="@+id/buttonBorrarUsuarioAtras"
         android:text="Atras"
-        android:layout_below="@+id/buttonCambiarContrasenyaAceptar"
+        android:layout_below="@+id/buttonBorrarUsuarioAceptar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
