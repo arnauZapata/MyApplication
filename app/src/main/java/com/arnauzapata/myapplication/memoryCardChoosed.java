@@ -17,12 +17,17 @@ import android.view.ViewGroup;
  * Use the {@link memoryCardChoosed#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class memoryCardChoosed extends Fragment {
+public class memoryCardChoosed extends android.app.Fragment {
 
+    int x; int y; int whoThis;
     private OnFragmentInteractionListener mListener;
 
     public memoryCardChoosed() {
         // Required empty public constructor
+    }
+
+    public memoryCardChoosed(int who) {
+        whoThis=who;
     }
 
 
@@ -75,5 +80,11 @@ public class memoryCardChoosed extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void unSelect(View v){
+        memoryCardUnchoosed fragment = new memoryCardUnchoosed(whoThis);
+        getFragmentManager().beginTransaction().replace(whoThis,fragment);
+        getFragmentManager().beginTransaction().commit();
     }
 }

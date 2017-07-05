@@ -16,9 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity1" />
-        <activity android:name=".activity2" />
-        <activity android:name=".Bandera" />
         <activity android:name=".calculadora" />
         <activity android:name=".constants" />
         <activity android:name=".baseDeDatos" />

@@ -15,14 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link loginInicial.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link loginInicial#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class loginInicial extends Fragment {
     private OnFragmentInteractionListener mListener;
     
