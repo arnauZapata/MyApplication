@@ -38,7 +38,7 @@ public class memoryCardUnchoosed extends android.app.Fragment {
         return view;
     }
 
-    public void choose(View v){
+    public void select(View v){
         memoryCardChoosed fragment = new memoryCardChoosed(whoThis);
         getFragmentManager().beginTransaction().replace(whoThis,fragment);
         getFragmentManager().beginTransaction().commit();

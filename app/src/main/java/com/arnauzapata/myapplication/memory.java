@@ -13,10 +13,14 @@ public class memory extends AppCompatActivity{
     android.app.Fragment fragment;
 
     private android.app.FragmentManager fragmentManager = getFragmentManager();
+    private String TAG = "Memory";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
+
+
 
         FrameLayout frame = new FrameLayout(this);
 
@@ -59,15 +63,16 @@ public class memory extends AppCompatActivity{
         fragment= new memoryCardUnchoosed(R.id.fragment_memory_3_2);
         getFragmentManager().beginTransaction().add(R.id.fragment_memory_3_2, fragment).commit();
 
+    }
+
+
+
+
+    public void unSelect(View v){
 
     }
 
-    public void unSelect(View v) {
-
-
-    }
-
-    public void select(View v) {
+    public void select(View v){
 
     }
 }
