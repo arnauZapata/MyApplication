@@ -1,13 +1,11 @@
 package com.arnauzapata.myapplication;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class memory extends AppCompatActivity implements View.OnClickListener {
+public class memory extends AppCompatActivity{
     View fragment_0_0;View fragment_0_1;View fragment_0_2;
     View fragment_1_0;View fragment_1_1;View fragment_1_2;
     View fragment_2_0;View fragment_2_1;View fragment_2_2;
@@ -19,70 +17,57 @@ public class memory extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
-        fragment_0_0= findViewById(R.id.fragment_memory_0_0);
-        fragment_0_1= findViewById(R.id.fragment_memory_0_1);
-        fragment_0_2= findViewById(R.id.fragment_memory_0_2);
-        fragment_1_0= findViewById(R.id.fragment_memory_1_0);
-        fragment_1_1= findViewById(R.id.fragment_memory_1_1);
-        fragment_1_2= findViewById(R.id.fragment_memory_1_2);
-        fragment_2_0= findViewById(R.id.fragment_memory_2_0);
-        fragment_2_1= findViewById(R.id.fragment_memory_2_1);
-        fragment_2_2= findViewById(R.id.fragment_memory_2_2);
-        fragment_3_0= findViewById(R.id.fragment_memory_3_0);
-        fragment_3_1= findViewById(R.id.fragment_memory_3_1);
-        fragment_3_2= findViewById(R.id.fragment_memory_3_2);
+        FragmentTransaction trans = getFragmentManager().beginTransaction();
+/*
+        fragment= new memoryCardUnchoosed(0,0);
+        trans.add(R.id.fragment_memory_0_0, fragment);
+        trans.commit();
 
-        fragment_0_0.setOnClickListener(this);
-        fragment_0_1.setOnClickListener(this);
-        fragment_0_2.setOnClickListener(this);
-        fragment_1_0.setOnClickListener(this);
-        fragment_1_1.setOnClickListener(this);
-        fragment_1_2.setOnClickListener(this);
-        fragment_2_0.setOnClickListener(this);
-        fragment_2_1.setOnClickListener(this);
-        fragment_2_2.setOnClickListener(this);
-        fragment_3_0.setOnClickListener(this);
-        fragment_3_1.setOnClickListener(this);
-        fragment_3_2.setOnClickListener(this);
+        fragment= new memoryCardUnchoosed(0,1);
+        trans.add(R.id.fragment_memory_0_1, fragment);
+        trans.commit();
 
-        fragment = new memoryCardUnchoosed();
-        fragment.newInstance(0,0);
+        fragment= new memoryCardUnchoosed(0,2);
+        trans.add(R.id.fragment_memory_0_2, fragment);
+        trans.commit();
 
-        fragmentManager.beginTransaction().replace(R.id.fragment_memory_0_0, fragment);
-        fragmentManager.beginTransaction().commit();
+        fragment= new memoryCardUnchoosed(1,0);
+        trans.add(R.id.fragment_memory_1_0, fragment);
+        trans.commit();
+
+        fragment= new memoryCardUnchoosed(1,1);
+        trans.add(R.id.fragment_memory_1_1, fragment);
+        trans.commit();
+
+        fragment= new memoryCardUnchoosed(1,2);
+        trans.add(R.id.fragment_memory_1_2, fragment);
+        trans.commit();
+
+        fragment= new memoryCardUnchoosed(2,0);
+        trans.add(R.id.fragment_memory_2_0, fragment);
+        trans.commit();
+
+        fragment= new memoryCardUnchoosed(2,1);
+        trans.add(R.id.fragment_memory_2_1, fragment);
+        trans.commit();
+
+        fragment= new memoryCardUnchoosed(2,2);
+        trans.add(R.id.fragment_memory_2_2, fragment);
+        trans.commit();
 
 
-    }
+        fragment= new memoryCardUnchoosed(3,0);
+        trans.add(R.id.fragment_memory_3_0, fragment);
+        trans.commit();
+
+        fragment= new memoryCardUnchoosed(3,1);
+        trans.add(R.id.fragment_memory_3_1, fragment);
+        trans.commit();
+
+        fragment= new memoryCardUnchoosed(3,2);
+        trans.add(R.id.fragment_memory_3_2, fragment);
+        trans.commit();*/
 
 
-    @Override
-    public void onClick(View v) {
-        Intent i;
-        switch (v.getId()){
-            case R.id.fragment_memory_0_0:
-                break;
-            case R.id.fragment_memory_0_1:
-                break;
-            case R.id.fragment_memory_0_2:
-                break;
-            case R.id.fragment_memory_1_0:
-                break;
-            case R.id.fragment_memory_1_1:
-                break;
-            case R.id.fragment_memory_1_2:
-                break;
-            case R.id.fragment_memory_2_0:
-                break;
-            case R.id.fragment_memory_2_1:
-                break;
-            case R.id.fragment_memory_2_2:
-                break;
-            case R.id.fragment_memory_3_0:
-                break;
-            case R.id.fragment_memory_3_1:
-                break;
-            case R.id.fragment_memory_3_2:
-                break;
-        }
     }
 }

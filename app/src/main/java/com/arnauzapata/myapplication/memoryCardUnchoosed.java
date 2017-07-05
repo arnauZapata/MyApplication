@@ -9,25 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link memoryCardUnchoosed#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class memoryCardUnchoosed extends Fragment {
 
     int x;
     int y;
 
     public memoryCardUnchoosed() {
-        // Required empty public constructor
+
+    }
+
+    public memoryCardUnchoosed(int x1, int y1) {
+        x=x1;y=y1;
     }
 
 
-    public memoryCardUnchoosed newInstance(int x, int y) {
+    public void newInstance(int x1, int y1) {
         memoryCardUnchoosed fragment = new memoryCardUnchoosed();
-        this.x=x;this.y=y;
-        return fragment;
+        ;
     }
 
     @Override

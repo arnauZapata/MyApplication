@@ -14,15 +14,14 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/fragment_memory_0_0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_memory_0_0"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="visible" />
 
-        </FrameLayout>
-
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_0_1"
@@ -30,7 +29,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_0_2"
@@ -45,7 +44,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_1_0"
@@ -53,7 +52,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_1_1"
@@ -61,7 +60,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_1_2"
@@ -75,7 +74,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_2_0"
@@ -83,7 +82,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_2_1"
@@ -91,7 +90,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_2_2"
@@ -99,13 +98,13 @@
 
         </FrameLayout>
     </LinearLayout>
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_3_0"
@@ -113,7 +112,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_3_1"
@@ -121,7 +120,7 @@
 
         </FrameLayout>
 
-        <FrameLayout
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_memory_3_2"

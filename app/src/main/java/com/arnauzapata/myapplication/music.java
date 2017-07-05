@@ -17,7 +17,7 @@ public class music extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music2);
+        setContentView(R.layout.activity_music);
         MediaPlayer mediaPlayer = new MediaPlayer();
         File sdCard = Environment.getExternalStorageDirectory();
         File song = new File(sdCard.getAbsolutePath() + "/Music/Song.mp3");

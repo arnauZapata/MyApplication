@@ -1,6 +1,7 @@
 package com.arnauzapata.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -81,7 +83,11 @@ public class loginInicial extends Fragment {
                     String s1 = editText1.getText().toString();
                     String s = editText.getText().toString();
                     long id = myDataBaseHelper.createRow(s1,s);
-                    Log.v(TAG,"has apretado el boton Sign UP");
+                    CharSequence text = "registro con exito";
+                    int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    Toast.makeText(context, text, duration).show();
                     //.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -94,9 +100,17 @@ public class loginInicial extends Fragment {
                     String s1 = editText.getText().toString();
                     String id = myDataBaseHelper.queryRow(s);
                     if(s1.equals(id)){
-                        Log.v(TAG,"va todo correcto")  ;                  //HACE ALGO
+                        Log.v(TAG,"va todo correcto")  ;
+                        Intent i = new Intent(context, memory.class);
+                        startActivity(i);
                     }
-                    else Log.v(TAG,"va todo INcorrecto") ;
+                    else{
+                        CharSequence text = "usuario o contraseña erroneos";
+                        int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        Toast.makeText(context, text, duration).show();
+                    }
                 }
             });
             buttonBorrar.setOnClickListener(new View.OnClickListener() {
@@ -106,10 +120,21 @@ public class loginInicial extends Fragment {
                     String s1 = editText.getText().toString();
                     String id = myDataBaseHelper.queryRow(s);
                     if(s1.equals(id)){
-                        Log.v(TAG,"va todo correcto")  ;
                         myDataBaseHelper.deleteRow(s);
+                        CharSequence text = "usuario eliminado";
+                        int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        Toast.makeText(context, text, duration).show();
+
                     }
-                    else Log.v(TAG,"va todo INcorrecto") ;
+                    else{
+                        CharSequence text = "usuario o contraseña erroneos";
+                        int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        Toast.makeText(context, text, duration).show();
+                    }
                 }
             });
         buttonCambiarContraseña.setOnClickListener(new View.OnClickListener() {
@@ -147,15 +172,5 @@ public class loginInicial extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
 
 }

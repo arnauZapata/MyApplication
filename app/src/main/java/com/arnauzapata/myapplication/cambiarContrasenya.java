@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -65,14 +66,26 @@ public class cambiarContrasenya extends Fragment {
                 String id = myDataBaseHelper.queryRow(user);
                 if(oldPassw.equals(id)){
                     myDataBaseHelper.updateRow(user,newPassW);
+                    CharSequence text = "contraseña cambiada con exito";
+                    int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    Toast.makeText(context, text, duration).show();
+
                     FragmentTransaction trans = getFragmentManager().beginTransaction();
                     loginInicial fragment = new loginInicial();
                     fragment.newInstance(context);
                     trans.replace(R.id.fragment_login_container,fragment);
                     trans.commit();
-                    Log.v(TAG,"va todo correcto")  ;                  //HACE ALGO
+                                     //HACE ALGO
                 }
-                else Log.v(TAG,"va todo INcorrecto") ;
+                else{
+                    CharSequence text = "usuario o contraseña erroneos";
+                    int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    Toast.makeText(context, text, duration).show();
+                }
                 //.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
             }
         });
