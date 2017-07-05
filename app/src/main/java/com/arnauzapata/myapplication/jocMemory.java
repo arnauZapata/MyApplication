@@ -39,6 +39,8 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
 
 
     Context context;
+    private boolean ocupado;
+    private boolean despierto;
 
     public jocMemory() {
         for(int i=0;i<12;i++) soluciones[i]=R.drawable.red;
@@ -58,6 +60,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         for(int i=0;i<12;i++) solved[i]=false;
         for(int i=0;i<12;i++) selected[i]=false;
         image1=-1;image2 = -1;
+        ocupado=false;
         context=c;
     }
     public static jocMemory newInstance(String param1, String param2) {
@@ -144,137 +147,163 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         int auxImage;
         switch (v.getId()){
             case R.id.imageViewMemory0:
-                if(selected[0] || solved[0]) break;
+                if(selected[0] || solved[0] || ocupado) break;
                 selected[0]=true;
                 auxImage=soluciones[0];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView0);
                 break;
             case R.id.imageViewMemory1:
-                if(selected[1] || solved[1]) break;
+                if(selected[1] || solved[1] || ocupado) break;
                 selected[1]=true;
                 auxImage=soluciones[1];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView1);
                 break;
             case R.id.imageViewMemory2:
-                if(selected[2] || solved[2]) break;
+                if(selected[2] || solved[2] || ocupado) break;
                 selected[2]=true;
                 auxImage=soluciones[2];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView2);
                 break;
             case R.id.imageViewMemory3:
-                if(selected[3] || solved[3]) break;
+                if(selected[3] || solved[3] || ocupado) break;
                 selected[3]=true;
                 auxImage=soluciones[3];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView3);
                 break;
             case R.id.imageViewMemory4:
-                if(selected[4] || solved[4]) break;
+                if(selected[4] || solved[4] || ocupado) break;
                 selected[4]=true;
                 auxImage=soluciones[4];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView4);
                 break;
             case R.id.imageViewMemory5:
-                if(selected[5] || solved[5]) break;
+                if(selected[5] || solved[5] || ocupado) break;
                 selected[5]=true;
                 auxImage=soluciones[5];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView5);
                 break;
             case R.id.imageViewMemory6:
-                if(selected[6] || solved[6]) break;
+                if(selected[6] || solved[6] || ocupado) break;
                 selected[6]=true;
                 auxImage=soluciones[6];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView6);
                 break;
             case R.id.imageViewMemory7:
-                if(selected[7] || solved[7]) break;
+                if(selected[7] || solved[7] || ocupado) break;
                 selected[7]=true;
                 auxImage=soluciones[7];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView7);
                 break;
             case R.id.imageViewMemory8:
-                if(selected[8] || solved[8]) break;
+                if(selected[8] || solved[8] || ocupado) break;
                 selected[8]=true;
                 auxImage=soluciones[8];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView8);
                 break;
             case R.id.imageViewMemory9:
-                if(selected[9] || solved[9]) break;
+                if(selected[9] || solved[9] || ocupado) break;
                 selected[9]=true;
                 auxImage=soluciones[9];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView9);
                 break;
             case R.id.imageViewMemory10:
-                if(selected[10] || solved[10]) break;
+                if(selected[10] || solved[10] || ocupado) break;
                 selected[10]=true;
                 auxImage=soluciones[10];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView10);
+                ocupado=false;
                 break;
             case R.id.imageViewMemory11:
-                if(selected[11] || solved[11]) break;
+                if(selected[11] || solved[11] || ocupado) break;
                 selected[11]=true;
                 auxImage=soluciones[11];
                 if(image1==-1){image1=auxImage;}
                 else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
+                ocupado=true;
                 c.flipImage(d,ImageView11);
+                ocupado=false;
                 break;
         }
-        Log.v(TAG,String.valueOf(image1)+ "-" + String.valueOf(image2));
-        if(image1!=-1 && image2!=-1){
+        while(ocupado);
+        if(image1!=-1 && image2!=-1) {
             int i;
-            if(image1 == image2){
-                Log.v(TAG,"aqui pasa algo raro");
-                for(i=0;i<12;i++)if(selected[i]) {
-                    Log.v(TAG,"aqui pasa algo raro");
-                    solved[i]=true;
-                }
+            if (image1 == image2) {
+                Log.v(TAG,"aqui pasan cosas");
+                for (i = 0; i < 12; i++) if (selected[i]) solved[i] = true;
             }
             else{
-                Log.v(TAG,"tendria que funcionar");
-                for(i=0;i<12;i++)if(selected[i]){
-                    Log.v(TAG,"tendria que funcionar");
-                    voltearCarta(i);
-                }
-            }
-            for(i=0;i<12;i++)selected[i]=false;
-            image1=-1;image2=-1;
-        }
 
-        //firstFragment = new jocMemory(context);
-        //getFragmentManager().beginTransaction().add(R.id.fragment_memory_container, firstFragment).commit();
+                ocupado=true;despierto=false;
+                dejarPasarTiempo();
+                Log.v(TAG,"por aqui no pasa ni el tato");
+                while(!despierto);
+                for (i = 0; i < 12; i++) if (selected[i]) voltearCarta(i);
+
+            }
+            for (i = 0; i < 12; i++) selected[i] = false;
+            image1 = -1;
+            image2 = -1;
+            ocupado=false;
+        }
+    }
+
+
+    public void dejarPasarTiempo(){
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                despierto=true;
+            }
+        }).start();
 
     }
 
