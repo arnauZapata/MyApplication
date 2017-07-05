@@ -1,6 +1,7 @@
 package com.arnauzapata.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
     Context context;
     private boolean ocupado;
     private boolean despierto;
+    private int pasos =0;
 
     public jocMemory() {
         for(int i=0;i<12;i++) soluciones[i]=R.drawable.red;
@@ -144,24 +146,19 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         CoolImageFlipper c = new CoolImageFlipper(context);
         Drawable d;
         jocMemory firstFragment;
-        int auxImage;
+        int auxImage=-1;
         switch (v.getId()){
             case R.id.imageViewMemory0:
                 if(selected[0] || solved[0] || ocupado) break;
                 selected[0]=true;
                 auxImage=soluciones[0];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
-                ocupado=true;
                 c.flipImage(d,ImageView0);
                 break;
             case R.id.imageViewMemory1:
                 if(selected[1] || solved[1] || ocupado) break;
                 selected[1]=true;
                 auxImage=soluciones[1];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
                 ocupado=true;
                 c.flipImage(d,ImageView1);
@@ -170,8 +167,6 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 if(selected[2] || solved[2] || ocupado) break;
                 selected[2]=true;
                 auxImage=soluciones[2];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
                 ocupado=true;
                 c.flipImage(d,ImageView2);
@@ -180,107 +175,77 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 if(selected[3] || solved[3] || ocupado) break;
                 selected[3]=true;
                 auxImage=soluciones[3];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
                 d = getResources().getDrawable(auxImage);
-                ocupado=true;
                 c.flipImage(d,ImageView3);
                 break;
             case R.id.imageViewMemory4:
                 if(selected[4] || solved[4] || ocupado) break;
                 selected[4]=true;
-                auxImage=soluciones[4];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
+                 auxImage=soluciones[4];
+                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView4);
                 break;
             case R.id.imageViewMemory5:
                 if(selected[5] || solved[5] || ocupado) break;
                 selected[5]=true;
-                auxImage=soluciones[5];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
+                 auxImage=soluciones[5];
                 d = getResources().getDrawable(auxImage);
-                ocupado=true;
                 c.flipImage(d,ImageView5);
                 break;
             case R.id.imageViewMemory6:
                 if(selected[6] || solved[6] || ocupado) break;
                 selected[6]=true;
-                auxImage=soluciones[6];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
+                 auxImage=soluciones[6];
+                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView6);
                 break;
             case R.id.imageViewMemory7:
                 if(selected[7] || solved[7] || ocupado) break;
                 selected[7]=true;
-                auxImage=soluciones[7];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
+                 auxImage=soluciones[7];
                 d = getResources().getDrawable(auxImage);
-                ocupado=true;
                 c.flipImage(d,ImageView7);
                 break;
             case R.id.imageViewMemory8:
                 if(selected[8] || solved[8] || ocupado) break;
                 selected[8]=true;
-                auxImage=soluciones[8];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
+                 auxImage=soluciones[8];
+                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView8);
                 break;
             case R.id.imageViewMemory9:
                 if(selected[9] || solved[9] || ocupado) break;
                 selected[9]=true;
-                auxImage=soluciones[9];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
+                 auxImage=soluciones[9];
+                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView9);
                 break;
             case R.id.imageViewMemory10:
                 if(selected[10] || solved[10] || ocupado) break;
                 selected[10]=true;
-                auxImage=soluciones[10];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
+                 auxImage=soluciones[10];
+                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView10);
-                ocupado=false;
                 break;
             case R.id.imageViewMemory11:
                 if(selected[11] || solved[11] || ocupado) break;
                 selected[11]=true;
-                auxImage=soluciones[11];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
-                c.flipImage(d,ImageView11);
-                ocupado=false;
-                break;
+                 auxImage=soluciones[11];
+                 d = getResources().getDrawable(auxImage);
+                 c.flipImage(d,ImageView11);
+            break;
         }
-        while(ocupado);
+        if(image1==-1){image1=auxImage;}
+        else if(image2==-1){image2=auxImage;}
+
         if(image1!=-1 && image2!=-1) {
             int i;
             if (image1 == image2) {
-                Log.v(TAG,"aqui pasan cosas");
                 for (i = 0; i < 12; i++) if (selected[i]) solved[i] = true;
             }
             else{
-
                 ocupado=true;despierto=false;
                 dejarPasarTiempo();
-                Log.v(TAG,"por aqui no pasa ni el tato");
                 while(!despierto);
                 for (i = 0; i < 12; i++) if (selected[i]) voltearCarta(i);
 
@@ -288,7 +253,12 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             for (i = 0; i < 12; i++) selected[i] = false;
             image1 = -1;
             image2 = -1;
+            pasos++;
             ocupado=false;
+            boolean aux=true;
+            for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
+            Intent in = new Intent(context, ranking.class);
+            if(aux) startActivity(in);
         }
     }
 
@@ -312,51 +282,40 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         Drawable d= getResources().getDrawable(R.drawable.black);
         switch (i){
             case 0:
-                Log.v(TAG,"tendria que funcionar 0");
                 c.flipImage(d,ImageView0);
                 break;
             case 1:
-                Log.v(TAG,"tendria que funcionar 1");
                 c.flipImage(d,ImageView1);
                 break;
             case 2:
-                Log.v(TAG,"tendria que funcionar 2");
                 c.flipImage(d,ImageView2);
                 break;
             case 3:
-                Log.v(TAG,"tendria que funcionar 3");
                 c.flipImage(d,ImageView3);
                 break;
             case 4:
-                Log.v(TAG,"tendria que funcionar 4");
                 c.flipImage(d,ImageView4);
                 break;
             case 5:
-                Log.v(TAG,"tendria que funcionar 5");
                 c.flipImage(d,ImageView5);
                 break;
             case 6:
-                Log.v(TAG,"tendria que funcionar 6");
                 c.flipImage(d,ImageView6);
                 break;
             case 7:
-                Log.v(TAG,"tendria que funcionar 7");
+
                 c.flipImage(d,ImageView7);
                 break;
             case 8:
-                Log.v(TAG,"tendria que funcionar 8");
                 c.flipImage(d,ImageView8);
                 break;
             case 9:
-                Log.v(TAG,"tendria que funcionar 9");
                 c.flipImage(d,ImageView9);
                 break;
             case 10:
-                Log.v(TAG,"tendria que funcionar 10");
                 c.flipImage(d,ImageView10);
                 break;
             case 11:
-                Log.v(TAG,"tendria que funcionar 11");
                 c.flipImage(d,ImageView11);
                 break;
 
