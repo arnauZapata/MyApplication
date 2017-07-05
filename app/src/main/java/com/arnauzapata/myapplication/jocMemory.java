@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.material.joanbarroso.flipper.CoolImageFlipper;
+
+import java.util.Random;
 
 
 public class jocMemory extends android.app.Fragment implements View.OnClickListener {
@@ -34,6 +35,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
     private ImageView ImageView0;
 
     int[] soluciones =new int[12];
+    int[] colores =new int[6];
     boolean [] solved=new boolean[12];
     boolean [] selected=new boolean[12];
     int image1; int image2;
@@ -45,22 +47,18 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
     private int pasos =0;
 
     public jocMemory() {
-        for(int i=0;i<12;i++) soluciones[i]=R.drawable.red;
+        for(int i=0;i<12;i++) soluciones[i]=-1;
         for(int i=0;i<12;i++) solved[i]=false;
         for(int i=0;i<12;i++) selected[i]=false;
+        for(int i=0;i<6;i++) colores[i]=0;
         image1=-1;image2 = -1;
     }
     public jocMemory(Context c) {
         // Required empty public constructor
-        //for(int i=0;i<12;i++) soluciones[i]=R.drawable.red;
-        soluciones[0] = soluciones[1]=R.drawable.red;
-        soluciones[2] = soluciones[3]=R.drawable.blue;
-        soluciones[4] = soluciones[5]=R.drawable.brown;
-        soluciones[6] = soluciones[7]=R.drawable.green;
-        soluciones[8] = soluciones[9]=R.drawable.yellow;
-        soluciones[10] = soluciones[11]=R.drawable.lila;
+        for(int i=0;i<12;i++) soluciones[i]=-1;
         for(int i=0;i<12;i++) solved[i]=false;
         for(int i=0;i<12;i++) selected[i]=false;
+        for(int i=0;i<6;i++) colores[i]=0;
         image1=-1;image2 = -1;
         ocupado=false;
         context=c;
@@ -151,6 +149,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory0:
                 if(selected[0] || solved[0] || ocupado) break;
                 selected[0]=true;
+               if(soluciones[0]==-1) soluciones[0] = elegirColor();
                 auxImage=soluciones[0];
                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView0);
@@ -158,6 +157,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory1:
                 if(selected[1] || solved[1] || ocupado) break;
                 selected[1]=true;
+                if(soluciones[1]==-1)soluciones[1] = elegirColor();
                 auxImage=soluciones[1];
                 d = getResources().getDrawable(auxImage);
                 ocupado=true;
@@ -166,6 +166,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory2:
                 if(selected[2] || solved[2] || ocupado) break;
                 selected[2]=true;
+                if(soluciones[2]==-1)soluciones[2] = elegirColor();
                 auxImage=soluciones[2];
                 d = getResources().getDrawable(auxImage);
                 ocupado=true;
@@ -174,6 +175,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory3:
                 if(selected[3] || solved[3] || ocupado) break;
                 selected[3]=true;
+                if(soluciones[3]==-1)soluciones[3] = elegirColor();
                 auxImage=soluciones[3];
                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView3);
@@ -181,6 +183,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory4:
                 if(selected[4] || solved[4] || ocupado) break;
                 selected[4]=true;
+                if(soluciones[4]==-1)soluciones[4] = elegirColor();
                  auxImage=soluciones[4];
                  d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView4);
@@ -188,6 +191,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory5:
                 if(selected[5] || solved[5] || ocupado) break;
                 selected[5]=true;
+                if(soluciones[5]==-1)soluciones[5] = elegirColor();
                  auxImage=soluciones[5];
                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView5);
@@ -195,6 +199,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory6:
                 if(selected[6] || solved[6] || ocupado) break;
                 selected[6]=true;
+                if(soluciones[6]==-1)soluciones[6] = elegirColor();
                  auxImage=soluciones[6];
                  d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView6);
@@ -202,6 +207,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory7:
                 if(selected[7] || solved[7] || ocupado) break;
                 selected[7]=true;
+                if(soluciones[7]==-1)soluciones[7] = elegirColor();
                  auxImage=soluciones[7];
                 d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView7);
@@ -209,6 +215,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory8:
                 if(selected[8] || solved[8] || ocupado) break;
                 selected[8]=true;
+                if(soluciones[8]==-1)soluciones[8] = elegirColor();
                  auxImage=soluciones[8];
                  d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView8);
@@ -216,6 +223,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory9:
                 if(selected[9] || solved[9] || ocupado) break;
                 selected[9]=true;
+                if(soluciones[9]==-1)soluciones[9] = elegirColor();
                  auxImage=soluciones[9];
                  d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView9);
@@ -223,6 +231,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory10:
                 if(selected[10] || solved[10] || ocupado) break;
                 selected[10]=true;
+                if(soluciones[10]==-1)soluciones[10] = elegirColor();
                  auxImage=soluciones[10];
                  d = getResources().getDrawable(auxImage);
                 c.flipImage(d,ImageView10);
@@ -230,6 +239,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             case R.id.imageViewMemory11:
                 if(selected[11] || solved[11] || ocupado) break;
                 selected[11]=true;
+                if(soluciones[11]==-1)soluciones[11] = elegirColor();
                  auxImage=soluciones[11];
                  d = getResources().getDrawable(auxImage);
                  c.flipImage(d,ImageView11);
@@ -260,6 +270,27 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             Intent in = new Intent(context, ranking.class);
             if(aux) startActivity(in);
         }
+    }
+
+    private int elegirColor() {
+        Random rand=new Random();
+        int num;
+        do {num = rand.nextInt(6);}while(colores[num]>=2);colores[num]++; //busca numeros al azar hasta que encuentra uno donde no hayan sido asignados 2 o mas colores, entonces añade uno al color asignado
+        switch (num){
+            case 0:
+                return R.drawable.red;
+            case 1:
+                return R.drawable.blue;
+            case 2:
+                return R.drawable.brown;
+            case 3:
+                return R.drawable.green;
+            case 4:
+                return R.drawable.yellow;
+            case 5:
+                return R.drawable.lila;
+        }
+        return R.drawable.black;
     }
 
 
