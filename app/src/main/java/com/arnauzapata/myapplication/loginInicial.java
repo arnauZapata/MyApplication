@@ -39,7 +39,8 @@ public class loginInicial extends Fragment {
     private MyDataBaseHelper1 myDataBaseHelper;
     private Context context;
     private String TAG = "loginInicial";
-    private Button buttonOtros;
+    private Button buttonBorrar;
+    private Button buttonCambiarContraseña;
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
@@ -70,7 +71,8 @@ public class loginInicial extends Fragment {
             editText = (EditText) view.findViewById(R.id.editTextLoginPass);
             buttonCreate = (Button) view.findViewById(R.id.buttonSignIn);
             buttonQuery = (Button) view.findViewById(R.id.buttonLogIn);
-            buttonOtros = (Button) view.findViewById(R.id.buttonOtros);
+            buttonBorrar = (Button) view.findViewById(R.id.buttonBorrar);
+            buttonCambiarContraseña = (Button) view.findViewById(R.id.buttonOtros);
             myDataBaseHelper = new MyDataBaseHelper1(context);
             myDataBaseHelper.getInstance(context);
             buttonCreate.setOnClickListener(new View.OnClickListener() {
@@ -97,19 +99,33 @@ public class loginInicial extends Fragment {
                     else Log.v(TAG,"va todo INcorrecto") ;
                 }
             });
-
-        buttonOtros.setOnClickListener(new View.OnClickListener() {
+            buttonBorrar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentTransaction trans = getFragmentManager().beginTransaction();
-                    LoginOtros fragment = new LoginOtros();
-                    fragment.newInstance(context);
-                    trans.replace(R.id.fragment_login_container,fragment);
-                    trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    trans.addToBackStack(null);
-                    trans.commit();
+                    String s = editText1.getText().toString();
+                    String s1 = editText.getText().toString();
+                    String id = myDataBaseHelper.queryRow(s);
+                    if(s1.equals(id)){
+                        Log.v(TAG,"va todo correcto")  ;
+                        myDataBaseHelper.deleteRow(s);
+                    }
+                    else Log.v(TAG,"va todo INcorrecto") ;
                 }
             });
+        buttonCambiarContraseña.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String s = editText1.getText().toString();
+                        String s1 = editText.getText().toString();
+                        FragmentTransaction trans = getFragmentManager().beginTransaction();
+                        cambiarContrasenya fragment = new cambiarContrasenya();
+                        fragment.newInstance(context,s,s1);
+                        trans.replace(R.id.fragment_login_container,fragment);
+                        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        trans.addToBackStack(null);
+                        trans.commit();
+                    }
+                });
             return view;
         }
 

@@ -4,20 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.arnauzapata.myapplication.cambiarContrasenya">
     <EditText
-        android:id="@+id/editTextCambiarContrasenyaUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="username" />
-
-    <EditText
-        android:id="@+id/editTextCambiarContrasenyaOldPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextCambiarContrasenyaUsuario"
-        android:gravity="center"
-        android:hint="old password" />
-    <EditText
         android:id="@+id/editTextCambiarContrasenyaNewPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -28,15 +28,19 @@ public class cambiarContrasenya extends Fragment {
     private Button  buttonAtras;
     private MyDataBaseHelper1 myDataBaseHelper;
     private String TAG="cambiarContrasenya";
+    private static String user;
+    private static String oldPassw;
 
 
     public cambiarContrasenya() {
         // Required empty public constructor
     }
 
-    public static cambiarContrasenya newInstance(Context c) {
+    public static cambiarContrasenya newInstance(Context c, String u, String p) {
         cambiarContrasenya fragment = new cambiarContrasenya();
         context=c;
+        user=u;
+        oldPassw=p;
         return fragment;
     }
 
@@ -49,8 +53,6 @@ public class cambiarContrasenya extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cambiar_contrasenya, container, false);
-        editTextUsuari = (EditText) view.findViewById(R.id.editTextCambiarContrasenyaUsuario);
-        editTextOldContrasenya = (EditText) view.findViewById(R.id.editTextCambiarContrasenyaOldPassword);
         editTextNewContrasenya = (EditText) view.findViewById(R.id.editTextCambiarContrasenyaNewPassword);
         buttonAceptar = (Button) view.findViewById(R.id.buttonCambiarContrasenyaAceptar);
         buttonAtras = (Button) view.findViewById(R.id.buttonAtras);
@@ -59,11 +61,9 @@ public class cambiarContrasenya extends Fragment {
         buttonAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String user = editTextUsuari.getText().toString();
-                String oldPassW = editTextOldContrasenya.getText().toString();
                 String newPassW = editTextNewContrasenya.getText().toString();
                 String id = myDataBaseHelper.queryRow(user);
-                if(oldPassW.equals(id)){
+                if(oldPassw.equals(id)){
                     myDataBaseHelper.updateRow(user,newPassW);
                     FragmentTransaction trans = getFragmentManager().beginTransaction();
                     loginInicial fragment = new loginInicial();
@@ -80,12 +80,11 @@ public class cambiarContrasenya extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
-                LoginOtros fragment = new LoginOtros();
+                loginInicial fragment = new loginInicial();
                 fragment.newInstance(context);
                 trans.replace(R.id.fragment_login_container,fragment);
-                trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                trans.addToBackStack(null);
                 trans.commit();
+                Log.v(TAG,"va todo correcto")  ;
                 //.makeText(view.getContext(),"We created a row with "+id+"!", Toast.LENGTH_SHORT).show();
             }
         });
