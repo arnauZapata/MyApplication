@@ -255,7 +255,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 boolean aux=true;
                 for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
                 //Intent in = new Intent(context, ranking.class);
-                //if(aux) startActivity(in);
+                if(aux);// startActivity(in);
             }
             else{
                 ocupado=true;despierto=false;
