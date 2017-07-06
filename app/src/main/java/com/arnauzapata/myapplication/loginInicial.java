@@ -127,11 +127,21 @@ public class loginInicial extends Fragment {
                         String s1 = editText.getText().toString();
                         FragmentTransaction trans = getFragmentManager().beginTransaction();
                         cambiarContrasenya fragment = new cambiarContrasenya();
-                        fragment.newInstance(context,s,s1);
-                        trans.replace(R.id.fragment_login_container,fragment);
-                        trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                        trans.addToBackStack(null);
-                        trans.commit();
+                        String id = myDataBaseHelper.queryRow(s);
+                        if(s1.equals(id)) {
+                            fragment.newInstance(context, s, s1);
+                            trans.replace(R.id.fragment_login_container, fragment);
+                            trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                            trans.addToBackStack(null);
+                            trans.commit();
+                        }
+                        else{
+                            CharSequence text = "usuario o contraseña erroneos";
+                            int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                            Toast.makeText(context, text, duration).show();
+                        }
                     }
                 });
             return view;
