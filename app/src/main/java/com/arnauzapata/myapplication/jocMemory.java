@@ -269,7 +269,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
             image1 = -1;
             image2 = -1;
             pasos++;
-            text1.setText("numero de pasos" + String.valueOf(pasos));
+            text1.setText("numero de pasos: " + String.valueOf(pasos));
             ocupado=false;
         }
     }
@@ -293,7 +293,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         for(int i=0;i<12;i++) selected[i]=false;
         for(int i=0;i<6;i++) colores[i]=0;
         image1=-1;image2 = -1;
-        pasos=0;
+        pasos=0;text1.setText("numero de pasos: " + String.valueOf(pasos));
     }
 
     private Drawable toDrawable(int auxImage) {
@@ -340,7 +340,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
