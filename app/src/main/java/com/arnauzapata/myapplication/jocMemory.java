@@ -258,6 +258,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 if(aux);// startActivity(in);
             }
             else{
+       //         while(ocupado);
                 ocupado=true;despierto=false;
                 dejarPasarTiempo();
                 while(!despierto);
@@ -292,6 +293,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         for(int i=0;i<12;i++) selected[i]=false;
         for(int i=0;i<6;i++) colores[i]=0;
         image1=-1;image2 = -1;
+        pasos=0;
     }
 
     private Drawable toDrawable(int auxImage) {
