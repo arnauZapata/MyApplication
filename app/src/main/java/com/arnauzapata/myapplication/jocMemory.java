@@ -1,26 +1,24 @@
 package com.arnauzapata.myapplication;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.material.joanbarroso.flipper.CoolImageFlipper;
 
 import java.util.Random;
 
 
-public class jocMemory extends android.app.Fragment implements View.OnClickListener {
-
-
+public class jocMemory extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "Joc Memory";
-    private OnFragmentInteractionListener mListener;
     private ImageView ImageView1;
     private ImageView ImageView2;
     private ImageView ImageView3;
@@ -33,6 +31,8 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
     private ImageView ImageView10;
     private ImageView ImageView11;
     private ImageView ImageView0;
+    private Button button1;
+    TextView text1;
 
     int[] soluciones =new int[12];
     int[] colores =new int[6];
@@ -45,6 +45,12 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
     private boolean ocupado;
     private boolean despierto;
     private int pasos =0;
+    private Drawable d1;
+    private Drawable d2;
+    private Drawable d3;
+    private Drawable d4;
+    private Drawable d5;
+    private Drawable d6;
 
     public jocMemory() {
         for(int i=0;i<12;i++) soluciones[i]=-1;
@@ -62,6 +68,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         image1=-1;image2 = -1;
         ocupado=false;
         context=c;
+
     }
     public static jocMemory newInstance(String param1, String param2) {
         jocMemory fragment = new jocMemory();
@@ -92,7 +99,15 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         ImageView2 = (ImageView) view.findViewById(R.id.imageViewMemory2);
         ImageView1 = (ImageView) view.findViewById(R.id.imageViewMemory1);
         ImageView0 = (ImageView) view.findViewById(R.id.imageViewMemory0);
+        button1 = (Button) view.findViewById(R.id.buttonMemory1);
+        text1 = (TextView) view.findViewById(R.id.textMemory);
 
+        d1=getResources().getDrawable(R.drawable.red);
+        d2=getResources().getDrawable(R.drawable.blue);
+        d3=getResources().getDrawable(R.drawable.brown);
+        d4=getResources().getDrawable(R.drawable.green);
+        d5=getResources().getDrawable(R.drawable.yellow);
+        d6=getResources().getDrawable(R.drawable.lila);
 
         ImageView0.setImageResource(R.drawable.black);
         ImageView1.setImageResource(R.drawable.black);
@@ -107,6 +122,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         ImageView10.setImageResource(R.drawable.black);
         ImageView11.setImageResource(R.drawable.black);
 
+        button1.setOnClickListener(this);
         ImageView0.setOnClickListener(this);
         ImageView1.setOnClickListener(this);
         ImageView2.setOnClickListener(this);
@@ -121,29 +137,12 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
         ImageView11.setOnClickListener(this);
         return view;
     }
-    
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     @Override
     public void onClick(View v) {
         CoolImageFlipper c = new CoolImageFlipper(context);
         Drawable d;
-        jocMemory firstFragment;
         int auxImage=-1;
         switch (v.getId()){
             case R.id.imageViewMemory0:
@@ -151,7 +150,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[0]=true;
                if(soluciones[0]==-1) soluciones[0] = elegirColor();
                 auxImage=soluciones[0];
-                d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView0);
                 break;
             case R.id.imageViewMemory1:
@@ -159,8 +158,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[1]=true;
                 if(soluciones[1]==-1)soluciones[1] = elegirColor();
                 auxImage=soluciones[1];
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView1);
                 break;
             case R.id.imageViewMemory2:
@@ -168,8 +166,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[2]=true;
                 if(soluciones[2]==-1)soluciones[2] = elegirColor();
                 auxImage=soluciones[2];
-                d = getResources().getDrawable(auxImage);
-                ocupado=true;
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView2);
                 break;
             case R.id.imageViewMemory3:
@@ -177,7 +174,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[3]=true;
                 if(soluciones[3]==-1)soluciones[3] = elegirColor();
                 auxImage=soluciones[3];
-                d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView3);
                 break;
             case R.id.imageViewMemory4:
@@ -185,7 +182,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[4]=true;
                 if(soluciones[4]==-1)soluciones[4] = elegirColor();
                  auxImage=soluciones[4];
-                 d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView4);
                 break;
             case R.id.imageViewMemory5:
@@ -193,7 +190,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[5]=true;
                 if(soluciones[5]==-1)soluciones[5] = elegirColor();
                  auxImage=soluciones[5];
-                d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView5);
                 break;
             case R.id.imageViewMemory6:
@@ -201,7 +198,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[6]=true;
                 if(soluciones[6]==-1)soluciones[6] = elegirColor();
                  auxImage=soluciones[6];
-                 d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView6);
                 break;
             case R.id.imageViewMemory7:
@@ -209,7 +206,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[7]=true;
                 if(soluciones[7]==-1)soluciones[7] = elegirColor();
                  auxImage=soluciones[7];
-                d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView7);
                 break;
             case R.id.imageViewMemory8:
@@ -217,7 +214,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[8]=true;
                 if(soluciones[8]==-1)soluciones[8] = elegirColor();
                  auxImage=soluciones[8];
-                 d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView8);
                 break;
             case R.id.imageViewMemory9:
@@ -225,7 +222,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[9]=true;
                 if(soluciones[9]==-1)soluciones[9] = elegirColor();
                  auxImage=soluciones[9];
-                 d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView9);
                 break;
             case R.id.imageViewMemory10:
@@ -233,7 +230,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[10]=true;
                 if(soluciones[10]==-1)soluciones[10] = elegirColor();
                  auxImage=soluciones[10];
-                 d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                 c.flipImage(d,ImageView10);
                 break;
             case R.id.imageViewMemory11:
@@ -241,9 +238,12 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 selected[11]=true;
                 if(soluciones[11]==-1)soluciones[11] = elegirColor();
                  auxImage=soluciones[11];
-                 d = getResources().getDrawable(auxImage);
+                d = toDrawable(auxImage);
                  c.flipImage(d,ImageView11);
             break;
+            case R.id.buttonMemory1:
+                empezarDeNuevo();
+                break;
         }
         if(image1==-1){image1=auxImage;}
         else if(image2==-1){image2=auxImage;}
@@ -252,6 +252,10 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             int i;
             if (image1 == image2) {
                 for (i = 0; i < 12; i++) if (selected[i]) solved[i] = true;
+                boolean aux=true;
+                for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
+                //Intent in = new Intent(context, ranking.class);
+                //if(aux) startActivity(in);
             }
             else{
                 ocupado=true;despierto=false;
@@ -264,12 +268,48 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
             image1 = -1;
             image2 = -1;
             pasos++;
+            text1.setText("numero de pasos" + String.valueOf(pasos));
             ocupado=false;
-            boolean aux=true;
-            for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
-            Intent in = new Intent(context, ranking.class);
-            if(aux) startActivity(in);
         }
+    }
+
+    private void empezarDeNuevo() {
+        ImageView0.setImageResource(R.drawable.black);
+        ImageView1.setImageResource(R.drawable.black);
+        ImageView2.setImageResource(R.drawable.black);
+        ImageView3.setImageResource(R.drawable.black);
+        ImageView4.setImageResource(R.drawable.black);
+        ImageView5.setImageResource(R.drawable.black);
+        ImageView6.setImageResource(R.drawable.black);
+        ImageView7.setImageResource(R.drawable.black);
+        ImageView8.setImageResource(R.drawable.black);
+        ImageView9.setImageResource(R.drawable.black);
+        ImageView10.setImageResource(R.drawable.black);
+        ImageView11.setImageResource(R.drawable.black);
+
+        for(int i=0;i<12;i++) soluciones[i]=-1;
+        for(int i=0;i<12;i++) solved[i]=false;
+        for(int i=0;i<12;i++) selected[i]=false;
+        for(int i=0;i<6;i++) colores[i]=0;
+        image1=-1;image2 = -1;
+    }
+
+    private Drawable toDrawable(int auxImage) {
+        switch (auxImage){
+            case R.drawable.red:
+                return d1;
+            case R.drawable.blue:
+                return d2;
+            case R.drawable.brown:
+                return d3;
+            case R.drawable.green:
+                return d4;
+            case R.drawable.yellow:
+                return d5;
+            case R.drawable.lila:
+                return d6;
+        }
+        return null;
     }
 
     private int elegirColor() {
@@ -308,6 +348,11 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
     private void voltearCarta(int i) {
         CoolImageFlipper c = new CoolImageFlipper(context);
         Drawable d= getResources().getDrawable(R.drawable.black);
@@ -334,7 +379,6 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 c.flipImage(d,ImageView6);
                 break;
             case 7:
-
                 c.flipImage(d,ImageView7);
                 break;
             case 8:
@@ -351,10 +395,7 @@ public class jocMemory extends android.app.Fragment implements View.OnClickListe
                 break;
 
         }
-    }
 
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }
