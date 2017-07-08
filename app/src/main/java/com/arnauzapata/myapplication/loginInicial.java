@@ -85,6 +85,8 @@ public class loginInicial extends Fragment {
                     if(s1.equals(id)){
                         Log.v(TAG,"va todo correcto")  ;
                         Intent i = new Intent(context, memory.class);
+
+                        memory.putUser(s);
                         startActivity(i);
                     }
                     else{

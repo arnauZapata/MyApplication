@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("text", "Soy el boton 2");
                 editor.apply();
-                i = new Intent(context,memory.class);
+                i = new Intent(context,ranking.class);
                 startActivity(i);
                 break;
             case R.id.button3:

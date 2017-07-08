@@ -22,15 +22,12 @@ import android.widget.Toast;
 public class cambiarContrasenya extends Fragment {
 
     private static Context context;
-    private EditText editTextUsuari;
-    private EditText editTextOldContrasenya;
     private EditText editTextNewContrasenya;
     private Button buttonAceptar;
     private Button  buttonAtras;
     private MyDataBaseHelper1 myDataBaseHelper;
     private String TAG="cambiarContrasenya";
     private static String user;
-    private static String oldPassw;
 
 
     public cambiarContrasenya() {
@@ -41,7 +38,6 @@ public class cambiarContrasenya extends Fragment {
         cambiarContrasenya fragment = new cambiarContrasenya();
         context=c;
         user=u;
-        oldPassw=p;
         return fragment;
     }
 
@@ -75,7 +71,7 @@ public class cambiarContrasenya extends Fragment {
                     loginInicial fragment = new loginInicial();
                     fragment.newInstance(context);
                     trans.replace(R.id.fragment_login_container,fragment);
-                    trans.commit();;
+                    trans.commit();
             }
         });
         buttonAtras.setOnClickListener(new View.OnClickListener() {

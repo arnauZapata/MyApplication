@@ -19,6 +19,8 @@ final class MyDataBaseContract1 {
 
 }
 
+
+
 class MyDataBaseHelper1 extends SQLiteOpenHelper{
 
     /*
@@ -37,9 +39,17 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract1.Table1.TABLE_NAME;
 
+    static final String SQL_CREATE_TABLE2 = "create table "+ "Ranking"+
+            "( " +"ID"+" integer primary key autoincrement,"+ "USER  text UNIQUE,PUNTUATION text); ";
+
+    private static final String SQL_DELETE_TABLE2 =
+            "DROP TABLE IF EXISTS " + "Ranking";
+
+
     private static MyDataBaseHelper1 instance;
     private static SQLiteDatabase writable;
     private static SQLiteDatabase readable;
+
 
     //We will use this method instead the default constructor to get a reference.
     //With this we will use all the time the same reference.
@@ -61,11 +71,13 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //We execute here the SQL sentence to create the DB
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE1);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABLE2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(SQL_DELETE_TABLE1);
+        sqLiteDatabase.execSQL(SQL_DELETE_TABLE2);
         onCreate(sqLiteDatabase);
     }
 
@@ -119,6 +131,8 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
         Log.v(TAG,password);
         return password;
     }
+
+
 
     @Override
     public synchronized void close() {
