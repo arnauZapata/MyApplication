@@ -296,6 +296,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 boolean aux=true;
                 for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
                 Intent in = new Intent(context, ranking.class);
+                in.putExtra("user",user);
                 if(aux){
                     long id = BaseDatosRanking.createRow(user,String.valueOf(pasos));
                     String oldPuntuation = BaseDatosRanking.queryRow(user);

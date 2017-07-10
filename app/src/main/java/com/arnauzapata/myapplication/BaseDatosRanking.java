@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
+import android.util.Pair;
+
+import java.util.ArrayList;
 
 import static com.arnauzapata.myapplication.MyDataBaseContract2.Table1.PASSWORD;
 import static com.arnauzapata.myapplication.MyDataBaseContract2.Table1.TABLE_NAME;
@@ -124,6 +127,27 @@ public class BaseDatosRanking extends SQLiteOpenHelper {
         }
         c.close();
         return password;
+    }
+
+    public ArrayList<Pair<String,String>> selectAllPuntuation() {
+        ArrayList<Pair<String,String>> list = new ArrayList<Pair<String,String>>();
+        Cursor c = readable.query(TABLE_NAME,    //Table name
+                null,       //Columns we select
+                null,    //Columns for the WHERE clause
+                null,                                   //Values for the WHERE clause
+                null,                                               //Group By
+                null,                                               //Having
+                PASSWORD);
+        if (c.moveToFirst()) {
+            do {
+                Pair userPuntuation = new Pair(c.getString(1), c.getString(2));
+                list.add(userPuntuation);
+            } while (c.moveToNext());
+        }
+        if (c != null && !c.isClosed()) {
+            c.close();
+        }
+        return list;
     }
 
     @Override
