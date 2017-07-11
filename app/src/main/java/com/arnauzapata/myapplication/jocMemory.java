@@ -47,6 +47,15 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     boolean [] solved=new boolean[16];
     boolean [] selected=new boolean[16];
     int image1; int image2;
+    int select1, select2;
+    private static final int color1=R.drawable.red;
+    private static final int color2=R.drawable.blue;
+    private static final int color3=R.drawable.brown;
+    private static final int color4=R.drawable.green;
+    private static final int color5=R.drawable.yellow;
+    private static final int color6=R.drawable.lila;
+    private static final int color7=R.drawable.gris;
+    private static final int color8=R.drawable.cian;
 
 
     Context context;
@@ -63,21 +72,23 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     private Drawable d8;
     private BaseDatosRanking BaseDatosRanking=null;
 
-    public jocMemory() {
+
+    public void empezarJuego(){
         for(int i=0;i<16;i++) soluciones[i]=-1;
         for(int i=0;i<16;i++) solved[i]=false;
         for(int i=0;i<16;i++) selected[i]=false;
         for(int i=0;i<8;i++) colores[i]=0;
         image1=-1;image2 = -1;
+        select1=-1;select2 = -1;
+    }
+
+    public jocMemory() {
+        empezarJuego();
     }
 
     public jocMemory(Context c, String s) {
         // Required empty public constructor
-        for(int i=0;i<16;i++) soluciones[i]=-1;
-        for(int i=0;i<16;i++) solved[i]=false;
-        for(int i=0;i<16;i++) selected[i]=false;
-        for(int i=0;i<8;i++) colores[i]=0;
-        image1=-1;image2 = -1;
+        empezarJuego();
         ocupado=false;
         context=c;
         user=s;
@@ -121,6 +132,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         button1 = (Button) view.findViewById(R.id.buttonMemory1);
         text1 = (TextView) view.findViewById(R.id.textMemory);
 
+
         d1=getResources().getDrawable(R.drawable.red);
         d2=getResources().getDrawable(R.drawable.blue);
         d3=getResources().getDrawable(R.drawable.brown);
@@ -130,40 +142,14 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         d7=getResources().getDrawable(R.drawable.gris);
         d8=getResources().getDrawable(R.drawable.cian);
 
-        ImageView0.setImageResource(R.drawable.black);
-        ImageView1.setImageResource(R.drawable.black);
-        ImageView2.setImageResource(R.drawable.black);
-        ImageView3.setImageResource(R.drawable.black);
-        ImageView4.setImageResource(R.drawable.black);
-        ImageView5.setImageResource(R.drawable.black);
-        ImageView6.setImageResource(R.drawable.black);
-        ImageView7.setImageResource(R.drawable.black);
-        ImageView8.setImageResource(R.drawable.black);
-        ImageView9.setImageResource(R.drawable.black);
-        ImageView10.setImageResource(R.drawable.black);
-        ImageView11.setImageResource(R.drawable.black);
-        ImageView12.setImageResource(R.drawable.black);
-        ImageView13.setImageResource(R.drawable.black);
-        ImageView14.setImageResource(R.drawable.black);
-        ImageView15.setImageResource(R.drawable.black);
+        for(int i=0;i<16;i++){
+            toImageView(i).setImageResource(R.drawable.black);
+        }
 
         button1.setOnClickListener(this);
-        ImageView0.setOnClickListener(this);
-        ImageView1.setOnClickListener(this);
-        ImageView2.setOnClickListener(this);
-        ImageView3.setOnClickListener(this);
-        ImageView4.setOnClickListener(this);
-        ImageView5.setOnClickListener(this);
-        ImageView6.setOnClickListener(this);
-        ImageView7.setOnClickListener(this);
-        ImageView8.setOnClickListener(this);
-        ImageView9.setOnClickListener(this);
-        ImageView10.setOnClickListener(this);
-        ImageView11.setOnClickListener(this);
-        ImageView12.setOnClickListener(this);
-        ImageView13.setOnClickListener(this);
-        ImageView14.setOnClickListener(this);
-        ImageView15.setOnClickListener(this);
+        for(int i=0;i<16;i++){
+            toImageView(i).setOnClickListener(this);
+        }
         return view;
     }
 
@@ -230,11 +216,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
             pasos++;
             int i;
             if (image1 == image2) {
-                for (i = 0; i < 12; i++) if (selected[i]){
-                    solved[i] = true;
-                }
+                if(select1!=-1)solved[select1]=true;
+                if(select2!=-1)solved[select2]=true;
                 boolean aux=true;
-                for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
+                for (i = 0; i < 16; i++) if (!solved[i]) aux=false;
                 if(aux) {
                     if (pasos < 10) BaseDatosRanking.createRow(user, "0" + String.valueOf(pasos));
                     else BaseDatosRanking.createRow(user, String.valueOf(pasos));
@@ -248,7 +233,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                         else BaseDatosRanking.updateRow(user,String.valueOf(pasos));
                     }
                     if(pasos>100){
-                        CharSequence text = "Tu manqueo es over 9000 y no se te es permitido subirlo al ranking";
+                        CharSequence text = "Has ganado, pero tu manqueo es over 9000 y no se te es permitido subirlo al ranking";
                         int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
                         Toast.makeText(context, text, duration).show();
                     }
@@ -258,42 +243,59 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                         Toast.makeText(context, text, duration).show();
                     }
                 }
-                for (int pos = 0; pos < 16; pos++) selected[pos] = false;
-                image1 = -1;
-                image2 = -1;
-                text1.setText("numero de pasos: " + String.valueOf(pasos));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(select1!=-1)toImageView(select1).setVisibility(View.INVISIBLE);
+                        if(select2!=-1)toImageView(select2).setVisibility(View.INVISIBLE);
+                        image1 = -1;
+                        image2 = -1;
+                        allSelectedFalse();
+                        text1.setText("numero de pasos: " + String.valueOf(pasos));
+                        ocupado=false;
+                    }
+                }, 2000);
             }
             else{
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        for (int pos = 0; pos < 16; pos++) {
-                            if (selected[pos]) {
-                                voltearCarta(pos);
-                            }
-                        }
-                        for (int pos = 0; pos < 16; pos++) selected[pos] = false;
+                        if(select1!=-1)voltearCarta(select1);
+                        if(select2!=-1)voltearCarta(select2);
                         image1 = -1;
                         image2 = -1;
+                        allSelectedFalse();
                         text1.setText("numero de pasos: " + String.valueOf(pasos));
+                        ocupado=false;
                     }
-                }, 1000);
+                }, 2000);
 
             }
         }
+        else ocupado=false;
+    }
+
+    private void allSelectedFalse(){
+        if(select1!=-1)selected[select1]=false;
+        if(select2!=-1)selected[select2]=false;
+        select1 = -1;
+        select2 = -1;
     }
 
     private void pulsarCarta(int i) {
         int auxImage;
-        if(selected[i] || solved[i]) return;
+        if(selected[i] || solved[i] || ocupado) return;
         selected[i]=true;
         if(soluciones[i]==-1)soluciones[i] = elegirColor();
         auxImage=soluciones[i];
         if(image1==-1){image1=auxImage;}
         else if(image2==-1){image2=auxImage;}
+        if(select1==-1){select1=i;}
+        else if(select2==-1){select2=i;}
         CoolImageFlipper c = new CoolImageFlipper(context);
         Drawable d =null;
         d = toDrawable(auxImage);
+        ocupado=true;
         c.flipImage(d,toImageView(i));
     }
 
@@ -301,30 +303,27 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         for(int i=0;i<16;i++){
             toImageView(i).setImageResource(R.drawable.black);
         }
-
-        for(int i=0;i<16;i++) soluciones[i]=-1;
-        for(int i=0;i<16;i++) solved[i]=false;
-        for(int i=0;i<16;i++) selected[i]=false;
-        for(int i=0;i<8;i++) colores[i]=0;
-        image1=-1;image2 = -1;
+        empezarJuego();
         pasos=0;text1.setText("numero de pasos: " + String.valueOf(pasos));
     }
 
     private Drawable toDrawable(int auxImage) {
         switch (auxImage){
-            case R.drawable.red:
+            case color1:
                 return d1;
-            case R.drawable.blue:
+            case color2:
                 return d2;
-            case R.drawable.brown:
+            case color3:
                 return d3;
-            case R.drawable.green:
+            case color4:
                 return d4;
-            case R.drawable.yellow:
+            case color5:
                 return d5;
-            case R.drawable.gris:
+            case color6:
+                return d6;
+            case color7:
                 return d7;
-            case R.drawable.cian:
+            case color8:
                 return d8;
         }
         return null;
@@ -336,21 +335,21 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         do {num = rand.nextInt(8);}while(colores[num]>=2);colores[num]++; //busca numeros al azar hasta que encuentra uno donde no hayan sido asignados 2 o mas colores, entonces añade uno al color asignado
         switch (num){
             case 0:
-                return R.drawable.red;
+                return color1;
             case 1:
-                return R.drawable.blue;
+                return color2;
             case 2:
-                return R.drawable.brown;
+                return color3;
             case 3:
-                return R.drawable.green;
+                return color4;
             case 4:
-                return R.drawable.yellow;
+                return color5;
             case 5:
-                return R.drawable.lila;
+                return color6;
             case 6:
-                return R.drawable.gris;
+                return color7;
             case 7:
-                return R.drawable.cian;
+                return color8;
         }
         return R.drawable.black;
     }

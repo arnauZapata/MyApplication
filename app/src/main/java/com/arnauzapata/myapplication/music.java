@@ -46,14 +46,6 @@ public class music extends AppCompatActivity implements View.OnClickListener{
 
 //Reproducir una cancion de la carpeta raw
         mediaPlayer = MediaPlayer.create(context, R.raw.bootyswing);
-
-
-//Funciones de control
-
-       // mediaPlayer.pause();
-        //mediaPlayer.stop();
-        //mediaPlayer.release();
-
     }
 
 
