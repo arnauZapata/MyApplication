@@ -47,7 +47,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Memory"
-            android:onClick="meHanHechoClick"
+            />
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Music"
             />
     </LinearLayout>
 

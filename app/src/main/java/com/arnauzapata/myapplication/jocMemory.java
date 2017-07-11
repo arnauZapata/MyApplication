@@ -2,7 +2,6 @@ package com.arnauzapata.myapplication;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -236,8 +235,6 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 }
                 boolean aux=true;
                 for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
-                Intent in = new Intent(context, ranking.class);
-                in.putExtra("user",user);
                 if(aux) {
                     if (pasos < 10) BaseDatosRanking.createRow(user, "0" + String.valueOf(pasos));
                     else BaseDatosRanking.createRow(user, String.valueOf(pasos));
@@ -253,11 +250,13 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                     if(pasos>100){
                         CharSequence text = "Tu manqueo es over 9000 y no se te es permitido subirlo al ranking";
                         int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
                         Toast.makeText(context, text, duration).show();
                     }
-                    else startActivity(in);
+                    else{
+                        CharSequence text = "¡¡Has ganado!!";
+                        int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                        Toast.makeText(context, text, duration).show();
+                    }
                 }
                 for (int pos = 0; pos < 16; pos++) selected[pos] = false;
                 image1 = -1;

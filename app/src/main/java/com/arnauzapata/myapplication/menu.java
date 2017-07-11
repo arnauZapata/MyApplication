@@ -20,7 +20,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     final Context context = this;
     private static final String TAG = "MyActivity";
 
-    Button buttonOne, buttonTwo, buttonTree;
+    Button buttonOne, buttonTwo, buttonTree,buttonFour,buttonFive;
     TextView textOne;
     Toolbar toolbar;
     EditText editText;
@@ -30,23 +30,18 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         buttonOne = (Button) findViewById(R.id.button1);
         buttonTwo = (Button) findViewById(R.id.button2);
         buttonTree = (Button) findViewById(R.id.button3);
-        textOne = (TextView) findViewById(R.id.text1);
+        buttonFour = (Button) findViewById(R.id.button4);
+        buttonFive = (Button) findViewById(R.id.button5);
         toolbar = (Toolbar) findViewById(R.id.toolBar1);
     }
 
     private void asignarOnClickListener() {
 
-        buttonOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v(TAG, "Soy el boton 1");
-                Intent i = new Intent(context,calculadora.class);
-                i.putExtra("user",user);
-                startActivity(i);
-            }
-        });
+        buttonOne.setOnClickListener(this);
         buttonTwo.setOnClickListener(this);
         buttonTree.setOnClickListener(this);
+        buttonFour.setOnClickListener(this);
+        buttonFive.setOnClickListener(this);
     }
 
     private void asignarValoresObjetos() {
@@ -101,22 +96,26 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
                 break;
             case R.id.button3:
                 Log.v(TAG, "Soy el boton 3");
-                Context context = getApplicationContext();
                 i = new Intent(context, perfil.class);
                 i.putExtra("user",user);
                 startActivity(i);
                 break;
-
+            case R.id.button4:
+                Log.v(TAG, "Soy el boton 4");
+                 i = new Intent(context,memory.class);
+                i.putExtra("user",user);
+                startActivity(i);
+                break;
+            case R.id.button5:
+                Log.v(TAG, "Soy el boton 5");
+                i = new Intent(context, music.class);
+                i.putExtra("user",user);
+                startActivity(i);
+                break;
         }
         Log.v(TAG, "Soy el boton 2");
     }
 
-    public void meHanHechoClick(View v){
-        Log.v(TAG, "Soy el boton 4");
-        Intent i = new Intent(context,memory.class);
-        i.putExtra("user",user);
-        startActivity(i);
-    }
 
     public boolean onCreateOptionsMenu(Menu menu){
 
