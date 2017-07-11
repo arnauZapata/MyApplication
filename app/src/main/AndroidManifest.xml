@@ -28,6 +28,8 @@
         </activity>
         <activity android:name=".menu">
         </activity>
+        <activity android:name=".elegirImagen">
+        </activity>
     </application>
 
 </manifest>

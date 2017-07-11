@@ -108,7 +108,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
                 break;
             case R.id.button5:
                 Log.v(TAG, "Soy el boton 5");
-                i = new Intent(context, music.class);
+                i = new Intent(context, elegirImagen.class);
                 i.putExtra("user",user);
                 startActivity(i);
                 break;

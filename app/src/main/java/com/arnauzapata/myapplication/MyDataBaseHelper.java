@@ -15,6 +15,8 @@ final class MyDataBaseContract1 {
         public static final String TABLE_NAME = "LOGIN";
         public static final String USERNAME = "USERNAME";
         public static final String PASSWORD = "PASSWORD";
+        public static final String IMAGE = "IMAGE";
+        public static final String DIRECCION = "DIRECCION";
     }
 
 }
@@ -30,20 +32,15 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     private final String TAG = "MyDataBaseHelper";
 
     public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "MyDataBase.db";
+    public static final String DATABASE_NAME = "MYDataBase.db";
 
 
     static final String SQL_CREATE_TABLE1 = "create table "+"LOGIN"+
-            "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text UNIQUE,PASSWORD text); ";
+            "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text UNIQUE,PASSWORD text,IMAGE text,DIRECCION text); ";
 
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract1.Table1.TABLE_NAME;
 
-    static final String SQL_CREATE_TABLE2 = "create table "+ "Ranking"+
-            "( " +"ID"+" integer primary key autoincrement,"+ "USER  text UNIQUE,PUNTUATION text); ";
-
-    private static final String SQL_DELETE_TABLE2 =
-            "DROP TABLE IF EXISTS " + "Ranking";
 
 
     private static MyDataBaseHelper1 instance;
@@ -71,13 +68,11 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //We execute here the SQL sentence to create the DB
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE1);
-        sqLiteDatabase.execSQL(SQL_CREATE_TABLE2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL(SQL_DELETE_TABLE1);
-        sqLiteDatabase.execSQL(SQL_DELETE_TABLE2);
         onCreate(sqLiteDatabase);
     }
 
@@ -85,6 +80,8 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(MyDataBaseContract1.Table1.USERNAME,user);
         values.put(MyDataBaseContract1.Table1.PASSWORD,password);
+        values.put(MyDataBaseContract1.Table1.IMAGE,"NULL");
+        values.put(MyDataBaseContract1.Table1.DIRECCION,"NULL");
         long newId = writable.insert(MyDataBaseContract1.Table1.TABLE_NAME,null,values);
         return newId;
     }
@@ -141,5 +138,61 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
         writable.close();
         readable.close();
         Log.v(TAG,"close()");
+    }
+
+    public void setImage(String user, String image) {
+        ContentValues values = new ContentValues();
+        values.put(MyDataBaseContract1.Table1.USERNAME,user);
+        values.put(MyDataBaseContract1.Table1.PASSWORD,queryRow(user));
+        values.put(MyDataBaseContract1.Table1.IMAGE,image);
+        readable.update(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract1.Table1.USERNAME + " LIKE ? ",                 //Selection args
+                new String[] {user});
+    }
+
+    public String getImage(String user) {
+        Cursor c;
+        c = readable.query(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
+                new String[] {MyDataBaseContract1.Table1.IMAGE},       //Columns we select
+                MyDataBaseContract1.Table1.USERNAME + " = ? ",    //Columns for the WHERE clause
+                new String[] {user},                                   //Values for the WHERE clause
+                null,                                               //Group By
+                null,                                               //Having
+                null);                                              //Sort
+
+        String image = "NULL";
+        if (c.moveToFirst()) {
+            do {
+                //We go here if the cursor is not empty
+                String l = c.getString(c.getColumnIndex(MyDataBaseContract1.Table1.IMAGE));
+                image= String.valueOf(l);
+            } while (c.moveToNext());
+        }
+        c.close();
+        Log.v(TAG,image);
+        return image;
+    }
+
+    public String getDireccion(String user) {
+        Cursor c;
+        c = readable.query(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
+                new String[] {MyDataBaseContract1.Table1.DIRECCION},       //Columns we select
+                MyDataBaseContract1.Table1.USERNAME + " = ? ",    //Columns for the WHERE clause
+                new String[] {user},                                   //Values for the WHERE clause
+                null,                                               //Group By
+                null,                                               //Having
+                null);                                              //Sort
+        String direccion = "NULL";
+        if (c.moveToFirst()) {
+            do {
+                //We go here if the cursor is not empty
+                String l = c.getString(c.getColumnIndex(MyDataBaseContract1.Table1.DIRECCION));
+                direccion= String.valueOf(l);
+            } while (c.moveToNext());
+        }
+        c.close();
+        Log.v(TAG,direccion);
+        return direccion;
     }
 }

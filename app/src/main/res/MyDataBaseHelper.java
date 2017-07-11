@@ -54,7 +54,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
     }
 
     //With this, all must use getInstance(Context) to use this class
-    private MyDataBaseHelper(Context context) {
+    public MyDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -131,4 +131,6 @@ public class MyDataBaseHelper extends SQLiteOpenHelper{
         readable.close();
         Log.v(TAG,"close()");
     }
+
+
 }
