@@ -24,6 +24,10 @@
         <activity android:name=".music"/>
         <activity android:name=".ranking">
         </activity>
+        <activity android:name=".perfil">
+        </activity>
+        <activity android:name=".menu">
+        </activity>
     </application>
 
 </manifest>

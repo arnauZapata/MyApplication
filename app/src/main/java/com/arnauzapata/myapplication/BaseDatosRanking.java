@@ -137,7 +137,7 @@ public class BaseDatosRanking extends SQLiteOpenHelper {
                 null,                                   //Values for the WHERE clause
                 null,                                               //Group By
                 null,                                               //Having
-                PASSWORD);
+                PASSWORD+" ASC");
         if (c.moveToFirst()) {
             do {
                 Pair userPuntuation = new Pair(c.getString(1), c.getString(2));

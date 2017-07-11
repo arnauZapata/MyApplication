@@ -281,13 +281,13 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 else if(image2==-1){image2=auxImage;}
                 d = toDrawable(auxImage);
                 c.flipImage(d,ImageView11);
-                Log.v(TAG, "hace esta operacion");
             break;
             case R.id.buttonMemory1:
                 empezarDeNuevo();
                 break;
         }
         if(image1!=-1 && image2!=-1) {
+            pasos++;
             int i;
             if (image1 == image2) {
                 for (i = 0; i < 12; i++) if (selected[i]){
@@ -298,17 +298,20 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 Intent in = new Intent(context, ranking.class);
                 in.putExtra("user",user);
                 if(aux){
-                    long id = BaseDatosRanking.createRow(user,String.valueOf(pasos));
+                    if(pasos<10) BaseDatosRanking.createRow(user,"0"+String.valueOf(pasos));
+                    else BaseDatosRanking.createRow(user,String.valueOf(pasos));
                     String oldPuntuation = BaseDatosRanking.queryRow(user);
                     Log.v(TAG,oldPuntuation);
                     int oldPunt = Integer.valueOf(oldPuntuation);
-                    if(oldPunt>pasos) BaseDatosRanking.updateRow(user,String.valueOf(pasos));
+                    if(oldPunt>pasos){
+                        if(pasos<10) BaseDatosRanking.updateRow(user,"0"+String.valueOf(pasos));
+                        else BaseDatosRanking.updateRow(user,String.valueOf(pasos));
+                    }
                     startActivity(in);
                 }
                 for (int pos = 0; pos < 12; pos++) selected[pos] = false;
                 image1 = -1;
                 image2 = -1;
-                pasos++;
                 text1.setText("numero de pasos: " + String.valueOf(pasos));
             }
             else{
@@ -323,7 +326,6 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                         for (int pos = 0; pos < 12; pos++) selected[pos] = false;
                         image1 = -1;
                         image2 = -1;
-                        pasos++;
                         text1.setText("numero de pasos: " + String.valueOf(pasos));
                     }
                 }, 1000);

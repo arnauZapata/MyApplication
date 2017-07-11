@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 public class loginInicial extends Fragment {
     private OnFragmentInteractionListener mListener;
-    
     private EditText editText;
     private Button buttonCreate;
     private Button buttonQuery;
@@ -51,7 +50,6 @@ public class loginInicial extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_login_inicial, container, false);
-
             editText1 = (EditText) view.findViewById(R.id.editTextLoginUser);
             editText = (EditText) view.findViewById(R.id.editTextLoginPass);
             buttonCreate = (Button) view.findViewById(R.id.buttonSignIn);
@@ -66,6 +64,10 @@ public class loginInicial extends Fragment {
                     String s1 = editText1.getText().toString();
                     String s = editText.getText().toString();
                     long id = myDataBaseHelper.createRow(s1,s);
+                    BaseDatosRanking baseRanking = new BaseDatosRanking(context);
+                    baseRanking.getInstance(context);
+                    baseRanking.createRow(s1,"null");
+                    Log.v(TAG,baseRanking.queryRow(s1));
                     CharSequence text = "registro con exito";
                     int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context, text, duration);
@@ -84,8 +86,8 @@ public class loginInicial extends Fragment {
                     String id = myDataBaseHelper.queryRow(s);
                     if(s1.equals(id)){
                         Log.v(TAG,"va todo correcto")  ;
-                        Intent i = new Intent(context, memory.class);
-
+                        Intent i = new Intent(context, menu.class);
+                        i.putExtra("user",s);
                         memory.putUser(s);
                         startActivity(i);
                     }
@@ -106,6 +108,9 @@ public class loginInicial extends Fragment {
                     String id = myDataBaseHelper.queryRow(s);
                     if(s1.equals(id)){
                         myDataBaseHelper.deleteRow(s);
+                        BaseDatosRanking baseRanking = new BaseDatosRanking(context);
+                        baseRanking.getInstance(context);
+                        baseRanking.deleteRow(s);
                         CharSequence text = "usuario eliminado";
                         int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
                         Toast toast = Toast.makeText(context, text, duration);

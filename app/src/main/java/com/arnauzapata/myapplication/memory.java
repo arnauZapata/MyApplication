@@ -15,6 +15,7 @@ public class memory extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
+        user=getIntent().getStringExtra("user");
         jocMemory firstFragment = new jocMemory(context,user);
         //firstFragment.newInstance(context);
         getFragmentManager().beginTransaction().add(R.id.fragment_memory_container, firstFragment).commit();

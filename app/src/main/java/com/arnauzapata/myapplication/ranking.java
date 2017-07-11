@@ -29,13 +29,12 @@ public class ranking extends AppCompatActivity implements View.OnClickListener {
 
         user="hola";
         super.onCreate(savedInstanceState);
-
         Intent intent = getIntent();
-        user = intent.getStringExtra("user");
+        if(intent.getStringExtra("user")!=null) user=intent.getStringExtra("user");
         BaseDatosRanking= new BaseDatosRanking(this);
         BaseDatosRanking.getInstance(this);
         setContentView(R.layout.activity_ranking);
-         text1=(TextView) findViewById(R.id.textViewRanking);
+        text1=(TextView) findViewById(R.id.textViewRanking);
         button = (Button) findViewById(R.id.buttonRanking);
         button.setOnClickListener(this);
         mostrarRanking();
