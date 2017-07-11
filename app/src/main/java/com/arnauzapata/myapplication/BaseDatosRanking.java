@@ -34,7 +34,7 @@ public class BaseDatosRanking extends SQLiteOpenHelper {
     private final String TAG = "BaseDatosRanking";
 
     public static final int DATABASE_VERSION_RANKING = 2;
-    public static final String DATABASE_NAME_RANKING = "MyDataBaseRanking.db";
+    public static final String DATABASE_NAME_RANKING = "MYDataBaseRanking.db";
 
 
 

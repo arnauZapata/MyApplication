@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class calculadora extends AppCompatActivity implements View.OnClickListener {
     int numero;
@@ -15,6 +16,8 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     double resultat=0;
     double decimal= 1.0;
     int lastNumber=0;
+    Context context=this;
+    String textoInquietante= "ERROR fatal: tu imprudencia de dividir entre 0 a destruido un universo digital, billones de procesos han muerto por tu culpa. ¡¡Eres un monstruo!!";
     private static final String TAG = "Calculadora";
 
     Button button7; Button button8; Button button9;
@@ -28,6 +31,8 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     boolean decimalValid=true;
 
     String calcul ="";
+    private boolean destruccionUniverso=false;
+
     private void inicializarObjetos() {
         button0 = (Button) findViewById(R.id.buttonCalculadora0);
         button1 = (Button) findViewById(R.id.buttonCalculadora1);
@@ -200,9 +205,15 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 if(num3==-1)num3=resultat;
                 Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
                 if(op2=="*") num2*=num3;
-                if(op2=="/") num2/=num3;
+                if(op2=="/") {
+                    num2/=num3;
+                    if(num3==0)destruccionUniverso=true;
+                }
                 if(op1=="*") num1*=num2;
-                if(op1=="/") num1/=num2;
+                if(op1=="/") {
+                    num1/=num2;
+                    if(num2==0)destruccionUniverso=true;
+                }
                 if(op1=="+") num1+=num2;
                 if(op1=="-") num1-=num2;
                 num2=-1;num3=-1;op1="";op2="";
@@ -211,6 +222,12 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 num1=-1;
                 calcul="";
                 resultat=0;
+                if(destruccionUniverso){
+                    int duration = Toast.LENGTH_LONG;
+                    Toast.makeText(context, textoInquietante, duration).show();
+                }
+                destruccionUniverso=false;
+
                 break;
             case R.id.buttonCalculadoraDelete:
                 if(calcul=="") break;
@@ -235,6 +252,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
                 firstButton=true;
                 validOperator=false;
                 decimalValid=true;
+                destruccionUniverso=false;
                 textResultat.setText(calcul);
                 lastNumber=0;
                 num1=-1;num2=-1;num3=-1;op1="";op2="";
@@ -272,6 +290,10 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         else if(num2==-1 && (op1=="*" || op1 =="/")){
             num2=resultat;
             if(op1=="*")num1*=num2;
+            else if(num2==0){
+                num1/=num2;
+                destruccionUniverso=true;
+            }
             else num1/=num2;
             num2=-1;
             op1=s;
@@ -292,6 +314,10 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         else if(num3==-1 && (op1=="+" || op1 == "-") && (op2=="*" || op2=="/")){
             num3=resultat;
             if(op2=="*")num2*=num3;
+            else if(num3==0){
+                num2/=num3;
+                destruccionUniverso=true;
+            }
             else num2/=num3;
             num3=-1;
             op2=s;

@@ -23,24 +23,28 @@
         android:text="Sign in"
         android:layout_below="@+id/editTextLoginPass"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"/>
     <Button
         android:id="@+id/buttonLogIn"
         android:text="Log in"
         android:layout_below="@+id/buttonSignIn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
     <Button
         android:id="@+id/buttonBorrar"
         android:text="Borrar"
         android:layout_below="@+id/buttonLogIn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"/>
     <Button
         android:id="@+id/buttonOtros"
         android:text="Cambiar Contraseña"
         android:layout_below="@+id/buttonBorrar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>

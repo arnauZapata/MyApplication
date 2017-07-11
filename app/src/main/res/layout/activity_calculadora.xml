@@ -9,7 +9,7 @@
         android:id="@+id/TextViewResultat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:ems="10"
 
         android:inputType="textPersonName" />
@@ -24,121 +24,112 @@
 
             <Button
                 android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_weight="1"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_weight="1"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraDeleteAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Delete all"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete" />
+                android:layout_weight="1"
+                android:text="Delete"/>
 
             <Button
                 android:id="@+id/buttonCalculadora7"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="7" />
+                android:layout_weight="1"
+                android:text="7"
+                android:layout_margin="2dp" />
 
             <Button
                 android:id="@+id/buttonCalculadora8"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="8" />
+                android:layout_weight="1"
+                android:text="8"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadora9"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="9" />
+                android:layout_weight="1"
+                android:text="9"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraDivision"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="/" />
+                android:layout_weight="1"
+                android:text="/"/>
 
             <Button
                 android:id="@+id/buttonCalculadora4"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="4" />
+                android:layout_weight="1"
+                android:text="4"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadora5"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="5" />
+                android:layout_weight="1"
+                android:text="5"/>
 
             <Button
                 android:id="@+id/buttonCalculadora6"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="6" />
+                android:layout_weight="1"
+                android:text="6"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraMultiplicacion"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="*" />
+                android:layout_weight="1"
+                android:text="*"/>
 
             <Button
                 android:id="@+id/buttonCalculadora1"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="1" />
+                android:layout_weight="1"
+                android:text="1"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadora2"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="2" />
+                android:layout_weight="1"
+                android:text="2"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadora3"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="3" />
+                android:layout_weight="1"
+                android:text="3"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraResta"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="-" />
+                android:layout_weight="1"
+                android:text="-"/>
 
             <Button
                 android:id="@+id/buttonCalculadora0"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="0" />
+                android:layout_weight="1"
+                android:text="0"
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraPunto"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="." />
+                android:layout_weight="1"
+                android:text="."
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraIgual"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="=" />
+                android:layout_weight="1"
+                android:text="="
+                android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/buttonCalculadoraSuma"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="+" />
+                android:layout_weight="1"
+                android:text="+"/>
 
         </GridLayout>
 

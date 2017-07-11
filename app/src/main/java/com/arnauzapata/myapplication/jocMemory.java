@@ -303,6 +303,9 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         for(int i=0;i<16;i++){
             toImageView(i).setImageResource(R.drawable.black);
         }
+        for(int i=0;i<16;i++){
+            toImageView(i).setVisibility(View.VISIBLE);
+        }
         empezarJuego();
         pasos=0;text1.setText("numero de pasos: " + String.valueOf(pasos));
     }
