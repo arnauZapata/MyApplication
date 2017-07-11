@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.material.joanbarroso.flipper.CoolImageFlipper;
 
@@ -34,14 +35,18 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     private ImageView ImageView9;
     private ImageView ImageView10;
     private ImageView ImageView11;
+    private ImageView ImageView12;
+    private ImageView ImageView13;
+    private ImageView ImageView14;
+    private ImageView ImageView15;
     private ImageView ImageView0;
     private Button button1;
     TextView text1;
 
-    int[] soluciones =new int[12];
-    int[] colores =new int[6];
-    boolean [] solved=new boolean[12];
-    boolean [] selected=new boolean[12];
+    int[] soluciones =new int[16];
+    int[] colores =new int[8];
+    boolean [] solved=new boolean[16];
+    boolean [] selected=new boolean[16];
     int image1; int image2;
 
 
@@ -55,22 +60,24 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     private Drawable d4;
     private Drawable d5;
     private Drawable d6;
+    private Drawable d7;
+    private Drawable d8;
     private BaseDatosRanking BaseDatosRanking=null;
 
     public jocMemory() {
-        for(int i=0;i<12;i++) soluciones[i]=-1;
-        for(int i=0;i<12;i++) solved[i]=false;
-        for(int i=0;i<12;i++) selected[i]=false;
-        for(int i=0;i<6;i++) colores[i]=0;
+        for(int i=0;i<16;i++) soluciones[i]=-1;
+        for(int i=0;i<16;i++) solved[i]=false;
+        for(int i=0;i<16;i++) selected[i]=false;
+        for(int i=0;i<8;i++) colores[i]=0;
         image1=-1;image2 = -1;
     }
 
     public jocMemory(Context c, String s) {
         // Required empty public constructor
-        for(int i=0;i<12;i++) soluciones[i]=-1;
-        for(int i=0;i<12;i++) solved[i]=false;
-        for(int i=0;i<12;i++) selected[i]=false;
-        for(int i=0;i<6;i++) colores[i]=0;
+        for(int i=0;i<16;i++) soluciones[i]=-1;
+        for(int i=0;i<16;i++) solved[i]=false;
+        for(int i=0;i<16;i++) selected[i]=false;
+        for(int i=0;i<8;i++) colores[i]=0;
         image1=-1;image2 = -1;
         ocupado=false;
         context=c;
@@ -96,6 +103,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         BaseDatosRanking= new BaseDatosRanking(context);
         BaseDatosRanking.getInstance(context);
         View view=inflater.inflate(R.layout.fragment_joc_memory, container, false);
+        ImageView15 = (ImageView) view.findViewById(R.id.imageViewMemory15);
+        ImageView14 = (ImageView) view.findViewById(R.id.imageViewMemory14);
+        ImageView13 = (ImageView) view.findViewById(R.id.imageViewMemory13);
+        ImageView12 = (ImageView) view.findViewById(R.id.imageViewMemory12);
         ImageView11 = (ImageView) view.findViewById(R.id.imageViewMemory11);
         ImageView10 = (ImageView) view.findViewById(R.id.imageViewMemory10);
         ImageView9 = (ImageView) view.findViewById(R.id.imageViewMemory9);
@@ -117,6 +128,8 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         d4=getResources().getDrawable(R.drawable.green);
         d5=getResources().getDrawable(R.drawable.yellow);
         d6=getResources().getDrawable(R.drawable.lila);
+        d7=getResources().getDrawable(R.drawable.gris);
+        d8=getResources().getDrawable(R.drawable.cian);
 
         ImageView0.setImageResource(R.drawable.black);
         ImageView1.setImageResource(R.drawable.black);
@@ -130,6 +143,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         ImageView9.setImageResource(R.drawable.black);
         ImageView10.setImageResource(R.drawable.black);
         ImageView11.setImageResource(R.drawable.black);
+        ImageView12.setImageResource(R.drawable.black);
+        ImageView13.setImageResource(R.drawable.black);
+        ImageView14.setImageResource(R.drawable.black);
+        ImageView15.setImageResource(R.drawable.black);
 
         button1.setOnClickListener(this);
         ImageView0.setOnClickListener(this);
@@ -144,6 +161,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         ImageView9.setOnClickListener(this);
         ImageView10.setOnClickListener(this);
         ImageView11.setOnClickListener(this);
+        ImageView12.setOnClickListener(this);
+        ImageView13.setOnClickListener(this);
+        ImageView14.setOnClickListener(this);
+        ImageView15.setOnClickListener(this);
         return view;
     }
 
@@ -155,133 +176,53 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         int auxImage=-1;
         switch (v.getId()){
             case R.id.imageViewMemory0:
-                if(selected[0] || solved[0]) break;
-                selected[0]=true;
-               if(soluciones[0]==-1) soluciones[0] = elegirColor();
-                auxImage=soluciones[0];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView0);
+                pulsarCarta(0);
                 break;
             case R.id.imageViewMemory1:
-                if(selected[1] || solved[1]) break;
-                selected[1]=true;
-                if(soluciones[1]==-1)soluciones[1] = elegirColor();
-                auxImage=soluciones[1];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView1);
+                pulsarCarta(1);
                 break;
             case R.id.imageViewMemory2:
-                if(selected[2] || solved[2]) break;
-                selected[2]=true;
-                if(soluciones[2]==-1)soluciones[2] = elegirColor();
-                auxImage=soluciones[2];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView2);
+                pulsarCarta(2);
                 break;
             case R.id.imageViewMemory3:
-                if(selected[3] || solved[3]) break;
-                selected[3]=true;
-                if(soluciones[3]==-1)soluciones[3] = elegirColor();
-                auxImage=soluciones[3];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView3);
+                pulsarCarta(3);
                 break;
             case R.id.imageViewMemory4:
-                if(selected[4] || solved[4]) break;
-                selected[4]=true;
-                if(soluciones[4]==-1)soluciones[4] = elegirColor();
-                 auxImage=soluciones[4];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView4);
+                pulsarCarta(4);
                 break;
             case R.id.imageViewMemory5:
-                if(selected[5] || solved[5]) break;
-                selected[5]=true;
-                if(soluciones[5]==-1)soluciones[5] = elegirColor();
-                 auxImage=soluciones[5];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView5);
+                pulsarCarta(5);
                 break;
             case R.id.imageViewMemory6:
-                if(selected[6] || solved[6]) break;
-                selected[6]=true;
-                if(soluciones[6]==-1)soluciones[6] = elegirColor();
-                 auxImage=soluciones[6];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView6);
+                pulsarCarta(6);
                 break;
             case R.id.imageViewMemory7:
-                if(selected[7] || solved[7]) break;
-                selected[7]=true;
-                if(soluciones[7]==-1)soluciones[7] = elegirColor();
-                 auxImage=soluciones[7];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView7);
+                pulsarCarta(7);
                 break;
             case R.id.imageViewMemory8:
-                if(selected[8] || solved[8]) break;
-                selected[8]=true;
-                if(soluciones[8]==-1)soluciones[8] = elegirColor();
-                 auxImage=soluciones[8];
-
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView8);
+                pulsarCarta(8);
                 break;
             case R.id.imageViewMemory9:
-                if(selected[9] || solved[9]) break;
-                selected[9]=true;
-                if(soluciones[9]==-1)soluciones[9] = elegirColor();
-                 auxImage=soluciones[9];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView9);
+                pulsarCarta(9);
                 break;
             case R.id.imageViewMemory10:
-                if(selected[10] || solved[10]) break;
-                selected[10]=true;
-                if(soluciones[10]==-1)soluciones[10] = elegirColor();
-                 auxImage=soluciones[10];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView10);
+                pulsarCarta(10);
                 break;
             case R.id.imageViewMemory11:
-                if(selected[11] || solved[11]) break;
-                selected[11]=true;
-                if(soluciones[11]==-1)soluciones[11] = elegirColor();
-                 auxImage=soluciones[11];
-                if(image1==-1){image1=auxImage;}
-                else if(image2==-1){image2=auxImage;}
-                d = toDrawable(auxImage);
-                c.flipImage(d,ImageView11);
+                pulsarCarta(11);
             break;
+            case R.id.imageViewMemory12:
+                pulsarCarta(12);
+                break;
+            case R.id.imageViewMemory13:
+                pulsarCarta(13);
+                break;
+            case R.id.imageViewMemory14:
+                pulsarCarta(14);
+                break;
+            case R.id.imageViewMemory15:
+                pulsarCarta(15);
+                break;
             case R.id.buttonMemory1:
                 empezarDeNuevo();
                 break;
@@ -297,19 +238,28 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 for (i = 0; i < 12; i++) if (!solved[i]) aux=false;
                 Intent in = new Intent(context, ranking.class);
                 in.putExtra("user",user);
-                if(aux){
-                    if(pasos<10) BaseDatosRanking.createRow(user,"0"+String.valueOf(pasos));
-                    else BaseDatosRanking.createRow(user,String.valueOf(pasos));
+                if(aux) {
+                    if (pasos < 10) BaseDatosRanking.createRow(user, "0" + String.valueOf(pasos));
+                    else BaseDatosRanking.createRow(user, String.valueOf(pasos));
                     String oldPuntuation = BaseDatosRanking.queryRow(user);
-                    Log.v(TAG,oldPuntuation);
-                    int oldPunt = Integer.valueOf(oldPuntuation);
+                    int oldPunt;
+                    Log.v(TAG, oldPuntuation);
+                    if (!oldPuntuation.equals("null")) oldPunt = Integer.valueOf(oldPuntuation);
+                    else oldPunt=100;
                     if(oldPunt>pasos){
                         if(pasos<10) BaseDatosRanking.updateRow(user,"0"+String.valueOf(pasos));
                         else BaseDatosRanking.updateRow(user,String.valueOf(pasos));
                     }
-                    startActivity(in);
+                    if(pasos>100){
+                        CharSequence text = "Tu manqueo es over 9000 y no se te es permitido subirlo al ranking";
+                        int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                        Toast.makeText(context, text, duration).show();
+                    }
+                    else startActivity(in);
                 }
-                for (int pos = 0; pos < 12; pos++) selected[pos] = false;
+                for (int pos = 0; pos < 16; pos++) selected[pos] = false;
                 image1 = -1;
                 image2 = -1;
                 text1.setText("numero de pasos: " + String.valueOf(pasos));
@@ -318,12 +268,12 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        for (int pos = 0; pos < 12; pos++) {
+                        for (int pos = 0; pos < 16; pos++) {
                             if (selected[pos]) {
                                 voltearCarta(pos);
                             }
                         }
-                        for (int pos = 0; pos < 12; pos++) selected[pos] = false;
+                        for (int pos = 0; pos < 16; pos++) selected[pos] = false;
                         image1 = -1;
                         image2 = -1;
                         text1.setText("numero de pasos: " + String.valueOf(pasos));
@@ -334,24 +284,29 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void empezarDeNuevo() {
-        ImageView0.setImageResource(R.drawable.black);
-        ImageView1.setImageResource(R.drawable.black);
-        ImageView2.setImageResource(R.drawable.black);
-        ImageView3.setImageResource(R.drawable.black);
-        ImageView4.setImageResource(R.drawable.black);
-        ImageView5.setImageResource(R.drawable.black);
-        ImageView6.setImageResource(R.drawable.black);
-        ImageView7.setImageResource(R.drawable.black);
-        ImageView8.setImageResource(R.drawable.black);
-        ImageView9.setImageResource(R.drawable.black);
-        ImageView10.setImageResource(R.drawable.black);
-        ImageView11.setImageResource(R.drawable.black);
+    private void pulsarCarta(int i) {
+        int auxImage;
+        if(selected[i] || solved[i]) return;
+        selected[i]=true;
+        if(soluciones[i]==-1)soluciones[i] = elegirColor();
+        auxImage=soluciones[i];
+        if(image1==-1){image1=auxImage;}
+        else if(image2==-1){image2=auxImage;}
+        CoolImageFlipper c = new CoolImageFlipper(context);
+        Drawable d =null;
+        d = toDrawable(auxImage);
+        c.flipImage(d,toImageView(i));
+    }
 
-        for(int i=0;i<12;i++) soluciones[i]=-1;
-        for(int i=0;i<12;i++) solved[i]=false;
-        for(int i=0;i<12;i++) selected[i]=false;
-        for(int i=0;i<6;i++) colores[i]=0;
+    private void empezarDeNuevo() {
+        for(int i=0;i<16;i++){
+            toImageView(i).setImageResource(R.drawable.black);
+        }
+
+        for(int i=0;i<16;i++) soluciones[i]=-1;
+        for(int i=0;i<16;i++) solved[i]=false;
+        for(int i=0;i<16;i++) selected[i]=false;
+        for(int i=0;i<8;i++) colores[i]=0;
         image1=-1;image2 = -1;
         pasos=0;text1.setText("numero de pasos: " + String.valueOf(pasos));
     }
@@ -368,8 +323,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 return d4;
             case R.drawable.yellow:
                 return d5;
-            case R.drawable.lila:
-                return d6;
+            case R.drawable.gris:
+                return d7;
+            case R.drawable.cian:
+                return d8;
         }
         return null;
     }
@@ -377,7 +334,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     private int elegirColor() {
         Random rand=new Random();
         int num;
-        do {num = rand.nextInt(6);}while(colores[num]>=2);colores[num]++; //busca numeros al azar hasta que encuentra uno donde no hayan sido asignados 2 o mas colores, entonces añade uno al color asignado
+        do {num = rand.nextInt(8);}while(colores[num]>=2);colores[num]++; //busca numeros al azar hasta que encuentra uno donde no hayan sido asignados 2 o mas colores, entonces añade uno al color asignado
         switch (num){
             case 0:
                 return R.drawable.red;
@@ -391,24 +348,39 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 return R.drawable.yellow;
             case 5:
                 return R.drawable.lila;
+            case 6:
+                return R.drawable.gris;
+            case 7:
+                return R.drawable.cian;
         }
         return R.drawable.black;
     }
 
 
-    public void dejarPasarTiempo(){
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                //despierto=true;
-            }
-        }).start();
+ private ImageView toImageView(int i){
+     ImageView ret=null;
+     switch (i){
+         case 0: ret= ImageView0;break;
+         case 1: ret=  ImageView1;break;
+         case 2: ret=  ImageView2;break;
+         case 3: ret=  ImageView3;break;
+         case 4: ret=  ImageView4;break;
+         case 5: ret=  ImageView5;break;
+         case 6: ret=  ImageView6;break;
+         case 7: ret=  ImageView7;break;
+         case 8: ret=  ImageView8;break;
+         case 9: ret=  ImageView9;break;
+         case 10:ret=  ImageView10; break;
+         case 11: ret=  ImageView11;break;
+         case 12: ret=  ImageView12;break;
+         case 13: ret=  ImageView13;break;
+         case 14: ret=  ImageView14;break;
+         case 15: ret=  ImageView15;break;
 
-    }
+
+     }
+     return ret;
+ }
 
     @Override
     public void onAttach(Context context) {
@@ -454,6 +426,18 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 break;
             case 11:
                 c.flipImage(d,ImageView11);
+                break;
+            case 12:
+                c.flipImage(d,ImageView12);
+                break;
+            case 13:
+                c.flipImage(d,ImageView13);
+                break;
+            case 14:
+                c.flipImage(d,ImageView14);
+                break;
+            case 15:
+                c.flipImage(d,ImageView15);
                 break;
 
         }

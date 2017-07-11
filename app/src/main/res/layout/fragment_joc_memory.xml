@@ -7,9 +7,44 @@
 
 
     <ImageView
+        android:id="@+id/imageViewMemory15"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/imageViewMemory2"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/imageViewMemory14"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/imageViewMemory2"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/imageViewMemory5"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/imageViewMemory13"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/imageViewMemory5"
+        android:layout_toRightOf="@+id/imageViewMemory8"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/imageViewMemory12"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/imageViewMemory8"
+        android:layout_toRightOf="@+id/imageViewMemory11"
+        android:layout_weight="1"/>
+
+    <ImageView
         android:id="@+id/imageViewMemory11"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory8"
         android:layout_weight="1"
         android:layout_toRightOf="@+id/imageViewMemory10"
@@ -17,83 +52,83 @@
 
     <ImageView
         android:id="@+id/imageViewMemory10"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory7"
         android:layout_toRightOf="@+id/imageViewMemory9"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory9"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory6"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory8"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory5"
         android:layout_toRightOf="@+id/imageViewMemory7"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory7"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory4"
         android:layout_toRightOf="@+id/imageViewMemory6"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory6"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory3"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory5"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_toRightOf="@+id/imageViewMemory4"
         android:layout_below="@+id/imageViewMemory1"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory1"
         android:layout_toRightOf="@+id/imageViewMemory3"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_below="@+id/imageViewMemory0"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_toRightOf="@+id/imageViewMemory1"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_toRightOf="@+id/imageViewMemory0"
         android:layout_margin="5dp"/>
 
     <ImageView
         android:id="@+id/imageViewMemory0"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_margin="5dp"/>
 
     <Button
