@@ -16,7 +16,7 @@ final class MyDataBaseContract1 {
         public static final String USERNAME = "USERNAME";
         public static final String PASSWORD = "PASSWORD";
         public static final String IMAGE = "IMAGE";
-        public static final String DIRECCION = "DIRECCION";
+        public static final String DIRECCIO = "DIRECCIO";
     }
 
 }
@@ -32,11 +32,11 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     private final String TAG = "MyDataBaseHelper";
 
     public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "MYDataBase.db";
+    public static final String DATABASE_NAME = "MYDataBase2.db";
 
 
     static final String SQL_CREATE_TABLE1 = "create table "+"LOGIN"+
-            "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text UNIQUE,PASSWORD text,IMAGE text,DIRECCION text); ";
+            "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text UNIQUE,PASSWORD text,IMAGE text,DIRECCIO text); ";
 
     private static final String SQL_DELETE_TABLE1 =
             "DROP TABLE IF EXISTS " + MyDataBaseContract1.Table1.TABLE_NAME;
@@ -81,7 +81,7 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
         values.put(MyDataBaseContract1.Table1.USERNAME,user);
         values.put(MyDataBaseContract1.Table1.PASSWORD,password);
         values.put(MyDataBaseContract1.Table1.IMAGE,"NULL");
-        values.put(MyDataBaseContract1.Table1.DIRECCION,"NULL");
+        values.put(MyDataBaseContract1.Table1.DIRECCIO,"NULL");
         long newId = writable.insert(MyDataBaseContract1.Table1.TABLE_NAME,null,values);
         return newId;
     }
@@ -177,7 +177,7 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
     public String getDireccion(String user) {
         Cursor c;
         c = readable.query(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
-                new String[] {MyDataBaseContract1.Table1.DIRECCION},       //Columns we select
+                new String[] {MyDataBaseContract1.Table1.DIRECCIO},       //Columns we select
                 MyDataBaseContract1.Table1.USERNAME + " = ? ",    //Columns for the WHERE clause
                 new String[] {user},                                   //Values for the WHERE clause
                 null,                                               //Group By
@@ -187,12 +187,24 @@ class MyDataBaseHelper1 extends SQLiteOpenHelper{
         if (c.moveToFirst()) {
             do {
                 //We go here if the cursor is not empty
-                String l = c.getString(c.getColumnIndex(MyDataBaseContract1.Table1.DIRECCION));
+                String l = c.getString(c.getColumnIndex(MyDataBaseContract1.Table1.DIRECCIO));
                 direccion= String.valueOf(l);
             } while (c.moveToNext());
         }
         c.close();
         Log.v(TAG,direccion);
         return direccion;
+    }
+
+    public void setDireccio(String user,String direccio) {
+        ContentValues values = new ContentValues();
+        values.put("USERNAME", user);
+        values.put("DIRECCIO",direccio);
+        readable.update(MyDataBaseContract1.Table1.TABLE_NAME,    //Table name
+                values,                                                             //New value for columns
+                MyDataBaseContract1.Table1.USERNAME + " LIKE ? ",                 //Selection args
+                new String[] {user});                                                  //Selection values
+
+
     }
 }

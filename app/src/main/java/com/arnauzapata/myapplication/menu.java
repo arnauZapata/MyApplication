@@ -80,9 +80,11 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         Intent i;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.button1:
-                Log.v(TAG, "Soy el boton 1 en THIS");
+                Log.v(TAG, "Soy el boton 1");
+                i = new Intent(context, calculadora.class);
+                startActivity(i);
                 break;
             case R.id.button2:
                 Log.v(TAG, "Soy el boton 2");
@@ -90,30 +92,29 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("text", "Soy el boton 2");
                 editor.apply();
-                i = new Intent(context,ranking.class);
-                i.putExtra("user",user);
+                i = new Intent(context, ranking.class);
+                i.putExtra("user", user);
                 startActivity(i);
                 break;
             case R.id.button3:
                 Log.v(TAG, "Soy el boton 3");
                 i = new Intent(context, perfil.class);
-                i.putExtra("user",user);
+                i.putExtra("user", user);
                 startActivity(i);
                 break;
             case R.id.button4:
                 Log.v(TAG, "Soy el boton 4");
-                 i = new Intent(context,memory.class);
-                i.putExtra("user",user);
+                i = new Intent(context, memory.class);
+                i.putExtra("user", user);
                 startActivity(i);
                 break;
             case R.id.button5:
                 Log.v(TAG, "Soy el boton 5");
-                i = new Intent(context, elegirImagen.class);
-                i.putExtra("user",user);
+                i = new Intent(context, music.class);
+                i.putExtra("user", user);
                 startActivity(i);
                 break;
         }
-        Log.v(TAG, "Soy el boton 2");
     }
 
 

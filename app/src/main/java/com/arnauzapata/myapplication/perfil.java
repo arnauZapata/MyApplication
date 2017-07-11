@@ -33,6 +33,7 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
     private static final int MY_PERMISSIONS_REQUEST_MANAGE_DOCUMENTS = 2;
     private MyDataBaseHelper1 bd;
     private EditText editText;
+    private Button guardar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,8 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
         imatgePerfil=(ImageView) findViewById(R.id.imageViewPerfil);
         cambiarImagen = (Button) findViewById(R.id.buttonPerfilImagen);
         editText = (EditText) findViewById(R.id.editTextPerfilDireccion);
+        guardar = (Button) findViewById(R.id.buttonPerfilGuardar);
+        guardar.setOnClickListener(this);
         editText.setText(direccion);
         editText.setOnClickListener(this);
         cambiarImagen.setOnClickListener(this);
@@ -67,7 +70,11 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
                 Log.v(TAG,"imatge==NULL");
                 loadImageFromString(sharedPreferences.getString("imagePath",null));
         }
-        else {
+        else if(image.equals("NULL")){
+            Log.v(TAG,"imatge==NULL + !canWeRead");
+            loadImageFromString(sharedPreferences.getString("imagePath",null));
+        }
+        else{
             Log.v(TAG,"imatge!=NULL + !canWeRead");
             loadImageFromString(image);
         }
@@ -103,6 +110,10 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.editTextPerfilDireccion:
                 if(editText.getText().equals("NULL"))editText.setText("");
+                break;
+            case R.id.buttonPerfilGuardar:
+                String direccio=editText.getText().toString();
+                bd.setDireccio(user,direccio);
                 break;
         }
     }
