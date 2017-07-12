@@ -1,7 +1,7 @@
 package com.arnauzapata.myapplication;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,9 +18,17 @@ public class menu extends AppCompatActivity implements Comunicador{
     private perfil fragmentPerfil=null;
     private music fragmentMusic=null;
     private jocMemory Memory=null;
+    private int position=0;
+    private boolean musicPlayed=false;
+    private boolean memoryPlayed=false;
+    private DataMemory data=null;
+    private boolean CalculadoraPlayed=false;
+    String textCalculadora="";
+    private DataCalculadora dataCalculadora=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         user=getIntent().getStringExtra("user");
@@ -49,16 +57,29 @@ public class menu extends AppCompatActivity implements Comunicador{
         spec.setIndicator("Calculadora", null);
         tabs.addTab(spec);
         tabs.setCurrentTab(1);
-        final jocMemory fragmentMemory = new jocMemory(context,user);
-        getFragmentManager().beginTransaction().add(R.id.memory, fragmentMemory).commit();
         tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabid) {
-
+                    if(musicPlayed){
+                        position=getPositionMusic();
+                        musicPlayed=false;
+                    }
+                if(memoryPlayed){
+                    data =enviarDatosCalculadora();
+                    musicPlayed=false;
+                    borrarMemoriaCalculadora();
+                }
+                if(CalculadoraPlayed){
+                    dataCalculadora =enviarDatosCalculadora2();
+                    CalculadoraPlayed=false;
+                    borrarMemoriaCalculadora2();
+                }
                     switch (tabid){
                         case "Memory":
-                            Memory = new jocMemory(context,user);
+                            if(data==null) Memory = new jocMemory(context,user);
+                            else Memory = new jocMemory(context,user,data);
                             getFragmentManager().beginTransaction().add(R.id.memory, Memory).commit();
+                            memoryPlayed=true;
                             break;
                         case "Ranking":
                             fragmentRanking = new ranking(context,user);
@@ -67,16 +88,19 @@ public class menu extends AppCompatActivity implements Comunicador{
                             ft.commit();
                             break;
                         case "Music":
-                            fragmentMusic = new music(context);
+                            fragmentMusic = new music(context,position);
                             getFragmentManager().beginTransaction().add(R.id.music, fragmentMusic).commit();
+                            musicPlayed=true;
                             break;
                         case "Perfil":
                             fragmentPerfil = new perfil(context,user);
                             getFragmentManager().beginTransaction().add(R.id.perfil, fragmentPerfil).commit();
                             break;
                         case "Calculadora":
-                            fragmentCalculadora = new calculadora();
+                            if(dataCalculadora==null)fragmentCalculadora = new calculadora();
+                            else fragmentCalculadora = new calculadora(dataCalculadora);
                             getFragmentManager().beginTransaction().add(R.id.calculadora, fragmentCalculadora).commit();
+                            CalculadoraPlayed=true;
                             break;
                     }
             }
@@ -90,16 +114,46 @@ public class menu extends AppCompatActivity implements Comunicador{
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-//noinspection SimplifiableIfStatement
-        Log.v(TAG,"llega hasta aqui");
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void enviarDatosCalculadora(String data) {
-        FragmentManager fragmentManager = getFragmentManager();
-        jocMemory fragment = (jocMemory)fragmentManager.findFragmentById(R.id.memory);
-        fragment.getData();
+    public DataMemory enviarDatosCalculadora() {
+        return Memory.getData();
+    }
+
+    public DataCalculadora enviarDatosCalculadora2() {
+        return fragmentCalculadora.getResultat();
+    }
+
+    @Override
+    public int getPositionMusic() {
+        int ret= fragmentMusic.getPosition();
+        Log.v(TAG,String.valueOf(ret));
+        return ret;
+
+    }
+
+    @Override
+    public void borrarMemoriaCalculadora() {
+        Memory.getBorrarMemoria();
+
+    }
+    @Override
+    public void borrarMemoriaCalculadora2() {
+        fragmentCalculadora.getBorrarMemoria();
+
+    }
+
+        @Override
+ public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+         position = savedInstanceState.getInt("position");
+
+        }
+ @Override
+ public void onSaveInstanceState(Bundle outState){
+         super.onSaveInstanceState(outState);
+         outState.putInt("position",getPositionMusic());
     }
 }

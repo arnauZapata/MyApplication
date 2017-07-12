@@ -33,7 +33,6 @@ public class ranking extends android.app.Fragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        user="hola";
         BaseDatosRanking= new BaseDatosRanking(context);
         BaseDatosRanking.getInstance(context);
         v=inflater.inflate(R.layout.activity_ranking, container, false);
@@ -54,7 +53,8 @@ public class ranking extends android.app.Fragment implements View.OnClickListene
         boolean inRanking = false;
         ArrayList<Pair<String,String>> list = BaseDatosRanking.selectAllPuntuation();
         ArrayList<String>listDef = new ArrayList<String>();
-        for(int i =0;i<5 && i<list.size();i++){
+        int i;
+        for(i =0;i<5 && i<list.size();i++){
             listDef.add(String.valueOf(i+1)+") "+list.get(i).first + ": "+list.get(i).second + "   paso/s");
             if(list.get(i).first.equals(user)) inRanking=true;
         }
@@ -64,6 +64,6 @@ public class ranking extends android.app.Fragment implements View.OnClickListene
         adaptador = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,listDef);
         lista.setAdapter(adaptador);
         String puntuation = BaseDatosRanking.queryRow(user);
-        if(!inRanking)text1.setText("5+) " + user + ": " + puntuation);
+        if(!inRanking)text1.setText(String.valueOf(i+1)+"+) " + user + ": " + puntuation);
     }
 }

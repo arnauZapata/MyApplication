@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class music extends Fragment implements View.OnClickListener{
-
+    String TAG="music";
     Button play,pause,reset;
     MediaPlayer mediaPlayer = new MediaPlayer();
     int [] music ={R.raw.bootyswing,R.raw.lonedigger,R.raw.nichijou,R.raw.rasputin};
@@ -24,8 +25,9 @@ public class music extends Fragment implements View.OnClickListener{
     private Button next;
     private Button previous;
 
-    public music(Context context) {
-        this.context=context;
+    public music(Context context, int position) {
+        this.context=context;this.positionMusic=position;
+        Log.v(TAG,String.valueOf(positionMusic));
     }
 
 
@@ -138,8 +140,9 @@ public class music extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        Intent i = new Intent(context, musicService.class);
-        i.putExtra("action", "play");
-        context.startService(i);
+    }
+
+    public int getPosition() {
+        return positionMusic;
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class calculadora extends Fragment implements View.OnClickListener {
+    String auxText="";
     int numero;
     boolean firstButton=true;
     boolean validOperator=false;
@@ -20,7 +21,7 @@ public class calculadora extends Fragment implements View.OnClickListener {
     int lastNumber=0;
     View v;
     Context context;
-    String textoInquietante= "ERROR fatal: tu imprudencia de dividir entre 0 a destruido un universo digital, billones de procesos han muerto por tu culpa. ¡¡Eres un monstruo!!";
+
     private static final String TAG = "Calculadora";
 
     Button button7; Button button8; Button button9;
@@ -35,6 +36,37 @@ public class calculadora extends Fragment implements View.OnClickListener {
 
     String calcul ="";
     private boolean destruccionUniverso=false;
+
+    public calculadora() {
+        num1=num2=num3=-1;
+        op1=op2="";
+    }
+
+    public calculadora(DataCalculadora data) {
+        calcul=data.calcul;
+        Log.v(TAG,calcul);
+        decimal=data.decimal;
+        firstButton=data.firstButton;
+        lastNumber=data.lastNumber;
+        num1=data.num1;
+        Log.v(TAG,String.valueOf(num1));
+        num2=data.num2;
+        Log.v(TAG,String.valueOf(num2));
+        num3=data.num3;
+        Log.v(TAG,String.valueOf(num3));
+        numero=data.numero;
+        Log.v(TAG,String.valueOf(numero));
+        op1=data.op1;
+        Log.v(TAG,op1);
+        op2=data.op2;
+        Log.v(TAG,op2);
+        resultat=data.resultat;
+        Log.v(TAG,String.valueOf(resultat));
+         auxText = data.textResultat;
+        Log.v(TAG,auxText);
+        validOperator=data.validOperator;
+        destruccionUniverso=data.destruccionUniverso;
+    }
 
     private void inicializarObjetos() {
         button0 = (Button) v.findViewById(R.id.buttonCalculadora0);
@@ -81,8 +113,9 @@ public class calculadora extends Fragment implements View.OnClickListener {
     }
 
     private void asignarValoresObjetos() {
-        num1=num2=num3=-1;
-        op1=op2="";
+
+     //   Log.v(TAG,auxText);
+        textResultat.setText(auxText);
     }
 
 
@@ -108,93 +141,78 @@ public class calculadora extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonCalculadora0:
-                Log.v(TAG, "Soy el boton 0");
                 firstButton=false;
                 resultat*=10;
                 if(decimal<1.0) decimal/=10;
                 setNum(0);
                 break;
             case R.id.buttonCalculadora1:
-                Log.v(TAG, "Soy el boton 1");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=1;}
                 else{resultat+= 1.0*decimal;decimal/=10;}
                 setNum(1);
                 break;
             case R.id.buttonCalculadora2:
-                Log.v(TAG, "Soy el boton 2");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=2;}
                 else{resultat+= 2.0*decimal;decimal/=10;}
                 setNum(2);
                 break;
             case R.id.buttonCalculadora3:
-                Log.v(TAG, "Soy el boton 3");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=3;}
                 else{resultat+= 3.0*decimal;decimal/=10;}
                 setNum(3);
                 break;
             case R.id.buttonCalculadora4:
-                Log.v(TAG, "Soy el boton 4");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=4;}
                 else{resultat+= 4.0*decimal;decimal/=10;}
                 setNum(4);
                 break;
             case R.id.buttonCalculadora5:
-                Log.v(TAG, "Soy el boton 5");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=5;}
                 else{resultat+= 5.0*decimal;decimal/=10;}
                 setNum(5);
                 break;
             case R.id.buttonCalculadora6:
-                Log.v(TAG, "Soy el boton 6");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=6;}
                 else{resultat+= 6.0*decimal;decimal/=10;}
                 setNum(6);
                 break;
             case R.id.buttonCalculadora7:
-                Log.v(TAG, "Soy el boton 7");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=7;}
                 else{resultat+= 7.0*decimal;decimal/=10;}
                 setNum(7);
                 break;
             case R.id.buttonCalculadora8:
-                Log.v(TAG, "Soy el boton 8");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=8;}
                 else{resultat+= 8.0*decimal;decimal/=10;}
                 setNum(8);
                 break;
             case R.id.buttonCalculadora9:
-                Log.v(TAG, "Soy el boton 9");
                 firstButton=false;
                 if(decimal>=1.0){resultat*=10;resultat+=9;}
                 else{resultat+= 9.0*decimal;decimal/=10;}
                 setNum(9);
                 break;
             case R.id.buttonCalculadoraSuma:
-                Log.v(TAG, "Soy el boton Suma");
                 if(! firstButton)addCalcul("+");
                 break;
             case R.id.buttonCalculadoraResta:
-                Log.v(TAG, "Soy el boton  Resta ");
                 if(! firstButton)addCalcul("-");
                 break;
             case R.id.buttonCalculadoraMultiplicacion:
-                Log.v(TAG, "Soy el boton Multiplicacion");
                 if(! firstButton)addCalcul("*");
                 break;
             case R.id.buttonCalculadoraDivision:
-                Log.v(TAG, "Soy el boton Division");
                 if(! firstButton)addCalcul("/");
                 break;
             case R.id.buttonCalculadoraPunto:
-                Log.v(TAG, "Soy el boton Punto");
                 if(decimalValid && !firstButton){
                     decimalValid=false;
                     decimal/=10;
@@ -203,7 +221,6 @@ public class calculadora extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.buttonCalculadoraIgual:
-                Log.v(TAG, "Soy el boton Igual");
                 firstButton=true;
                 validOperator=false;
                 decimalValid=true;
@@ -211,7 +228,6 @@ public class calculadora extends Fragment implements View.OnClickListener {
                 if(num1==-1)num1=resultat;
                 if(num2==-1)num2=resultat;
                 if(num3==-1)num3=resultat;
-                Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
                 if(op2=="*") num2*=num3;
                 if(op2=="/") {
                     num2/=num3;
@@ -225,14 +241,13 @@ public class calculadora extends Fragment implements View.OnClickListener {
                 if(op1=="+") num1+=num2;
                 if(op1=="-") num1-=num2;
                 num2=-1;num3=-1;op1="";op2="";
-                Log.v(TAG,String.valueOf(num1) + op1 + String.valueOf(num2) + op2 +String.valueOf(num3));
                 textResultat.setText(String.valueOf(num1));
                 num1=-1;
                 calcul="";
                 resultat=0;
                 if(destruccionUniverso){
                     int duration = Toast.LENGTH_LONG;
-                    Toast.makeText(context, textoInquietante, duration).show();
+                    textResultat.setText("ERROR por dividir entre 0");//: tu imprudencia de dividir entre 0 a destruido un universo digital, billones de procesos han muerto por tu culpa. ¡¡Eres un monstruo!!");
                 }
                 destruccionUniverso=false;
 
@@ -283,11 +298,9 @@ public class calculadora extends Fragment implements View.OnClickListener {
             decimal = 1.0;
             calcul = String.valueOf(textResultat.getText());
             calcul += s;
-            Log.v(TAG, calcul);
             textResultat.setText(calcul);
             realizar_calculo(resultat, s);
             resultat = 0;
-            Log.v(TAG, String.valueOf(num1) + op1 + String.valueOf(num2) + op2 + String.valueOf(num3));
         }
     }
 
@@ -341,10 +354,33 @@ public class calculadora extends Fragment implements View.OnClickListener {
 
     public void setNum(int num) {
         validOperator=true;
-        Log.v(TAG, String.valueOf(num));
         calcul+=String.valueOf(num);
         lastNumber=num;
         textResultat.setText(calcul);
+    }
+
+    public void getBorrarMemoria() {
+        textResultat.setText("");
+    }
+
+    public  DataCalculadora getResultat() {
+        DataCalculadora data= new DataCalculadora();
+        data.destruccionUniverso=destruccionUniverso;
+        data.calcul=calcul;
+        data.decimal=decimal;
+        data.firstButton=firstButton;
+        data.lastNumber=lastNumber;
+        data.num1=num1;
+        data.num2=num2;
+        data.num3=num3;
+        data.numero=numero;
+        data.op1=op1;
+        data.op2=op2;
+        data.resultat=resultat;
+        String aux  =textResultat.getText().toString();
+        data.textResultat =aux;
+        data.validOperator=validOperator;
+        return data;
     }
 
     /*@Override

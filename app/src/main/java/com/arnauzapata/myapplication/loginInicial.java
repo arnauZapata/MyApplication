@@ -92,11 +92,8 @@ public class loginInicial extends Fragment {
                         startActivity(i);
                     }
                     else{
-                        CharSequence text = "usuario o contraseña erroneos";
-                        int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                        Toast.makeText(context, text, duration).show();
+                        Intent i = new Intent(context, error.class);
+                        startActivity(i);
                     }
                 }
             });

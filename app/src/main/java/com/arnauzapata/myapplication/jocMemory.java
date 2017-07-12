@@ -72,6 +72,22 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     private Drawable d8;
     private BaseDatosRanking BaseDatosRanking=null;
 
+    public jocMemory(Context context, String user, DataMemory data) {
+        empezarJuego();
+        ocupado=false;
+        this.context=context;
+        this.user=user;
+        soluciones=data.soluciones;
+        solved=data.solved;
+        selected=data.selected;
+        colores=data.colores;
+        image1=data.image1;
+        image2=data.image2;
+        select1=data.select1;
+        select2=data.select2;
+        pasos=data.pasos;
+    }
+
 
     public void empezarJuego(){
         for(int i=0;i<16;i++) soluciones[i]=-1;
@@ -142,6 +158,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         for(int i=0;i<16;i++){
             toImageView(i).setOnClickListener(this);
         }
+        for(int i =0;i<16;i++){
+            if(solved[i])toImageView(i).setVisibility(View.INVISIBLE);
+        }
+        text1.setText("numero de pasos: " + String.valueOf(pasos));
         return view;
     }
 
@@ -440,13 +460,23 @@ public class jocMemory extends Fragment implements View.OnClickListener {
 
 
 
-   /* public void getData(int[] soluc, int[] col, boolean [] solv, boolean [] sel, int im1, int im2, int sel1, int sel2, int p){
-        soluc=soluciones;
-        col =colores;
-        solv=solved;
-        sel=selected;
-        image1; int image2;
-        int select1, select2;
-        pasos;
-    }*/
+   public DataMemory getData(){
+       DataMemory data=new DataMemory();
+       data.soluciones=soluciones;
+       data.colores=colores;
+       data.image1=image1;data.image2=image2;
+       data.solved=solved;
+       data.selected=selected;
+       data.select1=select1;
+       data.select2=select2;
+       data.pasos=pasos;
+       return data;
+    }
+
+    public void getBorrarMemoria() {
+        for(int i=0;i<16;i++){
+            toImageView(i).setVisibility(View.INVISIBLE);
+        }
+        text1.setText("");
+    }
 }
