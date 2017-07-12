@@ -1,10 +1,11 @@
 package com.arnauzapata.myapplication;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -12,33 +13,35 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ranking extends AppCompatActivity implements View.OnClickListener {
+public class ranking extends android.app.Fragment implements View.OnClickListener {
 
     String user;
-
     TextView text1;
+    Context context;
     private BaseDatosRanking BaseDatosRanking;
     Button button;
+    private View v;
 
-    public ranking(){
+    public ranking(Context context, String user){
+        this.user=user;
+        this.context=context;
     }
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         user="hola";
-        super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        if(intent.getStringExtra("user")!=null) user=intent.getStringExtra("user");
-        BaseDatosRanking= new BaseDatosRanking(this);
-        BaseDatosRanking.getInstance(this);
-        setContentView(R.layout.activity_ranking);
-        text1=(TextView) findViewById(R.id.textViewRanking);
-        button = (Button) findViewById(R.id.buttonRanking);
+        BaseDatosRanking= new BaseDatosRanking(context);
+        BaseDatosRanking.getInstance(context);
+        v=inflater.inflate(R.layout.activity_ranking, container, false);
+        text1=(TextView) v.findViewById(R.id.textViewRanking);
+        button = (Button) v.findViewById(R.id.buttonRanking);
         button.setOnClickListener(this);
         mostrarRanking();
-
+        return v;
     }
 
     @Override
@@ -57,8 +60,8 @@ public class ranking extends AppCompatActivity implements View.OnClickListener {
         }
         ListView lista;
         ArrayAdapter<String> adaptador;
-        lista = (ListView)findViewById(R.id.listViewRanking);
-        adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listDef);
+        lista = (ListView)v.findViewById(R.id.listViewRanking);
+        adaptador = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,listDef);
         lista.setAdapter(adaptador);
         String puntuation = BaseDatosRanking.queryRow(user);
         if(!inRanking)text1.setText("5+) " + user + ": " + puntuation);

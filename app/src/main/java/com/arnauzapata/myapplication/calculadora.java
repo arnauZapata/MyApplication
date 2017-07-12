@@ -1,22 +1,25 @@
 package com.arnauzapata.myapplication;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class calculadora extends AppCompatActivity implements View.OnClickListener {
+public class calculadora extends Fragment implements View.OnClickListener {
     int numero;
     boolean firstButton=true;
     boolean validOperator=false;
     double resultat=0;
     double decimal= 1.0;
     int lastNumber=0;
-    Context context=this;
+    View v;
+    Context context;
     String textoInquietante= "ERROR fatal: tu imprudencia de dividir entre 0 a destruido un universo digital, billones de procesos han muerto por tu culpa. ¡¡Eres un monstruo!!";
     private static final String TAG = "Calculadora";
 
@@ -34,31 +37,29 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
     private boolean destruccionUniverso=false;
 
     private void inicializarObjetos() {
-        button0 = (Button) findViewById(R.id.buttonCalculadora0);
-        button1 = (Button) findViewById(R.id.buttonCalculadora1);
-        button2 = (Button) findViewById(R.id.buttonCalculadora2);
-        button3 = (Button) findViewById(R.id.buttonCalculadora3);
-        button4 = (Button) findViewById(R.id.buttonCalculadora4);
-        button5 = (Button) findViewById(R.id.buttonCalculadora5);
-        button6 = (Button) findViewById(R.id.buttonCalculadora6);
-        button7 = (Button) findViewById(R.id.buttonCalculadora7);
-        button8 = (Button) findViewById(R.id.buttonCalculadora8);
-        button9 = (Button) findViewById(R.id.buttonCalculadora9);
-        buttonSuma = (Button) findViewById(R.id.buttonCalculadoraSuma);
-        buttonResta = (Button) findViewById(R.id.buttonCalculadoraResta);
-        buttonMultiplicacio = (Button) findViewById(R.id.buttonCalculadoraMultiplicacion);
-        buttonDivision = (Button) findViewById(R.id.buttonCalculadoraDivision);
-        buttonPunto = (Button) findViewById(R.id.buttonCalculadoraPunto);
-        buttonIgual = (Button) findViewById(R.id.buttonCalculadoraIgual);
-        buttonDelete = (Button) findViewById(R.id.buttonCalculadoraDelete);
-        buttonDeleteAll = (Button) findViewById(R.id.buttonCalculadoraDeleteAll);
-        textResultat = (TextView) findViewById(R.id.TextViewResultat);
+        button0 = (Button) v.findViewById(R.id.buttonCalculadora0);
+        button1 = (Button) v.findViewById(R.id.buttonCalculadora1);
+        button2 = (Button) v.findViewById(R.id.buttonCalculadora2);
+        button3 = (Button) v.findViewById(R.id.buttonCalculadora3);
+        button4 = (Button) v.findViewById(R.id.buttonCalculadora4);
+        button5 = (Button) v.findViewById(R.id.buttonCalculadora5);
+        button6 = (Button) v.findViewById(R.id.buttonCalculadora6);
+        button7 = (Button) v.findViewById(R.id.buttonCalculadora7);
+        button8 = (Button) v.findViewById(R.id.buttonCalculadora8);
+        button9 = (Button) v.findViewById(R.id.buttonCalculadora9);
+        buttonSuma = (Button) v.findViewById(R.id.buttonCalculadoraSuma);
+        buttonResta = (Button) v.findViewById(R.id.buttonCalculadoraResta);
+        buttonMultiplicacio = (Button) v.findViewById(R.id.buttonCalculadoraMultiplicacion);
+        buttonDivision = (Button) v.findViewById(R.id.buttonCalculadoraDivision);
+        buttonPunto = (Button) v.findViewById(R.id.buttonCalculadoraPunto);
+        buttonIgual = (Button) v.findViewById(R.id.buttonCalculadoraIgual);
+        buttonDelete = (Button) v.findViewById(R.id.buttonCalculadoraDelete);
+        buttonDeleteAll = (Button) v.findViewById(R.id.buttonCalculadoraDeleteAll);
+        textResultat = (TextView) v.findViewById(R.id.TextViewResultat);
 
     }
 
     private void asignarOnClickListener() {
-        final Context context = this;
-
         button0.setOnClickListener(this);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
@@ -86,14 +87,21 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculadora);
-        Log.v(TAG,"onCreate");
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+         v=inflater.inflate(R.layout.activity_calculadora, container, false);
         numero = 1;
         inicializarObjetos();
         asignarValoresObjetos();
         asignarOnClickListener();
+        return v;
     }
 
     @Override
@@ -339,7 +347,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         textResultat.setText(calcul);
     }
 
-    @Override
+    /*@Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState( savedInstanceState);
         Log.v(TAG,"se ha llamado onRestore");
@@ -358,7 +366,7 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
         textResultat.setText(aux);
     }
     @Override
-    protected void onSaveInstanceState(Bundle outState){
+    public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putString("text", String.valueOf(textResultat.getText()));
         outState.putBoolean("firstButton",firstButton);
@@ -376,6 +384,6 @@ public class calculadora extends AppCompatActivity implements View.OnClickListen
 
         Log.v(TAG,"se ha llamado onSaveInstanceState");
 
-    }
+    }*/
 
 }

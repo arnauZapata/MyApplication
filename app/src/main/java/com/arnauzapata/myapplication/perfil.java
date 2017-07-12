@@ -10,9 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,10 +21,13 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class perfil extends AppCompatActivity implements View.OnClickListener {
+import static android.app.Activity.RESULT_OK;
+
+public class perfil extends android.app.Fragment implements View.OnClickListener {
 
     private static final String TAG = "perfil";
     String user;
+    Context context;
     Button cambiarImagen;
     private BaseDatosRanking BaseDatosRanking;
     private boolean canWeRead;
@@ -35,36 +39,46 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
     private EditText editText;
     private Button guardar;
 
+    public perfil(Context context, String user) {
+        this.context=context;
+        this.user=user;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
-        Intent i=getIntent();
-        user=i.getStringExtra("user");
-        bd=new MyDataBaseHelper1(this);
-        bd.getInstance(this);
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v=inflater.inflate(R.layout.activity_perfil, container, false);
+        bd=new MyDataBaseHelper1(context);
+        bd.getInstance(context);
         String image= bd.getImage(user);
         String direccion=bd.getDireccion(user);
         Log.v(TAG,user);
         Log.v(TAG,image);
-        TextView textViewNom = (TextView) findViewById(R.id.textViewPerfilNom);
-        TextView textViewRecord = (TextView) findViewById(R.id.textViewPerfilRecord);
+        TextView textViewNom = (TextView) v.findViewById(R.id.textViewPerfilNom);
+        TextView textViewRecord = (TextView) v.findViewById(R.id.textViewPerfilRecord);
 
-        imatgePerfil=(ImageView) findViewById(R.id.imageViewPerfil);
-        cambiarImagen = (Button) findViewById(R.id.buttonPerfilImagen);
-        editText = (EditText) findViewById(R.id.editTextPerfilDireccion);
-        guardar = (Button) findViewById(R.id.buttonPerfilGuardar);
+        imatgePerfil=(ImageView) v.findViewById(R.id.imageViewPerfil);
+        cambiarImagen = (Button) v.findViewById(R.id.buttonPerfilImagen);
+        editText = (EditText) v.findViewById(R.id.editTextPerfilDireccion);
+        guardar = (Button) v.findViewById(R.id.buttonPerfilGuardar);
         guardar.setOnClickListener(this);
         editText.setText(direccion);
         editText.setOnClickListener(this);
         cambiarImagen.setOnClickListener(this);
 
         textViewNom.setText(user);
-        BaseDatosRanking= new BaseDatosRanking(this);
-        BaseDatosRanking.getInstance(this);
+        BaseDatosRanking= new BaseDatosRanking(context);
+        BaseDatosRanking.getInstance(context);
         String puntuation = BaseDatosRanking.queryRow(user);
         textViewRecord.setText(puntuation);
-        sharedPreferences = getSharedPreferences("galleryexample", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("galleryexample", Context.MODE_PRIVATE);
         canWeRead = canWeRead();
         if(canWeRead) {
                 Log.v(TAG,"imatge==NULL");
@@ -78,19 +92,20 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
             Log.v(TAG,"imatge!=NULL + !canWeRead");
             loadImageFromString(image);
         }
+        return v;
     }
     private void loadImageFromString (String imagePath){
         if(imagePath != null){
             Uri imageUri = Uri.parse(imagePath);
             try {
-                imatgePerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri));
+                imatgePerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
     private boolean canWeRead(){
-        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED;
+        return ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_DENIED;
     }
 
     @Override
@@ -119,7 +134,7 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
     }
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if(requestCode >= 1 && requestCode <= 3){
@@ -133,7 +148,7 @@ public class perfil extends AppCompatActivity implements View.OnClickListener {
                     editor.apply();
                 }
                 try {
-                    imatgePerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage));
+                    imatgePerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImage));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -82,22 +82,14 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         select1=-1;select2 = -1;
     }
 
-    public jocMemory() {
-        empezarJuego();
-    }
-
     public jocMemory(Context c, String s) {
-        // Required empty public constructor
         empezarJuego();
         ocupado=false;
         context=c;
         user=s;
 
     }
-    public static jocMemory newInstance(String param1, String param2) {
-        jocMemory fragment = new jocMemory();
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,10 +101,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        View view=inflater.inflate(R.layout.fragment_joc_memory, container, false);
         BaseDatosRanking= new BaseDatosRanking(context);
         BaseDatosRanking.getInstance(context);
-        View view=inflater.inflate(R.layout.fragment_joc_memory, container, false);
         ImageView15 = (ImageView) view.findViewById(R.id.imageViewMemory15);
         ImageView14 = (ImageView) view.findViewById(R.id.imageViewMemory14);
         ImageView13 = (ImageView) view.findViewById(R.id.imageViewMemory13);
@@ -445,4 +437,16 @@ public class jocMemory extends Fragment implements View.OnClickListener {
 
 
     }
+
+
+
+   /* public void getData(int[] soluc, int[] col, boolean [] solv, boolean [] sel, int im1, int im2, int sel1, int sel2, int p){
+        soluc=soluciones;
+        col =colores;
+        solv=solved;
+        sel=selected;
+        image1; int image2;
+        int select1, select2;
+        pasos;
+    }*/
 }

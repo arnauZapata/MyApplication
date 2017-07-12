@@ -1,35 +1,105 @@
 package com.arnauzapata.myapplication;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TabHost;
-
-public class menu extends ActionBarActivity {
-
-    TabHost TbH;
+public class menu extends AppCompatActivity implements Comunicador{
+    String user;
+    private String TAG="menu";
+    Context context=this;
+    private ranking fragmentRanking=null;
+    private calculadora fragmentCalculadora=null;
+    private perfil fragmentPerfil=null;
+    private music fragmentMusic=null;
+    private jocMemory Memory=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
+        user=getIntent().getStringExtra("user");
+        Log.v(TAG,user);
+        Resources res = getResources();
+        TabHost tabs=(TabHost)findViewById(android.R.id.tabhost);
+        tabs.setup();
+        TabHost.TabSpec spec=tabs.newTabSpec("Memory");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("Memory", null);
+        tabs.addTab(spec);
+        spec=tabs.newTabSpec("Ranking");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("Ranking",null);
+        tabs.addTab(spec);
+        spec=tabs.newTabSpec("Music");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("Music", null);
+        tabs.addTab(spec);
+        spec=tabs.newTabSpec("Perfil");
+        spec.setContent(R.id.tab4);
+        spec.setIndicator("Perfil", null);
+        tabs.addTab(spec);
+        spec=tabs.newTabSpec("Calculadora");
+        spec.setContent(R.id.tab5);
+        spec.setIndicator("Calculadora", null);
+        tabs.addTab(spec);
+        tabs.setCurrentTab(1);
+        final jocMemory fragmentMemory = new jocMemory(context,user);
+        getFragmentManager().beginTransaction().add(R.id.memory, fragmentMemory).commit();
+        tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabid) {
 
-        TbH = (TabHost) findViewById(R.id.tabHost); //llamamos al Tabhost
-        TbH.setup();                                                         //lo activamos
-
-        TabHost.TabSpec tab1 = TbH.newTabSpec("tab1");  //aspectos de cada Tab (pestaña)
-        TabHost.TabSpec tab2 = TbH.newTabSpec("tab2");
-        TabHost.TabSpec tab3 = TbH.newTabSpec("tab3");
-
-        tab1.setIndicator("UNO");    //qué queremos que aparezca en las pestañas
-       // tab1.setContent(R.id.ejemplo1); //definimos el id de cada Tab (pestaña)
-
-        tab2.setIndicator("DOS");
-     //   tab2.setContent(R.id.ejemplo2);
-
-        tab3.setIndicator("TRES");
-      //  tab3.setContent(R.id.ejemplo3);
-
-        TbH.addTab(tab1); //añadimos los tabs ya programados
-        TbH.addTab(tab2);
-        TbH.addTab(tab3);
-
+                    switch (tabid){
+                        case "Memory":
+                            Memory = new jocMemory(context,user);
+                            getFragmentManager().beginTransaction().add(R.id.memory, Memory).commit();
+                            break;
+                        case "Ranking":
+                            fragmentRanking = new ranking(context,user);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            ft.add(R.id.ranking, fragmentRanking);
+                            ft.commit();
+                            break;
+                        case "Music":
+                            fragmentMusic = new music(context);
+                            getFragmentManager().beginTransaction().add(R.id.music, fragmentMusic).commit();
+                            break;
+                        case "Perfil":
+                            fragmentPerfil = new perfil(context,user);
+                            getFragmentManager().beginTransaction().add(R.id.perfil, fragmentPerfil).commit();
+                            break;
+                        case "Calculadora":
+                            fragmentCalculadora = new calculadora();
+                            getFragmentManager().beginTransaction().add(R.id.calculadora, fragmentCalculadora).commit();
+                            break;
+                    }
+            }
+        });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_right2, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+//noinspection SimplifiableIfStatement
+        Log.v(TAG,"llega hasta aqui");
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void enviarDatosCalculadora(String data) {
+        FragmentManager fragmentManager = getFragmentManager();
+        jocMemory fragment = (jocMemory)fragmentManager.findFragmentById(R.id.memory);
+        fragment.getData();
+    }
+}
