@@ -311,6 +311,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
             }
         }
         else if(!noToquesNada){
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
