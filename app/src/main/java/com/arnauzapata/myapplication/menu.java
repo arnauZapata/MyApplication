@@ -97,8 +97,8 @@ public class menu extends AppCompatActivity implements Comunicador{
                             getFragmentManager().beginTransaction().add(R.id.perfil, fragmentPerfil).commit();
                             break;
                         case "Calculadora":
-                            if(dataCalculadora==null)fragmentCalculadora = new calculadora();
-                            else fragmentCalculadora = new calculadora(dataCalculadora);
+                            if(dataCalculadora==null)fragmentCalculadora = new calculadora(context);
+                            else fragmentCalculadora = new calculadora(dataCalculadora,context);
                             getFragmentManager().beginTransaction().add(R.id.calculadora, fragmentCalculadora).commit();
                             CalculadoraPlayed=true;
                             break;

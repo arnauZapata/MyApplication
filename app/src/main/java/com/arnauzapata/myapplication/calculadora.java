@@ -37,12 +37,13 @@ public class calculadora extends Fragment implements View.OnClickListener {
     String calcul ="";
     private boolean destruccionUniverso=false;
 
-    public calculadora() {
+    public calculadora(Context context) {
         num1=num2=num3=-1;
         op1=op2="";
+        this.context=context;
     }
 
-    public calculadora(DataCalculadora data) {
+    public calculadora(DataCalculadora data,Context context) {
         calcul=data.calcul;
         Log.v(TAG,calcul);
         decimal=data.decimal;
@@ -66,6 +67,7 @@ public class calculadora extends Fragment implements View.OnClickListener {
         Log.v(TAG,auxText);
         validOperator=data.validOperator;
         destruccionUniverso=data.destruccionUniverso;
+        this.context=context;
     }
 
     private void inicializarObjetos() {
@@ -247,7 +249,7 @@ public class calculadora extends Fragment implements View.OnClickListener {
                 resultat=0;
                 if(destruccionUniverso){
                     int duration = Toast.LENGTH_LONG;
-                    textResultat.setText("ERROR por dividir entre 0");//: tu imprudencia de dividir entre 0 a destruido un universo digital, billones de procesos han muerto por tu culpa. ¡¡Eres un monstruo!!");
+                    Toast.makeText(context,"ERROR por dividir entre 0 tu imprudencia de dividir entre 0 a destruido un universo digital, billones de procesos han muerto por tu culpa. ¡¡Eres un monstruo!!" ,duration).show();
                 }
                 destruccionUniverso=false;
 

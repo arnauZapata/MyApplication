@@ -71,6 +71,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
     private Drawable d7;
     private Drawable d8;
     private BaseDatosRanking BaseDatosRanking=null;
+    private boolean noToquesNada=false;
 
     public jocMemory(Context context, String user, DataMemory data) {
         empezarJuego();
@@ -224,9 +225,32 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 empezarDeNuevo();
                 break;
         }
-        if(image1!=-1 && image2!=-1) {
+    }
+
+    private void allSelectedFalse(){
+        for(int i=0;i<16;i++)selected[i]=false;
+        select1 = -1;
+        select2 = -1;
+    }
+
+    private void pulsarCarta(int i) {
+        int auxImage;
+        if(selected[i] || solved[i] || ocupado) return;
+        ocupado=true;
+        selected[i]=true;
+        if(soluciones[i]==-1)soluciones[i] = elegirColor();
+        auxImage=soluciones[i];
+        if(image1==-1){image1=auxImage;}
+        else if(image2==-1){image2=auxImage;}
+        if(select1==-1){select1=i;}
+        else if(select2==-1){select2=i;}
+        CoolImageFlipper c = new CoolImageFlipper(context);
+        Drawable d =null;
+        d = toDrawable(auxImage);
+        c.flipImage(d,toImageView(i));
+        if(image1!=-1 && image2!=-1  && select1!= select2 && !solved[select1] && !solved[select2]) {
+            noToquesNada=true;
             pasos++;
-            int i;
             if (image1 == image2) {
                 if(select1!=-1)solved[select1]=true;
                 if(select2!=-1)solved[select2]=true;
@@ -265,6 +289,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                         allSelectedFalse();
                         text1.setText("numero de pasos: " + String.valueOf(pasos));
                         ocupado=false;
+                        noToquesNada=false;
                     }
                 }, 2000);
             }
@@ -279,36 +304,22 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                         allSelectedFalse();
                         text1.setText("numero de pasos: " + String.valueOf(pasos));
                         ocupado=false;
+                        noToquesNada=false;
                     }
                 }, 2000);
 
             }
         }
-        else ocupado=false;
-    }
+        else if(!noToquesNada){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ocupado=false;
+                }
+            }, 200);
 
-    private void allSelectedFalse(){
-        if(select1!=-1)selected[select1]=false;
-        if(select2!=-1)selected[select2]=false;
-        select1 = -1;
-        select2 = -1;
-    }
+        }
 
-    private void pulsarCarta(int i) {
-        int auxImage;
-        if(selected[i] || solved[i] || ocupado) return;
-        selected[i]=true;
-        if(soluciones[i]==-1)soluciones[i] = elegirColor();
-        auxImage=soluciones[i];
-        if(image1==-1){image1=auxImage;}
-        else if(image2==-1){image2=auxImage;}
-        if(select1==-1){select1=i;}
-        else if(select2==-1){select2=i;}
-        CoolImageFlipper c = new CoolImageFlipper(context);
-        Drawable d =null;
-        d = toDrawable(auxImage);
-        ocupado=true;
-        c.flipImage(d,toImageView(i));
     }
 
     private void empezarDeNuevo() {
