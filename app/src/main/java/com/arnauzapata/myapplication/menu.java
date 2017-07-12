@@ -3,8 +3,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TabHost;
 
-import com.arnauzapata.myapplication.R;
-
 public class menu extends ActionBarActivity {
 
     TabHost TbH;
