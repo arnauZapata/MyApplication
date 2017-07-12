@@ -1,126 +1,37 @@
 package com.arnauzapata.myapplication;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.support.v7.app.ActionBarActivity;
+import android.widget.TabHost;
 
-public class menu extends AppCompatActivity implements View.OnClickListener{
-    String user;
+import com.arnauzapata.myapplication.R;
 
-    private int numero;
-    final Context context = this;
-    private static final String TAG = "MyActivity";
+public class menu extends ActionBarActivity {
 
-    Button buttonOne, buttonTwo, buttonTree,buttonFour,buttonFive;
-    TextView textOne;
-    Toolbar toolbar;
-    EditText editText;
-
-
-    private void inicializarObjetos() {
-        buttonOne = (Button) findViewById(R.id.button1);
-        buttonTwo = (Button) findViewById(R.id.button2);
-        buttonTree = (Button) findViewById(R.id.button3);
-        buttonFour = (Button) findViewById(R.id.button4);
-        buttonFive = (Button) findViewById(R.id.button5);
-        toolbar = (Toolbar) findViewById(R.id.toolBar1);
-    }
-
-    private void asignarOnClickListener() {
-
-        buttonOne.setOnClickListener(this);
-        buttonTwo.setOnClickListener(this);
-        buttonTree.setOnClickListener(this);
-        buttonFour.setOnClickListener(this);
-        buttonFive.setOnClickListener(this);
-    }
-
-    private void asignarValoresObjetos() {
-        toolbar.setTitle("TOOLBAR");
-        setSupportActionBar(toolbar);
-    }
+    TabHost TbH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-        Log.v(TAG,"onCreate");
-        Intent intent = getIntent();
+        setContentView(R.layout.activity_main);
 
-        if(intent.getStringExtra("user")!=null) user=intent.getStringExtra("user");
-        numero = 1;
-        inicializarObjetos();
-        asignarValoresObjetos();
-        asignarOnClickListener();
+        TbH = (TabHost) findViewById(R.id.tabHost); //llamamos al Tabhost
+        TbH.setup();                                                         //lo activamos
+
+        TabHost.TabSpec tab1 = TbH.newTabSpec("tab1");  //aspectos de cada Tab (pestaña)
+        TabHost.TabSpec tab2 = TbH.newTabSpec("tab2");
+        TabHost.TabSpec tab3 = TbH.newTabSpec("tab3");
+
+        tab1.setIndicator("UNO");    //qué queremos que aparezca en las pestañas
+       // tab1.setContent(R.id.ejemplo1); //definimos el id de cada Tab (pestaña)
+
+        tab2.setIndicator("DOS");
+     //   tab2.setContent(R.id.ejemplo2);
+
+        tab3.setIndicator("TRES");
+      //  tab3.setContent(R.id.ejemplo3);
+
+        TbH.addTab(tab1); //añadimos los tabs ya programados
+        TbH.addTab(tab2);
+        TbH.addTab(tab3);
+
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.v(TAG,"onStart");
-        numero =2;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.v(TAG,"onDestroy");
-        numero = 3;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent i;
-        switch (v.getId()) {
-            case R.id.button1:
-                Log.v(TAG, "Soy el boton 1");
-                i = new Intent(context, calculadora.class);
-                startActivity(i);
-                break;
-            case R.id.button2:
-                Log.v(TAG, "Soy el boton 2");
-                SharedPreferences settings = getSharedPreferences(constants.PREFS_NAME, Context.MODE_ENABLE_WRITE_AHEAD_LOGGING);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("text", "Soy el boton 2");
-                editor.apply();
-                i = new Intent(context, ranking.class);
-                i.putExtra("user", user);
-                startActivity(i);
-                break;
-            case R.id.button3:
-                Log.v(TAG, "Soy el boton 3");
-                i = new Intent(context, perfil.class);
-                i.putExtra("user", user);
-                startActivity(i);
-                break;
-            case R.id.button4:
-                Log.v(TAG, "Soy el boton 4");
-                i = new Intent(context, memory.class);
-                i.putExtra("user", user);
-                startActivity(i);
-                break;
-            case R.id.button5:
-                Log.v(TAG, "Soy el boton 5");
-                i = new Intent(context, music.class);
-                i.putExtra("user", user);
-                startActivity(i);
-                break;
-        }
-    }
-
-
-    public boolean onCreateOptionsMenu(Menu menu){
-
-        getMenuInflater().inflate(R.menu.menu_right2, menu);
-        return true;
-    }
-}

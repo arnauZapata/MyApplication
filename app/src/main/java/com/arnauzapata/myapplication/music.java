@@ -1,6 +1,7 @@
 package com.arnauzapata.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,8 +16,8 @@ public class music extends AppCompatActivity implements View.OnClickListener{
 
     Button play,pause,reset;
     MediaPlayer mediaPlayer = new MediaPlayer();
-    private Context context = this;
     int [] music ={R.raw.bootyswing,R.raw.lonedigger,R.raw.nichijou,R.raw.rasputin};
+    private Context context = this;
     int positionMusic=0;
     private Button next;
     private Button previous;
@@ -51,38 +52,52 @@ public class music extends AppCompatActivity implements View.OnClickListener{
         catch  (IOException e) {
             e.printStackTrace();
         }
-
-//Reproducir una cancion de la carpeta raw
-        mediaPlayer = MediaPlayer.create(context, music[positionMusic]);
     }
 
 
     @Override
     public void onClick(View v) {
+        Intent i;
         switch (v.getId()){
             case R.id.buttonMusicPlay:
-                mediaPlayer.start();
+                 i = new Intent(this,musicService.class);
+                i.putExtra("action","play");
+                i.putExtra("position",positionMusic);
+                startService(i);
+
+                //mediaPlayer.start();
                 break;
             case R.id.buttonMusicPause:
-                mediaPlayer.pause();
+                 i = new Intent(this,musicService.class);
+                i.putExtra("action","pause");
+                i.putExtra("position",positionMusic);
+                startService(i);
+           //     mediaPlayer.pause();
                 break;
             case R.id.buttonMusicReset:
-                mediaPlayer.stop();
-                mediaPlayer = MediaPlayer.create(context, music[positionMusic]);
-                mediaPlayer.start();
+                i = new Intent(this,musicService.class);
+                stopService(i);
+                i.putExtra("action","reset");
+                i.putExtra("position",positionMusic);
+                startService(i);
+
                 break;
             case R.id.buttonMusicNext:
-                mediaPlayer.stop();
+                i = new Intent(this,musicService.class);
+                stopService(i);
                 positionMusic= (positionMusic+1)%music.length;
-                mediaPlayer = MediaPlayer.create(context, music[positionMusic]);
-                mediaPlayer.start();
+                i.putExtra("action","next");
+                i.putExtra("position",positionMusic);
+                startService(i);
                 break;
             case R.id.buttonMusicPrevious:
-                mediaPlayer.stop();
-                if(positionMusic==0)positionMusic=music.length;
+                i = new Intent(this,musicService.class);
+                stopService(i);
+                if(positionMusic==0) positionMusic= music.length;
                 positionMusic--;
-                mediaPlayer = MediaPlayer.create(context, music[positionMusic]);
-                mediaPlayer.start();
+                i.putExtra("action","previous");
+                i.putExtra("position",positionMusic);
+                startService(i);
                 break;
 
         }
@@ -98,5 +113,21 @@ public class music extends AppCompatActivity implements View.OnClickListener{
          super.onSaveInstanceState(outState);
          outState.putInt("position",positionMusic);
          mediaPlayer.stop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Intent i = new Intent(this, musicService.class);
+        i.putExtra("action", "pause");
+        startService(i);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Intent i = new Intent(this, musicService.class);
+        i.putExtra("action", "play");
+        startService(i);
     }
 }
