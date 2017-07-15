@@ -78,7 +78,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         ocupado=false;
         this.context=context;
         this.user=user;
-        soluciones=data.soluciones;
+        soluciones= data.getSoluciones();
         solved=data.solved;
         selected=data.selected;
         colores=data.colores;
@@ -474,7 +474,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
 
    public DataMemory getData(){
        DataMemory data=new DataMemory();
-       data.soluciones=soluciones;
+       data.setSoluciones(soluciones);
        data.colores=colores;
        data.image1=image1;data.image2=image2;
        data.solved=solved;

@@ -26,17 +26,19 @@ public class loginInicial extends Fragment {
     private String TAG = "loginInicial";
     private Button buttonBorrar;
     private Button buttonCambiarContraseña;
+    private int intent=0;
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
 
-    public loginInicial() {
+    public loginInicial(int intent) {
+        this.intent=intent;
         // Required empty public constructor
     }
 
     public loginInicial newInstance(Context c) {
-        loginInicial fragment = new loginInicial();
+        loginInicial fragment = new loginInicial(intent);
         this.context=c;
         return fragment;
     }
@@ -44,6 +46,7 @@ public class loginInicial extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -91,9 +94,16 @@ public class loginInicial extends Fragment {
                         memory.putUser(s);
                         startActivity(i);
                     }
-                    else{
+                    else if(intent<5){
                         Intent i = new Intent(context, error.class);
+                        intent++;
+                        i.putExtra("intent",intent);
                         startActivity(i);
+                    }
+                    else{
+                        CharSequence text = "usuario o contraseña incorrecta";
+                        int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
+                        Toast.makeText(context, text, duration).show();
                     }
                 }
             });
@@ -110,8 +120,6 @@ public class loginInicial extends Fragment {
                         baseRanking.deleteRow(s);
                         CharSequence text = "usuario eliminado";
                         int duration = Toast.LENGTH_SHORT; //También puede ser Toast.LENGTH_LONG;
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
                         Toast.makeText(context, text, duration).show();
 
                     }
@@ -130,10 +138,10 @@ public class loginInicial extends Fragment {
                         String s = editText1.getText().toString();
                         String s1 = editText.getText().toString();
                         FragmentTransaction trans = getFragmentManager().beginTransaction();
-                        cambiarContrasenya fragment = new cambiarContrasenya();
+                        cambiarContrasenya fragment = new cambiarContrasenya(intent);
                         String id = myDataBaseHelper.queryRow(s);
                         if(s1.equals(id)) {
-                            fragment.newInstance(context, s, s1);
+                            fragment.newInstance(context, s, s1,intent);
                             trans.replace(R.id.fragment_login_container, fragment);
                             trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                             trans.addToBackStack(null);

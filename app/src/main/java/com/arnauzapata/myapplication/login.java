@@ -13,11 +13,14 @@ public class login extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
     private MyDataBaseHelper1 myDataBaseHelper;
+    private int intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        intent=getIntent().getIntExtra("intent",0);
         setContentView(R.layout.activity_login);
-        loginInicial firstFragment = new loginInicial();
+        loginInicial firstFragment = new loginInicial(intent);
         firstFragment.newInstance(context);
         fragmentManager.beginTransaction().add(R.id.fragment_login_container, firstFragment).commit();
     }

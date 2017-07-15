@@ -22,6 +22,7 @@ import android.widget.Toast;
 public class cambiarContrasenya extends Fragment {
 
     private static Context context;
+    private final int intent;
     private EditText editTextNewContrasenya;
     private Button buttonAceptar;
     private Button  buttonAtras;
@@ -30,12 +31,12 @@ public class cambiarContrasenya extends Fragment {
     private static String user;
 
 
-    public cambiarContrasenya() {
-        // Required empty public constructor
+    public cambiarContrasenya(int intent) {
+        this.intent=intent;
     }
 
-    public static cambiarContrasenya newInstance(Context c, String u, String p) {
-        cambiarContrasenya fragment = new cambiarContrasenya();
+    public static cambiarContrasenya newInstance(Context c, String u, String p,int intent) {
+        cambiarContrasenya fragment = new cambiarContrasenya(intent);
         context=c;
         user=u;
         return fragment;
@@ -68,7 +69,7 @@ public class cambiarContrasenya extends Fragment {
                     Toast.makeText(context, text, duration).show();
 
                     FragmentTransaction trans = getFragmentManager().beginTransaction();
-                    loginInicial fragment = new loginInicial();
+                    loginInicial fragment = new loginInicial(intent);
                     fragment.newInstance(context);
                     trans.replace(R.id.fragment_login_container,fragment);
                     trans.commit();
@@ -78,7 +79,7 @@ public class cambiarContrasenya extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction trans = getFragmentManager().beginTransaction();
-                loginInicial fragment = new loginInicial();
+                loginInicial fragment = new loginInicial(intent);
                 fragment.newInstance(context);
                 trans.replace(R.id.fragment_login_container,fragment);
                 trans.commit();
