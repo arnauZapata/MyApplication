@@ -75,7 +75,7 @@ public class menu extends AppCompatActivity implements Comunicador{
     private void tabChanged(String tabid) {
         idtab=tabid;
         if(musicPlayed){
-            position=getPositionMusic(data.getSoluciones());
+            position=getPositionMusic();
             musicPlayed=false;
         }
         if(memoryPlayed){
@@ -93,6 +93,7 @@ public class menu extends AppCompatActivity implements Comunicador{
                 if(data==null) Memory = new jocMemory(context,user);
                 else Memory = new jocMemory(context,user,data);
                 getFragmentManager().beginTransaction().add(R.id.memory, Memory).commit();
+                borrarMemoriaRanking();
                 memoryPlayed=true;
                 break;
             case "Ranking":
@@ -139,7 +140,7 @@ public class menu extends AppCompatActivity implements Comunicador{
     }
 
     @Override
-    public int getPositionMusic(int[] soluciones) {
+    public int getPositionMusic() {
         int ret= fragmentMusic.getPosition();
         Log.v(TAG,String.valueOf(ret));
         return ret;
@@ -155,6 +156,11 @@ public class menu extends AppCompatActivity implements Comunicador{
     public void borrarMemoriaCalculadora2() {
         fragmentCalculadora.getBorrarMemoria();
 
+    }
+
+    @Override
+    public void borrarMemoriaRanking() {
+        fragmentRanking.borrarMemoria();
     }
 
     @Override

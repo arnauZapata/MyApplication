@@ -6,9 +6,10 @@ package com.arnauzapata.myapplication;
 
 interface Comunicador {
 
-    public int getPositionMusic(int[] soluciones);
+    public int getPositionMusic();
     public DataMemory enviarDatosCalculadora();
     public void borrarMemoriaCalculadora();
     public DataCalculadora enviarDatosCalculadora2();
     public void borrarMemoriaCalculadora2();
+    public void borrarMemoriaRanking();
 }

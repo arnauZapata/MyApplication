@@ -21,6 +21,7 @@ public class ranking extends android.app.Fragment implements View.OnClickListene
     private BaseDatosRanking BaseDatosRanking;
     Button button;
     private View v;
+    private ListView lista;
 
     public ranking(Context context, String user){
         this.user=user;
@@ -58,12 +59,20 @@ public class ranking extends android.app.Fragment implements View.OnClickListene
             listDef.add(String.valueOf(i+1)+") "+list.get(i).first + ": "+list.get(i).second + "   paso/s");
             if(list.get(i).first.equals(user)) inRanking=true;
         }
-        ListView lista;
         ArrayAdapter<String> adaptador;
         lista = (ListView)v.findViewById(R.id.listViewRanking);
         adaptador = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,listDef);
         lista.setAdapter(adaptador);
         String puntuation = BaseDatosRanking.queryRow(user);
         if(!inRanking)text1.setText(String.valueOf(i+1)+"+) " + user + ": " + puntuation);
+        button.setVisibility(View.VISIBLE);
+        lista.setVisibility(View.VISIBLE);
+        text1.setVisibility(View.VISIBLE);
+    }
+
+    public void borrarMemoria() {
+        button.setVisibility(View.INVISIBLE);
+        lista.setVisibility(View.INVISIBLE);
+        text1.setVisibility(View.INVISIBLE);
     }
 }
