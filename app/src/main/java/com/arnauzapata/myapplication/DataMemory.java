@@ -12,6 +12,7 @@ public class DataMemory {
     int image1; int image2;
     int select1, select2;
     int pasos;
+    public boolean ocupado;
 
     public int[] getSoluciones() {
         return soluciones;

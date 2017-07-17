@@ -87,6 +87,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         select1=data.select1;
         select2=data.select2;
         pasos=data.pasos;
+        ocupado=data.ocupado;
     }
 
 
@@ -162,6 +163,9 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         for(int i =0;i<16;i++){
             if(solved[i])toImageView(i).setVisibility(View.INVISIBLE);
         }
+        if(select1!=-1)toImageView(select1).setImageResource(soluciones[select1]);
+        if(select2!=-1)toImageView(select2).setImageResource(soluciones[select2]);
+        comprobar();
         text1.setText("numero de pasos: " + String.valueOf(pasos));
         return view;
     }
@@ -248,6 +252,10 @@ public class jocMemory extends Fragment implements View.OnClickListener {
         Drawable d =null;
         d = toDrawable(auxImage);
         c.flipImage(d,toImageView(i));
+        comprobar();
+    }
+
+    private void comprobar() {
         if(image1!=-1 && image2!=-1  && select1!= select2 && !solved[select1] && !solved[select2]) {
             noToquesNada=true;
             pasos++;
@@ -255,7 +263,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
                 if(select1!=-1)solved[select1]=true;
                 if(select2!=-1)solved[select2]=true;
                 boolean aux=true;
-                for (i = 0; i < 16; i++) if (!solved[i]) aux=false;
+                for (int i = 0; i < 16; i++) if (!solved[i]) aux=false;
                 if(aux) {
                     if (pasos < 10) BaseDatosRanking.createRow(user, "0" + String.valueOf(pasos));
                     else BaseDatosRanking.createRow(user, String.valueOf(pasos));
@@ -320,7 +328,6 @@ public class jocMemory extends Fragment implements View.OnClickListener {
             }, 200);
 
         }
-
     }
 
     private void empezarDeNuevo() {
@@ -482,6 +489,7 @@ public class jocMemory extends Fragment implements View.OnClickListener {
        data.select1=select1;
        data.select2=select2;
        data.pasos=pasos;
+       data.ocupado=ocupado;
        return data;
     }
 
