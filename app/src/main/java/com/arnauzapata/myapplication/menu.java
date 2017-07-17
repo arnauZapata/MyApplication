@@ -80,8 +80,8 @@ public class menu extends AppCompatActivity implements Comunicador{
             musicPlayed=false;
         }
         if(PerfilPlayed){
-            position=getPositionMusic();
-            musicPlayed=false;
+            borrarMemoriaPerfil();
+            PerfilPlayed=false;
         }
         if(memoryPlayed){
             data =enviarDatosCalculadora();
