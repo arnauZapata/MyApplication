@@ -12,4 +12,5 @@ interface Comunicador {
     public DataCalculadora enviarDatosCalculadora2();
     public void borrarMemoriaCalculadora2();
     public void borrarMemoriaRanking();
+    public void borrarMemoriaPerfil();
 }

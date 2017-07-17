@@ -28,6 +28,7 @@ public class menu extends AppCompatActivity implements Comunicador{
     String textCalculadora="";
     private DataCalculadora dataCalculadora=null;
     private String idtab;
+    private boolean PerfilPlayed=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,10 @@ public class menu extends AppCompatActivity implements Comunicador{
             position=getPositionMusic();
             musicPlayed=false;
         }
+        if(PerfilPlayed){
+            position=getPositionMusic();
+            musicPlayed=false;
+        }
         if(memoryPlayed){
             data =enviarDatosCalculadora();
             musicPlayed=false;
@@ -110,6 +115,7 @@ public class menu extends AppCompatActivity implements Comunicador{
             case "Perfil":
                 fragmentPerfil = new perfil(context,user);
                 getFragmentManager().beginTransaction().add(R.id.perfil, fragmentPerfil).commit();
+                PerfilPlayed=true;
                 break;
             case "Calculadora":
                 if(dataCalculadora==null)fragmentCalculadora = new calculadora(context);
@@ -161,6 +167,11 @@ public class menu extends AppCompatActivity implements Comunicador{
     @Override
     public void borrarMemoriaRanking() {
         fragmentRanking.borrarMemoria();
+    }
+
+    @Override
+    public void borrarMemoriaPerfil() {
+        fragmentPerfil.borrarMemoria();
     }
 
     @Override

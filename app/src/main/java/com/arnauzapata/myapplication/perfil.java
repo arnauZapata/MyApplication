@@ -71,6 +71,7 @@ public class perfil extends android.app.Fragment implements View.OnClickListener
         guardar.setOnClickListener(this);
         editText.setText(direccion);
         editText.setOnClickListener(this);
+        editText.setVisibility(View.VISIBLE);
         cambiarImagen.setOnClickListener(this);
 
         textViewNom.setText(user);
@@ -200,5 +201,9 @@ public class perfil extends android.app.Fragment implements View.OnClickListener
             // other 'case' lines to check for other
             // permissions this app might request
         }
+    }
+
+    public void borrarMemoria() {
+        editText.setVisibility(View.INVISIBLE);
     }
 }
