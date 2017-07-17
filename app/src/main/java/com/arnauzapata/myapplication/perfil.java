@@ -38,6 +38,7 @@ public class perfil extends android.app.Fragment implements View.OnClickListener
     private MyDataBaseHelper1 bd;
     private EditText editText;
     private Button guardar;
+    private TextView textViewRecord;
 
     public perfil(Context context, String user) {
         this.context=context;
@@ -62,7 +63,7 @@ public class perfil extends android.app.Fragment implements View.OnClickListener
         Log.v(TAG,user);
         Log.v(TAG,image);
         TextView textViewNom = (TextView) v.findViewById(R.id.textViewPerfilNom);
-        TextView textViewRecord = (TextView) v.findViewById(R.id.textViewPerfilRecord);
+        textViewRecord = (TextView) v.findViewById(R.id.textViewPerfilRecord);
 
         imatgePerfil=(ImageView) v.findViewById(R.id.imageViewPerfil);
         cambiarImagen = (Button) v.findViewById(R.id.buttonPerfilImagen);
@@ -73,7 +74,7 @@ public class perfil extends android.app.Fragment implements View.OnClickListener
         editText.setOnClickListener(this);
         editText.setVisibility(View.VISIBLE);
         cambiarImagen.setOnClickListener(this);
-
+        textViewRecord.setVisibility(View.VISIBLE);
         textViewNom.setText(user);
         BaseDatosRanking= new BaseDatosRanking(context);
         BaseDatosRanking.getInstance(context);
@@ -205,5 +206,7 @@ public class perfil extends android.app.Fragment implements View.OnClickListener
 
     public void borrarMemoria() {
         editText.setVisibility(View.INVISIBLE);
+        textViewRecord.setVisibility(View.INVISIBLE);
+
     }
 }
